@@ -1,0 +1,557 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene">
+      <UniqueIdentifier>{f2c5fc6e-5b6e-452b-afcd-29bd5977fe61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\TitleScene">
+      <UniqueIdentifier>{b82404ac-7e32-4db0-a8a4-66d814a86082}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル\palette">
+      <UniqueIdentifier>{6c26d79e-b11d-4b39-9d68-98a9b079eedf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル\particle">
+      <UniqueIdentifier>{6cc68105-f020-4fc3-91b0-9e8d467dd9cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\InitScene">
+      <UniqueIdentifier>{ad29dcaf-4db3-4740-a0d7-38f2ea582106}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Input">
+      <UniqueIdentifier>{f050d4cb-5970-4d3e-bb0a-0edaef328466}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\OldGameScene">
+      <UniqueIdentifier>{ced496a3-2932-44d4-a4ce-b87e3d84e016}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\OldGameScene\Entity">
+      <UniqueIdentifier>{92796116-f5cc-4f70-90df-59a3da75d728}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\OldGameScene\Entity\Box">
+      <UniqueIdentifier>{8f746954-3050-4aab-8125-4e7d1c38096b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\OldGameScene\Entity\Item">
+      <UniqueIdentifier>{845714d4-3087-411e-9284-016eea1fac18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\OldGameScene\Entity\Item\Attribute">
+      <UniqueIdentifier>{ead4f05b-8734-4280-8939-626cad3982b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\OldGameScene\Card">
+      <UniqueIdentifier>{059aaf6b-ddf5-4f9c-a9cb-b5e69b77ab04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\OldGameScene\Card\Attribute">
+      <UniqueIdentifier>{507784f8-cd9f-4108-a4ce-64ae1f9294c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\OldGameScene\Attack">
+      <UniqueIdentifier>{cef3cd9b-ee60-4f89-853c-33c56d0779ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\OldGameScene\Attack\Attribute">
+      <UniqueIdentifier>{54378479-1c3d-4255-933b-1b71046ad659}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\OldGameScene\Attack\Collider">
+      <UniqueIdentifier>{431c3525-3442-44b7-b50f-37b44e02c071}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\OldGameScene\Vehicle">
+      <UniqueIdentifier>{b7ddb09e-5984-47f5-8cd6-dd245937e0d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\GameScene">
+      <UniqueIdentifier>{4b7af707-b5c0-4be2-b6cf-2f8f02f11c3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene">
+      <UniqueIdentifier>{bb962265-4cb8-48ef-8781-1b4e70310438}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene\TitleScene">
+      <UniqueIdentifier>{0890a244-3a5f-4f19-b2c4-be8ec6406246}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene\InitScene">
+      <UniqueIdentifier>{b862812f-bfd7-44a7-8a96-6d6691799591}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene\OldGameScene">
+      <UniqueIdentifier>{ad6b3964-66b3-45c5-8ece-b171c3cb8701}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene\OldGameScene\Entity">
+      <UniqueIdentifier>{66834b99-b1ab-45e9-b635-bb81f397d6e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene\OldGameScene\Entity\Item">
+      <UniqueIdentifier>{58929a1d-903b-4614-8384-d094c10ee6e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene\OldGameScene\Entity\Item\Attribute">
+      <UniqueIdentifier>{b2303c3d-a187-47aa-8f8d-9b1c376f2721}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene\OldGameScene\Entity\Box">
+      <UniqueIdentifier>{9a1d77cb-dc43-4913-9bbe-033e82d1745a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene\OldGameScene\Card">
+      <UniqueIdentifier>{4eca2cab-d2c6-4c30-9892-a5e60b535032}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene\OldGameScene\Card\Attribute">
+      <UniqueIdentifier>{9ab0ffeb-3a3e-4b82-97a1-308e2eba8148}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene\OldGameScene\Attack">
+      <UniqueIdentifier>{59c1a9a9-5df8-42c9-b5fb-f235b701c30c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene\OldGameScene\Attack\Attribute">
+      <UniqueIdentifier>{2c4aa0e8-e19c-4454-926e-aa8b5e36172e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene\OldGameScene\Vehicle">
+      <UniqueIdentifier>{03a1520b-d0e7-4ac5-a8c1-98f6f09296f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene\GameScene">
+      <UniqueIdentifier>{0c5615ac-f36e-4db1-9355-d2354c978ceb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Input">
+      <UniqueIdentifier>{2d018dd8-a5c5-4984-a48c-673756ea8d8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Data">
+      <UniqueIdentifier>{548f31de-56f0-4865-9bb4-05877eb083c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Data">
+      <UniqueIdentifier>{39f67553-9996-40bd-a4f1-84be2c705191}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Data\Vehicle">
+      <UniqueIdentifier>{554ea29c-2826-4062-982c-ccbeb2e43b65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Data\Vehicle">
+      <UniqueIdentifier>{3eab133b-d0f8-40e0-92d7-3d80a3268944}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Data\Animal">
+      <UniqueIdentifier>{cd53bd2b-b49c-4468-8f37-41d713085229}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Data\Animal">
+      <UniqueIdentifier>{e1918896-9f76-4483-a333-803262777119}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game">
+      <UniqueIdentifier>{0ae50b4d-a1d3-4ba5-8b6a-806c27e1d7a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Collision">
+      <UniqueIdentifier>{da39a76e-1474-4a3a-baef-857b8f6a41b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Entity">
+      <UniqueIdentifier>{aa6d14c6-cbfc-4821-bab2-204db0cade6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Player">
+      <UniqueIdentifier>{985be455-2b24-46f2-a233-bcdc4c1698b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Controller">
+      <UniqueIdentifier>{de101115-0f57-4f97-9838-37a6443481b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game">
+      <UniqueIdentifier>{7b4b4e9a-5101-41c9-a346-e0bf55edd3a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Collision">
+      <UniqueIdentifier>{1a6d319a-87d4-4e1c-bdfb-468c1710f5e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Entity">
+      <UniqueIdentifier>{8711886e-6829-4358-b344-b04bc2b2d6d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Player">
+      <UniqueIdentifier>{9320ca14-da19-4a31-9ee9-5aa8a1f82005}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Controller">
+      <UniqueIdentifier>{86f4b60d-b697-4c6b-bebd-2dc22caa0dc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Camera">
+      <UniqueIdentifier>{36c84f25-fcc3-41ad-a1d9-cb1e4d841910}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Camera">
+      <UniqueIdentifier>{cf35dd40-ccbb-49fd-b8c6-79a5e4ffbc6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\PlayerEntry">
+      <UniqueIdentifier>{4ae6ad0b-998c-4c7a-b041-e0776b2d0e59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\PlayerEntry\Model">
+      <UniqueIdentifier>{440fc99d-0a18-4299-8156-041afaedb083}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\PlayerEntry">
+      <UniqueIdentifier>{5f4bc709-94b2-4635-ad80-3c480d59035a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\PlayerEntry\Model">
+      <UniqueIdentifier>{8beec49c-3a88-4f66-ae79-4f1fb4333da8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\PlayerEntry\Builder">
+      <UniqueIdentifier>{078bbca6-1773-4519-976d-9aeb67380312}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\PlayerEntry\Builder">
+      <UniqueIdentifier>{4f62b610-44ca-4f07-84f5-bcd374873c48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Gacha">
+      <UniqueIdentifier>{7ba04a37-f2c6-42f0-a06f-f2ad7cfeda64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Data\Gacha">
+      <UniqueIdentifier>{964a77d1-baf3-4dda-baf5-117d31d2bed8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Entity\Star">
+      <UniqueIdentifier>{215ee0e1-7ff8-4bfb-8927-dfeb4312368a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Entity\Star">
+      <UniqueIdentifier>{1e117a3f-d94b-43cf-8b7e-fc3a0f42b862}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Asset">
+      <UniqueIdentifier>{0deb9b10-1d7e-4431-92a9-d5d4f1f0c77b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Asset">
+      <UniqueIdentifier>{388a9aa6-8ef5-433a-a878-1e060706368a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="EngineSetting.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemBox.h">
+      <Filter>ヘッダー ファイル\Scene\OldGameScene\Entity\Box</Filter>
+    </ClInclude>
+    <ClInclude Include="Card.h">
+      <Filter>ヘッダー ファイル\Scene\OldGameScene\Card</Filter>
+    </ClInclude>
+    <ClInclude Include="CardManager.h">
+      <Filter>ヘッダー ファイル\Scene\OldGameScene\Card</Filter>
+    </ClInclude>
+    <ClInclude Include="CardData.h">
+      <Filter>ヘッダー ファイル\Scene\OldGameScene\Card</Filter>
+    </ClInclude>
+    <ClInclude Include="CardFactory.h">
+      <Filter>ヘッダー ファイル\Scene\OldGameScene\Card</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemData.h">
+      <Filter>ヘッダー ファイル\Scene\OldGameScene\Entity\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemAttribute.h">
+      <Filter>ヘッダー ファイル\Scene\OldGameScene\Entity\Item\Attribute</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemAttribute_GodEnergy.h">
+      <Filter>ヘッダー ファイル\Scene\OldGameScene\Entity\Item\Attribute</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemBoxContents.h">
+      <Filter>ヘッダー ファイル\Scene\OldGameScene\Entity\Box</Filter>
+    </ClInclude>
+    <ClInclude Include="ICardAttribute.h">
+      <Filter>ヘッダー ファイル\Scene\OldGameScene\Card\Attribute</Filter>
+    </ClInclude>
+    <ClInclude Include="CardAttribute_Trap.h">
+      <Filter>ヘッダー ファイル\Scene\OldGameScene\Card\Attribute</Filter>
+    </ClInclude>
+    <ClInclude Include="CardAttribute_Booster.h">
+      <Filter>ヘッダー ファイル\Scene\OldGameScene\Card\Attribute</Filter>
+    </ClInclude>
+    <ClInclude Include="CardAttribute_Bomb.h">
+      <Filter>ヘッダー ファイル\Scene\OldGameScene\Card\Attribute</Filter>
+    </ClInclude>
+    <ClInclude Include="CardFacade.h">
+      <Filter>ヘッダー ファイル\Scene\OldGameScene\Card</Filter>
+    </ClInclude>
+    <ClInclude Include="Attack.h">
+      <Filter>ヘッダー ファイル\Scene\OldGameScene\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackManager.h">
+      <Filter>ヘッダー ファイル\Scene\OldGameScene\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="IAttackAttribute.h">
+      <Filter>ヘッダー ファイル\Scene\OldGameScene\Attack\Attribute</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackData.h">
+      <Filter>ヘッダー ファイル\Scene\OldGameScene\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackDataTable.h">
+      <Filter>ヘッダー ファイル\Scene\OldGameScene\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackAttribute_Bomb.h">
+      <Filter>ヘッダー ファイル\Scene\OldGameScene\Attack\Attribute</Filter>
+    </ClInclude>
+    <ClInclude Include="Vehicle.h">
+      <Filter>ヘッダー ファイル\Scene\OldGameScene\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>ヘッダー ファイル\Scene\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerController.h">
+      <Filter>ヘッダー ファイル\Game\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyController.h">
+      <Filter>ヘッダー ファイル\Game\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="IPlayerController.h">
+      <Filter>ヘッダー ファイル\Game\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="InitScene.h">
+      <Filter>ヘッダー ファイル\Scene\InitScene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameInput.h">
+      <Filter>ヘッダー ファイル\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>ヘッダー ファイル\Scene\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionHelper.h">
+      <Filter>ヘッダー ファイル\Game\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerEntry.h">
+      <Filter>ヘッダー ファイル\Game\PlayerEntry</Filter>
+    </ClInclude>
+    <ClInclude Include="VehicleData.h">
+      <Filter>ヘッダー ファイル\Data\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="VehicleTable.h">
+      <Filter>ヘッダー ファイル\Data\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimalData.h">
+      <Filter>ヘッダー ファイル\Data\Animal</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimalTable.h">
+      <Filter>ヘッダー ファイル\Data\Animal</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>ヘッダー ファイル\Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerInput.h">
+      <Filter>ヘッダー ファイル\Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerManager.h">
+      <Filter>ヘッダー ファイル\Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStatus.h">
+      <Filter>ヘッダー ファイル\Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="AllocatableGameEntityManager.h">
+      <Filter>ヘッダー ファイル\Game\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEntity.h">
+      <Filter>ヘッダー ファイル\Game\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEntityCollider.h">
+      <Filter>ヘッダー ファイル\Game\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEntityManager.h">
+      <Filter>ヘッダー ファイル\Game\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSetting.h">
+      <Filter>ヘッダー ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameDirector.h">
+      <Filter>ヘッダー ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseGameScene.h">
+      <Filter>ヘッダー ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>ヘッダー ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerCamera.h">
+      <Filter>ヘッダー ファイル\Game\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="IPlayerCamera.h">
+      <Filter>ヘッダー ファイル\Game\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="ComputerCamera.h">
+      <Filter>ヘッダー ファイル\Game\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerEntryDataModelList.h">
+      <Filter>ヘッダー ファイル\Game\PlayerEntry\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerEntryDataModel.h">
+      <Filter>ヘッダー ファイル\Game\PlayerEntry\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="IPlayerEntryListBuilder.h">
+      <Filter>ヘッダー ファイル\Game\PlayerEntry\Builder</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerEntryListBuilder_MultiPlay.h">
+      <Filter>ヘッダー ファイル\Game\PlayerEntry\Builder</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerEntryListBuilder_MultiTest.h">
+      <Filter>ヘッダー ファイル\Game\PlayerEntry\Builder</Filter>
+    </ClInclude>
+    <ClInclude Include="GachaData.h">
+      <Filter>ヘッダー ファイル\Data\Gacha</Filter>
+    </ClInclude>
+    <ClInclude Include="GachaTable.h">
+      <Filter>ヘッダー ファイル\Data\Gacha</Filter>
+    </ClInclude>
+    <ClInclude Include="Star.h">
+      <Filter>ヘッダー ファイル\Game\Entity\Star</Filter>
+    </ClInclude>
+    <ClInclude Include="StarManager.h">
+      <Filter>ヘッダー ファイル\Game\Entity\Star</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>ヘッダー ファイル\Scene\OldGameScene\Entity\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Asset.h">
+      <Filter>ヘッダー ファイル\Asset</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="EngineSetting.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemBox.cpp">
+      <Filter>ソース ファイル\Scene\OldGameScene\Entity\Box</Filter>
+    </ClCompile>
+    <ClCompile Include="Card.cpp">
+      <Filter>ソース ファイル\Scene\OldGameScene\Card</Filter>
+    </ClCompile>
+    <ClCompile Include="CardManager.cpp">
+      <Filter>ソース ファイル\Scene\OldGameScene\Card</Filter>
+    </ClCompile>
+    <ClCompile Include="CardFactory.cpp">
+      <Filter>ソース ファイル\Scene\OldGameScene\Card</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>ソース ファイル\Scene\OldGameScene\Entity\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemAttribute_GodEnergy.cpp">
+      <Filter>ソース ファイル\Scene\OldGameScene\Entity\Item\Attribute</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemBoxContents.cpp">
+      <Filter>ソース ファイル\Scene\OldGameScene\Entity\Box</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemData.cpp">
+      <Filter>ソース ファイル\Scene\OldGameScene\Entity\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="CardAttribute_Bomb.cpp">
+      <Filter>ソース ファイル\Scene\OldGameScene\Card\Attribute</Filter>
+    </ClCompile>
+    <ClCompile Include="CardAttribute_Booster.cpp">
+      <Filter>ソース ファイル\Scene\OldGameScene\Card\Attribute</Filter>
+    </ClCompile>
+    <ClCompile Include="CardAttribute_Trap.cpp">
+      <Filter>ソース ファイル\Scene\OldGameScene\Card\Attribute</Filter>
+    </ClCompile>
+    <ClCompile Include="CardFacade.cpp">
+      <Filter>ソース ファイル\Scene\OldGameScene\Card</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>ソース ファイル\Scene\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Attack.cpp">
+      <Filter>ソース ファイル\Scene\OldGameScene\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackManager.cpp">
+      <Filter>ソース ファイル\Scene\OldGameScene\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackDataTable.cpp">
+      <Filter>ソース ファイル\Scene\OldGameScene\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackAttribute_Bomb.cpp">
+      <Filter>ソース ファイル\Scene\OldGameScene\Attack\Attribute</Filter>
+    </ClCompile>
+    <ClCompile Include="Vehicle.cpp">
+      <Filter>ソース ファイル\Scene\OldGameScene\Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerController.cpp">
+      <Filter>ソース ファイル\Game\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyController.cpp">
+      <Filter>ソース ファイル\Game\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="InitScene.cpp">
+      <Filter>ソース ファイル\Scene\InitScene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameInput.cpp">
+      <Filter>ソース ファイル\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionHelper.cpp">
+      <Filter>ソース ファイル\Game\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>ソース ファイル\Scene\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSetting.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimalTable.cpp">
+      <Filter>ソース ファイル\Data\Animal</Filter>
+    </ClCompile>
+    <ClCompile Include="VehicleTable.cpp">
+      <Filter>ソース ファイル\Data\Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="IPlayerController.cpp">
+      <Filter>ソース ファイル\Game\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>ソース ファイル\Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerManager.cpp">
+      <Filter>ソース ファイル\Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStatus.cpp">
+      <Filter>ソース ファイル\Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEntity.cpp">
+      <Filter>ソース ファイル\Game\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEntityCollider.cpp">
+      <Filter>ソース ファイル\Game\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="GameDirector.cpp">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseGameScene.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerCamera.cpp">
+      <Filter>ソース ファイル\Game\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerEntry.cpp">
+      <Filter>ソース ファイル\Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="ComputerCamera.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerEntryDataModelList.cpp">
+      <Filter>ソース ファイル\Game\PlayerEntry\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerEntryDataModel.cpp">
+      <Filter>ソース ファイル\Game\PlayerEntry\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerEntryListBuilder_MultiPlay.cpp">
+      <Filter>ソース ファイル\Game\PlayerEntry\Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerEntryListBuilder_MultiTest.cpp">
+      <Filter>ソース ファイル\Game\PlayerEntry\Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="GachaTable.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Star.cpp">
+      <Filter>ソース ファイル\Game\Entity\Star</Filter>
+    </ClCompile>
+    <ClCompile Include="StarManager.cpp">
+      <Filter>ソース ファイル\Game\Entity\Star</Filter>
+    </ClCompile>
+    <ClCompile Include="Asset.cpp">
+      <Filter>ソース ファイル\Asset</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Asset\texture\game.palette">
+      <Filter>リソース ファイル\palette</Filter>
+    </None>
+    <None Include="..\Asset\texture\title.palette">
+      <Filter>リソース ファイル\palette</Filter>
+    </None>
+    <None Include="..\Asset\particle\particle_texture.json">
+      <Filter>リソース ファイル\particle</Filter>
+    </None>
+    <None Include="..\Asset\particle\particle_primitives.atlas">
+      <Filter>リソース ファイル\particle</Filter>
+    </None>
+    <None Include="..\Asset\texture\common.palette">
+      <Filter>リソース ファイル\palette</Filter>
+    </None>
+    <None Include="..\Asset\texture\ka.palette">
+      <Filter>リソース ファイル\palette</Filter>
+    </None>
+  </ItemGroup>
+</Project>

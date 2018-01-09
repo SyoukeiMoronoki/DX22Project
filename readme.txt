@@ -1,0 +1,5 @@
+ここにあるProject単体では動かない。
+MyBaseをpullもしくはダウンロードし、
+かかいMyBase-master
+Engineフォルダをこのディレクトリに持ってくる。
+MyBaseの更新がある度にEngineは削除すること。
