@@ -13,13 +13,8 @@ enum
 {
   X_AXIS, //XŽ²“ü—Í
   Y_AXIS, //YŽ²“ü—Í
-  L1,     //L1
-  R1,     //R1
-  L2,     //L2
-  R2,     //R2
   FIRE,   //ƒVƒ‡ƒbƒg
-
-
+  EYE,    //Šá
 
   GAME_INPUT_DATANUM, //‚±‚±‚ÍG‚ç‚È‚¢
 };

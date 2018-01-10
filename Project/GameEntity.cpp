@@ -1,86 +1,137 @@
 #include "GameEntity.h"
-#include "GameDirector.h"
+#include <algorithm>
+
+#include "GameSceneDirector.h"
+
+static const T_UINT8 COLLIDER_MAX = 3;
 
 GameEntity::GameEntity()
-  : ignore_space_wall_(false)
+  : is_enabled_(false)
+  , collider_count_(0)
 {
+  this->collider_ = new GameEntityCollider*[COLLIDER_MAX];
 }
 
 GameEntity::~GameEntity()
 {
-  for (GameEntityCollider* collider : this->colliders_)
+}
+
+void GameEntity::OnAllocated()
+{
+  for (T_UINT8 i = 0; i < COLLIDER_MAX; ++i)
   {
-    delete collider;
+    this->collider_[i] = NULL;
   }
+  this->collider_count_ = 0;
+  this->SetVisible(true);
 }
 
-void GameEntity::OnPositionChanged(GameObject* root)
+void GameEntity::OnFree()
 {
-  this->OnTransformChanged();
+  for (T_UINT8 i = 0; i < COLLIDER_MAX; ++i)
+  {
+    if (!this->collider_[i])
+    {
+      continue;
+    }
+    //GameSceneDirector::GetInstance().GetColliderAllocator()->Free(this->collider_[i]);
+    this->collider_[i] = NULL;
+  }
+  this->collider_count_ = 0;
+  this->SetVisible(false);
 }
 
-void GameEntity::OnScaleChanged(GameObject* root)
+void GameEntity::SetRadialRates(T_FLOAT radial_rate, T_FLOAT tangential_rate)
 {
-  this->OnTransformChanged();
+  this->radial_rate_ = radial_rate;
+  this->tangential_rate_ = tangential_rate;
 }
 
-void GameEntity::OnTransformChanged()
+void GameEntity::MoveRadialRate(T_FLOAT rate)
 {
-  this->is_position_changed_ = true;
+  this->radial_rate_ += rate;
 }
 
-void GameEntity::ResetTransformChangedFlag()
+void GameEntity::MoveTangential(T_FLOAT value)
 {
-  this->is_position_changed_ = false;
+  this->tangential_move_ += value;
 }
 
-void GameEntity::PostUpdate()
+//void GameEntity::ApplyViewPort(const ViewPort& viewport)
+//{
+//  this->radial_rate_ = std::min(1.0f, std::max(0.0f, this->radial_rate_));
+//  //Å’Z‹——£‚Å‚Ì‰~Žü‚Ìwidth
+//  const T_FLOAT near_world_width = viewport.GetNear() * 2 * MathConstants::PI;
+//  //‚±‚ÌƒIƒuƒWƒFƒNƒg‚Ì•\Ž¦ƒXƒP[ƒ‹
+//  const T_FLOAT scale = viewport.GetNear() / (viewport.GetNear() + viewport.GetDepthRange() * this->radial_rate_);
+//
+//  //‚±‚ÌƒIƒuƒWƒFƒNƒg‚Ì‹——£‚Å‚Ì‰~Žü‚Ìwidth
+//  const T_FLOAT tangential_world_width = near_world_width / scale;
+//
+//  T_FLOAT tangential_pos = this->tangential_rate_ * tangential_world_width;
+//  tangential_pos += this->tangential_move_;
+//  this->tangential_move_ = 0;
+//  this->tangential_rate_ = tangential_pos / tangential_world_width;
+//  if (this->tangential_rate_ > 1.0f)
+//  {
+//    this->tangential_rate_ -= 1.0f;
+//  }
+//  else if (this->tangential_rate_ < 0.0f)
+//  {
+//    this->tangential_rate_ += 1.0f;
+//  }
+//  
+//  const T_FLOAT width = this->GetViewSize().width / tangential_world_width;
+//  const T_FLOAT left = this->tangential_rate_ - width * 0.5f;
+//  const T_FLOAT right = this->tangential_rate_ + width * 0.5f;
+//
+//  const T_FLOAT camera_angle_tangential_rate = viewport.GetCameraAngleRad() / MathConstants::PI2;
+//  const T_FLOAT viewing_angle_tangential_rate = viewport.GetViewingAngleRad() / MathConstants::PI2;
+//  const T_FLOAT view_left = camera_angle_tangential_rate + viewing_angle_tangential_rate * 0.5f;
+//  const T_FLOAT view_right = camera_angle_tangential_rate + viewing_angle_tangential_rate * -0.5f;
+//
+//  //if (left > view_right || right < view_left)
+//  //{
+//  //  this->SetVisible(false);
+//  //  return;
+//  //}
+//
+//  const T_FLOAT near_screen_width = near_world_width * viewport.GetViewingAngleRad() / MathConstants::PI2;
+//  const T_FLOAT view_scale = viewport.GetScreenWidth() / near_screen_width;
+//  const T_FLOAT view_tangential_rate = viewport.GetCameraAngleRad() / MathConstants::PI2;
+//  const T_FLOAT rate_min = this->tangential_rate_ < view_tangential_rate ? this->tangential_rate_ : view_tangential_rate;
+//  const T_FLOAT rate_max = this->tangential_rate_ > view_tangential_rate ? this->tangential_rate_ : view_tangential_rate;
+//  const T_FLOAT rate_a = (rate_max - rate_min);
+//  const T_FLOAT rate_b = (1.0f + rate_min - rate_max);
+//  T_FLOAT pos_x = near_world_width * ((rate_a < rate_b ? rate_a : -rate_b));
+//  if (rate_max == view_tangential_rate)
+//  {
+//    pos_x *= -1;
+//  }
+//
+//  this->SetZIndex((T_INT8)((1.0 - this->radial_rate_) * 20));
+//  this->ChangeTransform(view_scale * scale, pos_x * view_scale, -100);
+//}
+
+void GameEntity::AddCollider(GameEntityCollider* collider)
 {
-  if (this->ignore_space_wall_)
+  if (this->collider_count_ == COLLIDER_MAX)
   {
     return;
   }
-  //¢ŠE‚Ì•Ç‚ð‰z‚¦‚È‚¢‚æ‚¤‚É‚·‚éˆ—
-  //Œ´“_‚©‚ç‚Ì‹——£‚ª‰F’ˆ‚Ì•Ç‚Ü‚Å‚Ì‹——£ˆÈã‚Å‚ ‚ê‚Î(sqrt‚ªŒÄ‚Î‚ê‚È‚¢‚æ‚¤‚Qæ“¯Žm‚Å”äŠr)
-  const T_FLOAT world_radius = GameDirector::GetGameSetting().GetLevelParam().world_radius;
-  const TVec3f current_world_pos = this->GetTransform()->GetWorldPosition();
-  if (current_world_pos.LengthSquare() > world_radius * world_radius)
+  this->collider_[this->collider_count_] = collider;
+  this->collider_count_++;
+  //collider->AttachEntity(this);
+}
+
+bool GameEntity::HitCheck(Collider3D* collider)
+{
+  for (T_UINT8 i = 0; i < this->collider_count_; ++i)
   {
-    //ƒvƒŒƒCƒ„[‚Ì‹óŠÔã‚ÌˆÊ’u‚ð³‹K‰»‚µA‚»‚ê‚É‰F’ˆ‚Ì•Ç‚Ü‚Å‚Ì‹——£‚ðæŽZ‚·‚éŽ–‚ÅA‰F’ˆ‚Ì•ÇƒMƒŠƒMƒŠ‚ÌÀ•W‚ð“¾‚ê‚é
-    const TVec3f next_world_pos = current_world_pos.Normalized() * world_radius;
-    const TVec3f current_local_pos = this->GetTransform()->GetPosition();
-    this->GetTransform()->SetPosition(next_world_pos - current_world_pos + current_local_pos);
-  }
-}
-
-void GameEntity::AddCollider(T_FLOAT radius)
-{
-  GameEntityCollider* collider = new GameEntityCollider(this);
-  collider->SetRadius(radius);
-  this->colliders_.push_back(collider);
-}
-
-void GameEntity::AddCollider(const TVec3f& offset, T_FLOAT radius)
-{
-  GameEntityCollider* collider = new GameEntityCollider(this);
-  collider->SetOffset(offset);
-  collider->SetRadius(radius);
-  this->colliders_.push_back(collider);
-}
-
-bool GameEntity::HitCheck(GameEntity* other)
-{
-  std::list<GameEntityCollider*> other_colliders = other->colliders_;
-  for (GameEntityCollider* a : this->colliders_)
-  {
-    for (GameEntityCollider* b : other_colliders)
+    if (collider->Collision(*this->collider_[i]))
     {
-      if (a->Collision(*b))
-      {
-        return true;
-      }
+      return true;
     }
-    other_colliders.pop_front();
   }
   return false;
 }

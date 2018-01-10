@@ -1,9 +1,10 @@
 #pragma once
 
-#include <list>
 #include <HalEngine.h>
 
 #include "GameEntityCollider.h"
+
+#include "NumberView.h"
 
 class GameEntity : public GameObject3D
 {
@@ -12,32 +13,41 @@ public:
   virtual ~GameEntity();
 
 public:
-  virtual void OnPositionChanged(GameObject* root) override;
-  virtual void OnScaleChanged(GameObject* root) override;
-  virtual void OnTransformChanged();
-
-  void ResetTransformChangedFlag();
+  virtual void OnAllocated();
+  virtual void OnFree();
 
 public:
-  void PostUpdate() override;
+  void SetRadialRates(T_FLOAT radial_rate, T_FLOAT tangential_rate);
+  //”¼Œaã‚ÌˆÚ“®
+  virtual void MoveRadialRate(T_FLOAT rate);
+  //‰~üã‚ÌˆÚ“®A’l‚É‘Î‚µ‚Ä”¼Œaã‚ÌˆÊ’u‚©‚çˆÚ“®—¦‚ğŒvZ‚·‚é
+  virtual void MoveTangential(T_FLOAT value);
 
 public:
-  void AddCollider(T_FLOAT radius);
-  void AddCollider(const TVec3f& offset, T_FLOAT radius);
-  bool HitCheck(GameEntity* other);
+  void AddCollider(GameEntityCollider* collider);
+  bool HitCheck(Collider3D* collider);
 
 public:
-  inline void SetIgnoreSpaceWall(bool ignore)
+  void SetEnabled(bool enabled)
   {
-    this->ignore_space_wall_ = ignore;
+    this->is_enabled_ = enabled;
   }
-  inline bool IsIgnoreSpaceWall() const
+  bool IsEnabled()
   {
-    return this->ignore_space_wall_;
+    return this->is_enabled_;
+  }
+  T_FLOAT GetRadialRate()
+  {
+    return this->radial_rate_;
   }
 
 private:
-  std::list<GameEntityCollider*> colliders_;
-  bool is_position_changed_;
-  bool ignore_space_wall_;
+  bool is_enabled_;
+
+  GameEntityCollider** collider_;
+  T_UINT8 collider_count_;
+
+  T_FLOAT radial_rate_; //”¼Œaã‚ÌˆÊ’u
+  T_FLOAT tangential_rate_; //‰~üã‚ÌˆÊ’u
+  T_FLOAT tangential_move_; //‰~üã‚ÌˆÚ“®—Ê
 };

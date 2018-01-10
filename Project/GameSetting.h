@@ -3,16 +3,11 @@
 #include <vector>
 #include <HalEngine.h>
 
-#include "IPlayerEntryListBuilder.h"
-
-#include "StarManager.h"
-
 struct GameLevelParam
 {
   //初期値のままの要素があるとエラーが出力されるように
   GameLevelParam()
     : world_radius(0.0f)
-    , star_levels(0)
     , gacha_star_count(0)
     , gacha_star_spawn_delay(0)
     , gacha_star_lifetime(0)
@@ -24,10 +19,7 @@ struct GameLevelParam
 
   //原点から宇宙の壁までの距離
   T_FLOAT world_radius;
-
-  //星に関するレベル変数
-  StarManager::LevelParam star_levels;
-
+  
   T_UINT16 gacha_star_count;
   T_UINT16 gacha_star_spawn_delay;
   T_UINT16 gacha_star_lifetime;
@@ -42,7 +34,7 @@ struct GameLevelParam
 class GameSetting
 {
 public:
-  GameSetting(IPlayerEntryListBuilder* entry_list_builder);
+  GameSetting();
   ~GameSetting();
 
 public:
@@ -54,13 +46,8 @@ public:
   {
     return this->level_param_;
   }
-  inline IPlayerEntryListBuilder* GetPlayerEntryListBuilder() const
-  {
-    return this->entry_list_builder_;
-  }
 
 private:
   GameLevelParam level_param_;
-  IPlayerEntryListBuilder* entry_list_builder_;
 
 };

@@ -1,41 +1,69 @@
 #pragma once
 
-#include "PlayerInput.h"
-#include "Attack.h"
-#include "PlayerEntry.h"
-#include "PlayerStatus.h"
+#include <HalEngine.h>
 
-class CardManager;
-class CardFacade;
+class GameEntity;
+class UI_Player;
+class UI_Cursol;
 
-class Player : public GameEntity
+class Player : public GameObject3D
 {
 public:
-  Player(const PlayerEntry& entry);
-  virtual ~Player();
+  Player();
+  ~Player();
 
 public:
-  void CardProcess(const PlayerInput& input, CardFacade* facade);
+  void GameInit();
 
-  virtual void PreUpdate() override;
-  virtual void Update() override;
+  bool ControllProcess(const EngineInputState& state);
+  void Update(const UpdateEventState& state);
 
 public:
-  inline T_UINT8 GetID() const
+  void AddControlDelay(T_UINT16 delay);
+  void SetControlDelay(T_UINT16 delay);
+  //最低限必要なディレイを入力。既にそれ以上のディレイがあれば何もしない
+  void SetControlDelayNegative(T_UINT16 delay);
+
+  bool PayCost(T_UINT8 cost);
+
+  void SetView(UI_Player* view, UI_Cursol* cursol);
+
+  bool AddDamage();
+
+  void OnHPChanged();
+  void OnEarChanged();
+  void OnCursolChanged();
+
+public:
+  inline T_UINT8 GetPower() const
   {
-    return this->id_;
+    return this->power_;
   }
-
-  inline IPlayerController* GetController() const
+  inline bool IsUseEar() const
   {
-    return this->controller_;
+    return this->use_ear_;
+  }
+  inline T_UINT16 GetHP() const
+  {
+    return this->hp_;
   }
 
 private:
-  const T_UINT8 id_;
-  PlayerStatus* const status_;
-  IPlayerController* const controller_;
-  Cube3D* body_;
+  TVec2f cursol_pos_;
 
-  T_FLOAT speed_;
+  T_UINT16 control_delay_;
+  T_UINT8 attack_delay_;
+
+  T_UINT16 hp_;
+
+  T_UINT16 ear_gauge_;
+  bool use_ear_;
+  
+  T_UINT8 power_;
+  T_FLOAT view_angle_;
+
+  //後々全てリスナーを用意して処理する
+  UI_Cursol* cursol_view_;
+  UI_Player* view_;
 };
+

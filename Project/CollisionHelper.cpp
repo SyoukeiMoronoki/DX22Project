@@ -53,18 +53,18 @@ void CollisionHelper::Player_Object(Player* player)
 
 void CollisionHelper::Player_Attack(std::list<Player*>* players)
 {
-  std::deque<Attack*> hit_attacks;
-  for (std::list<Player*>::iterator itr = players->begin(); itr != players->end(); ++itr)
-  {
-    Player* const player = (*itr);
-    //敵攻撃との判定
-    this->attack_manager_->GetHitAttacks(player, &hit_attacks);
-    for (std::deque<Attack*>::iterator itr = hit_attacks.begin(); itr != hit_attacks.end(); ++itr)
-    {
-      Attack* atk = (*itr);
-      //player->OnHitAttack(atk);
-    }
-  }
+  //std::deque<Attack*> hit_attacks;
+  //for (std::list<Player*>::iterator itr = players->begin(); itr != players->end(); ++itr)
+  //{
+  //  Player* const player = (*itr);
+  //  //敵攻撃との判定
+  //  this->attack_manager_->GetHitAttacks(player, &hit_attacks);
+  //  for (std::deque<Attack*>::iterator itr = hit_attacks.begin(); itr != hit_attacks.end(); ++itr)
+  //  {
+  //    Attack* atk = (*itr);
+  //    //player->OnHitAttack(atk);
+  //  }
+  //}
 
   //プレイヤーの攻撃とアイテムボックスの当たり判定
   //std::map<ItemBox*, std::deque<Attack*>> hit_attacks_to_itembox;

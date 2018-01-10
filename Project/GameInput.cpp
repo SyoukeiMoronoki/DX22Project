@@ -26,11 +26,8 @@ static const InputEntity INPUT_ENTITIES[GameInput::GAME_INPUT_DATANUM] =
 {
   { GameInput::X_AXIS, Digital::ID_LEFT, Digital::ID_RIGHT, Analog::ID_L_0_XY, Analog::DIMENSION_X },
   { GameInput::Y_AXIS, Digital::ID_DOWN, Digital::ID_UP, Analog::ID_L_0_XY, Analog::DIMENSION_Y },
-  { GameInput::L1, Digital::ID_L1 },
-  { GameInput::R1, Digital::ID_R1 },
-  { GameInput::L2, Analog::ID_C_0_XY, Analog::DIMENSION_X },
-  { GameInput::R2, Analog::ID_C_0_XY, Analog::DIMENSION_Y },
   { GameInput::FIRE, Digital::ID_X },
+  { GameInput::EYE, Digital::ID_Y },
 };
 
 //Ç±Ç±ÇÕêGÇÁÇ»Ç¢

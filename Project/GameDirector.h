@@ -3,8 +3,6 @@
 #include <HalEngine.h>
 
 #include "GameSetting.h"
-#include "PlayerEntryDataModelList.h"
-#include "PlayerEntry.h"
 
 /*
   GameDirectorをシングルトンにした理由
@@ -24,9 +22,9 @@
 class GameDirector
 {
 public:
-  inline static void GameStart(Scene* game_scene, PlayerEntryDataModelList* player_entry_models, const GameSetting* setting)
+  inline static void GameStart(Scene* game_scene, const GameSetting* setting)
   {
-    GameDirector::GetInstance()->GameStart_(game_scene, player_entry_models, setting);
+    GameDirector::GetInstance()->GameStart_(game_scene, setting);
   }
   inline static void GameFinish()
   {
@@ -35,10 +33,6 @@ public:
   inline static const GameSetting& GetGameSetting()
   {
     return *GameDirector::GetInstance()->game_setting_;
-  }
-  inline static const std::vector<PlayerEntry*>& GetPlayerEntries()
-  {
-    return GameDirector::GetInstance()->player_entries_;
   }
   inline static Scene* GetScene()
   {
@@ -55,12 +49,11 @@ private:
   GameDirector(const GameDirector&) {}
 
 public:
-  void GameStart_(Scene* game_scene, PlayerEntryDataModelList* player_models, const GameSetting* setting);
+  void GameStart_(Scene* game_scene, const GameSetting* setting);
   void GameFinish_();
 
 private:
   const GameSetting* game_setting_;
-  std::vector<PlayerEntry*> player_entries_;
   Scene* game_scene_;
 
 };

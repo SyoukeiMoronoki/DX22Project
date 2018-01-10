@@ -5,7 +5,7 @@
 class PlayerCamera : public IPlayerCamera
 {
 public:
-  PlayerCamera(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height);
+  PlayerCamera();
   ~PlayerCamera();
 
 public:
@@ -13,8 +13,12 @@ public:
   void RegisterToPlayer(Player* player) override;
   void Update() override;
 
+public:
+  inline Camera3D_LookAt* GetCamera()
+  {
+    return this->camera_;
+  }
+
 private:
   Camera3D_LookAt* camera_;
-  INativeMatrix* translation_;
-  INativeMatrix* scaling_;
 };

@@ -3,61 +3,183 @@
 
 #include "GameEntity.h"
 
-#include "CardManager.h"
+#include "UI_Player.h"
+#include "UI_Cursol.h"
 
-#include "CardFactory.h"
-#include "Vehicle.h"
+#include "GameSceneDirector.h"
 
-Player::Player(const PlayerEntry& entry)
-  : id_(entry.id)
-  , status_(new PlayerStatus(entry.animal_data, entry.handicap))
-  , controller_(entry.controller)
-  , speed_(0.0f)
-{
-  this->body_ = new Cube3D();
-  this->body_->SetLightingEnabled(false);
-  this->AddChild(this->body_);
-  this->AddChild(entry.camera);
-  entry.camera->RegisterToPlayer(this);
-  this->AddCollider(0.5f);
-}
+#include "GameConstants.h"
+#include "GameInput.h"
+
+static const T_UINT8 DEFAULT_POWER = 8;
+static const T_UINT8 ATTACK_DELAY = 10;
+
+Player::Player()
+{}
 
 Player::~Player()
+{}
+
+void Player::GameInit()
 {
-  delete this->body_;
-  delete this->status_;
+  this->cursol_pos_ = TVec2f(0.0f, 0.0f);
+  this->control_delay_ = 0;
+  this->attack_delay_ = 0;
+  this->hp_ = GameConstants::HP_MAX;
+  this->ear_gauge_ = 0;
+  this->use_ear_ = false;
+  this->power_ = DEFAULT_POWER;
+
+  this->OnCursolChanged();
+  this->OnEarChanged();
+  this->OnHPChanged();
 }
 
-void Player::CardProcess(const PlayerInput& input, CardFacade* facade)
+bool Player::ControllProcess(const EngineInputState& state)
 {
-  PlayerInput::CommandKind command = input.GetCommandInput();
-  if (command == PlayerInput::PLAYER_COMMAND_NONE)
+  if (this->control_delay_ > 0)
   {
-    return;
+    return false;
   }
-  //Card* card = this->vehicle_current_->GetCardManager()->GetCard(command);
-  //if (!card)
-  //{
-  //  return;
-  //}
+  bool fire = false;
+  const T_FLOAT w = (T_FLOAT)Director::GetInstance()->GetScreenWidth();
+  const T_FLOAT h = (T_FLOAT)Director::GetInstance()->GetScreenHeight();
+  using namespace EngineInput::Analog;
+  //this->cursol_pos_.x = state.GetAnalogInput()->GetValue(ID_SCREEN_0_XY, 0, -w * 0.5f, w * 0.5f);
+  //this->cursol_pos_.y = state.GetAnalogInput()->GetValue(ID_SCREEN_0_XY, 1, -h * 0.5f, h * 0.5f);
+  this->OnCursolChanged();
+
+  if (this->cursol_pos_.x < -w * 0.4f)
+  {
+    this->view_angle_ -= 0.02f;
+  }
+  else if (this->cursol_pos_.x > w * 0.4f)
+  {
+    this->view_angle_ += 0.02f;
+  }
+  else if (this->cursol_pos_.x < -w * 0.3f)
+  {
+    this->view_angle_ -= 0.005f;
+  }
+  else if (this->cursol_pos_.x > w * 0.3f)
+  {
+    this->view_angle_ += 0.005f;
+  }
+
+  if (this->view_angle_ > 1.0f)
+  {
+    this->view_angle_ -= 1.0f;
+  }
+  else if (this->view_angle_ < 0.0f)
+  {
+    this->view_angle_ += 1.0f;
+  }
+
+  //this->viewport_.SetCameraAngleRad(this->view_angle_ * MathConstants::PI2);
+
+  if (this->view_angle_ < 0.1f)
+  {
+    this->view_angle_ = this->view_angle_ * 1.0f;
+  }
+
+  using namespace EngineInput::Digital;
+  if (attack_delay_ == 0)
+  {
+    if (HalEngine::Input(0)->GetButton(GameInput::FIRE))
+    {
+      fire = true;
+      this->attack_delay_ = ATTACK_DELAY;
+      this->cursol_view_->OnAttack();
+    }
+  }
+  else
+  {
+    this->attack_delay_--;
+  }
+  if (this->use_ear_)
+  {
+    if (!HalEngine::Input(0)->GetButton(GameInput::EYE))
+    {
+      this->use_ear_ = false;
+    }
+  }
+  else if (this->ear_gauge_ > 50 && HalEngine::Input(0)->GetButton(GameInput::EYE))
+  {
+    this->use_ear_ = true;
+  }
+
+  return fire;
 }
 
-void Player::PreUpdate()
+void Player::Update(const UpdateEventState& state)
 {
-  PlayerInput input = PlayerInput();
-  this->controller_->InputProcess(&input);
-
-  const T_FLOAT rot_speed = this->status_->GetRotationSpeed();
-  const T_FLOAT vx = input.GetVectorInput().x * rot_speed;
-  const T_FLOAT vy = input.GetVectorInput().y * rot_speed;
-  const T_FLOAT vz = input.GetVectorInput().z * rot_speed;
-  this->GetTransform()->GetRotator()->RotateY(vx);
-  this->GetTransform()->GetRotator()->RotateX(-vy);
-  this->GetTransform()->GetRotator()->RotateZ(vz);
+  if (this->use_ear_)
+  {
+    this->ear_gauge_ = (T_UINT16)std::max((T_INT32)0, (T_INT32)(this->ear_gauge_ - 1));
+    if (this->ear_gauge_ == 0)
+    {
+      this->use_ear_ = false;
+    }
+  }
+  else
+  {
+    this->ear_gauge_ = (T_UINT16)std::min((T_UINT16)GameConstants::EYE_GAUGE_MAX, (T_UINT16)(this->ear_gauge_ + 2));
+  }
+  this->OnEarChanged();
 }
 
-void Player::Update()
+void Player::AddControlDelay(T_UINT16 delay)
 {
-  this->speed_ = std::min(this->status_->GetMaxSpeed(), this->speed_ + this->status_->GetAccel());
-  this->GetTransform()->MoveZ(this->speed_);
+  this->control_delay_ += delay;
+}
+
+void Player::SetControlDelay(T_UINT16 delay)
+{
+  this->control_delay_ = delay;
+}
+
+void Player::SetControlDelayNegative(T_UINT16 delay)
+{
+  this->control_delay_ = std::max(this->control_delay_, delay);
+}
+
+bool Player::PayCost(T_UINT8 cost)
+{
+  return true;
+}
+
+void Player::SetView(UI_Player* view, UI_Cursol* cursol)
+{
+  this->view_ = view;
+  this->cursol_view_ = cursol;
+
+  this->OnHPChanged();
+  this->OnEarChanged();
+  this->OnCursolChanged();
+}
+
+bool Player::AddDamage()
+{
+  if (this->hp_ == 0)
+  {
+    return false;
+  }
+  this->hp_--;
+  this->OnHPChanged();
+  return true;
+}
+
+void Player::OnHPChanged()
+{
+  this->view_->GetHPView()->SetValue(this->hp_);
+}
+
+void Player::OnEarChanged()
+{
+  this->view_->GetEarView()->SetValue(this->ear_gauge_);
+}
+
+void Player::OnCursolChanged()
+{
+  this->cursol_view_->UpdatePosition(this->cursol_pos_);
 }

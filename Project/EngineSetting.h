@@ -1,6 +1,4 @@
-#ifndef HAL_PROJECT_ENGINESETTING_H
-#define HAL_PROJECT_ENGINESETTING_H
-
+#pragma once
 #include <HalEngine.h>
 
 class EngineSetting : public IEngineSetting
@@ -17,5 +15,3 @@ public:
   virtual const char* ActivityName() override;
   virtual T_UINT16 RenderCycle() override;
 };
-
-#endif
