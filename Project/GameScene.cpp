@@ -65,17 +65,33 @@ void GameScene::OnLoad(IResourceLoadReserver* resource)
 
 void GameScene::OnSetup()
 {
+  Cube3D* cube = new Cube3D();
+  cube->SetLightingEnabled(false);
+  cube->GetTransform()->SetZ(10.0f);
+  this->AddChild(cube);
+
   this->camera2d_ = new Camera2D();
+  this->camera2d_->SetViewportClear(false);
   this->camera2d_->GetRenderState()->AddTargetLayerId(0);
   this->AddCamera(this->camera2d_);
 
-  this->camera3d_ = new Camera3D();
+  this->field_ = new MeshField(2000.0f, 2000.0f, 10, 10);
+  this->field_->SetLightingEnabled(false);
+  this->field_->SetTexture(Asset::Texture::FIELD_BG);
+  this->field_->GetTransform()->SetY(-5.0f);
+  this->field_->GetTransform()->GetRotator()->SetEularX(MathConstants::DegToRad(90.0f));
+  this->AddChild(this->field_);
+
+  this->camera3d_ = new Camera3D_LookAt();
   this->camera3d_->GetRenderState()->AddTargetLayerId(0);
   this->AddCamera(this->camera3d_);
 
   this->player_ = new Player();
+  this->AddChild(this->player_);
+  this->camera3d_->SetPlayer(this->player_);
 
   this->enemy_manager_ = new EnemyManager(ENEMY_MAX);
+  this->enemy_manager_->AttachToEntity(this->GetRoot3d());
 
   const TSize screen_size = Director::GetInstance()->GetScreenSize();
   this->boya_ = Sprite::CreateWithTexture(&Asset::Texture::FIELD_BOYA);
@@ -97,7 +113,6 @@ void GameScene::OnSetup()
   this->text_time_up_->SetZIndex(ZINDEX_UI);
   this->AddChild(this->text_time_up_);
 
-  this->enemy_manager_->AttachToEntity(this->GetRoot3d());
   this->AddChild(this->boya_);
   this->AddChild(this->ui_cursol_);
   this->AddChild(this->ui_player_);
@@ -108,27 +123,22 @@ void GameScene::OnUnload()
   if (this->player_)
   {
     delete this->player_;
-    this->player_ = NULL;
   }
   if (this->enemy_manager_)
   {
     delete this->enemy_manager_;
-    this->enemy_manager_ = NULL;
   }
   if (this->boya_)
   {
     delete this->boya_;
-    this->boya_ = NULL;
   }
   if (this->ui_cursol_)
   {
     delete this->ui_cursol_;
-    this->ui_cursol_ = NULL;
   }
   if (this->ui_player_)
   {
     delete this->ui_player_;
-    this->ui_player_ = NULL;
   }
 }
 
@@ -206,7 +216,7 @@ void GameScene::Update()
 
   if (rand() % ENEMY_SPWAN_PROBABILITY == 0)
   {
-    this->enemy_manager_->SpawnToRandomPosition();
+    //this->enemy_manager_->SpawnToRandomPosition();
   }
 
   //const ViewPort* view_port = this->player_->GetViewPort();

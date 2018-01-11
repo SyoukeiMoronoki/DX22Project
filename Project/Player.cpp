@@ -35,7 +35,7 @@ void Player::GameInit()
   this->OnHPChanged();
 }
 
-bool Player::ControllProcess(const EngineInputState& state)
+bool Player::ControllProcess()
 {
   if (this->control_delay_ > 0)
   {
@@ -44,9 +44,14 @@ bool Player::ControllProcess(const EngineInputState& state)
   bool fire = false;
   const T_FLOAT w = (T_FLOAT)Director::GetInstance()->GetScreenWidth();
   const T_FLOAT h = (T_FLOAT)Director::GetInstance()->GetScreenHeight();
-  using namespace EngineInput::Analog;
-  //this->cursol_pos_.x = state.GetAnalogInput()->GetValue(ID_SCREEN_0_XY, 0, -w * 0.5f, w * 0.5f);
-  //this->cursol_pos_.y = state.GetAnalogInput()->GetValue(ID_SCREEN_0_XY, 1, -h * 0.5f, h * 0.5f);
+  this->cursol_pos_.x = HalEngine::Input(0)->GetAxis(GameInput::SCREEN_X, 0.0f) * w;
+  this->cursol_pos_.y = HalEngine::Input(0)->GetAxis(GameInput::SCREEN_Y, 0.0f) * h;
+
+  const T_FLOAT dx = HalEngine::Input(0)->GetAxis(GameInput::X_AXIS);
+  const T_FLOAT dy = HalEngine::Input(0)->GetAxis(GameInput::Y_AXIS);
+  this->GetTransform()->GetRotator()->RotateY(dx * 0.1f);
+  this->GetTransform()->MoveZ(dy * 0.5f);
+
   this->OnCursolChanged();
 
   if (this->cursol_pos_.x < -w * 0.4f)
@@ -111,8 +116,9 @@ bool Player::ControllProcess(const EngineInputState& state)
   return fire;
 }
 
-void Player::Update(const UpdateEventState& state)
+void Player::Update()
 {
+  this->ControllProcess();
   if (this->use_ear_)
   {
     this->ear_gauge_ = (T_UINT16)std::max((T_INT32)0, (T_INT32)(this->ear_gauge_ - 1));

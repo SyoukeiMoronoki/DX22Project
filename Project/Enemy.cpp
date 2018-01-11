@@ -14,8 +14,7 @@ static const T_UINT8 DAMAGE_MOVE_DELAY = 30;
 static const T_UINT8 DEATH_COUNT = 120;
 
 Enemy::Enemy()
-  : is_allocated_(false)
-  , data_(nullptr)
+  : data_(nullptr)
 {
   this->body_ = new BillBoard();
   this->AddChild(this->body_);
@@ -24,7 +23,6 @@ Enemy::Enemy()
   this->sprite_ = new AnimatedSprite3D();
   this->sprite_->SetTextureRegion(this->texture_region_);
   this->body_->AddChild(this->sprite_);
-  this->SetVisible(false);
 
   this->weak_point_sprite_ = new BillBoard();
   this->weak_point_sprite_->SetTexture(Asset::Texture::ENEMY_WEAK_POINT);
@@ -34,6 +32,7 @@ Enemy::Enemy()
   this->AddChild(this->weak_point_sprite_);
 
   this->weak_point_ = new Collider3D_Sphare(this->weak_point_sprite_);
+  this->SetVisible(false);
 }
 
 Enemy::~Enemy()
@@ -51,7 +50,6 @@ Enemy::~Enemy()
 void Enemy::OnAllocated()
 {
   GameEntity::OnAllocated();
-  this->is_allocated_ = true;
   this->SetEnabled(true);
   this->count_ = 0;
   this->move_delay_ = 0;
@@ -66,18 +64,13 @@ void Enemy::OnAllocated()
 
 void Enemy::OnFree()
 {
-  this->is_allocated_ = false;
   GameEntity::OnFree();
   this->SetEnabled(false);
   this->SetVisible(false);
 }
 
-void Enemy::Update()
+void Enemy::EnemyUpdate()
 {
-  if (this->is_allocated_)
-  {
-    return;
-  }
   //if (facade.IsSonar())
   //{
   //  this->sprite_->SetAnimateRange(ANIMATION_LENGTH, ANIMATION_LENGTH * 2 - 1);

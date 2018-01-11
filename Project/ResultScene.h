@@ -22,6 +22,9 @@ private:
   void StartTotalScoreCount();
 
 private:
+  Camera2D* camera2d_;
+  Camera3D* camera3d_;
+
   NumberView* score_view_;
   NumberView* bonus_view_;
   NumberView* total_score_view_;

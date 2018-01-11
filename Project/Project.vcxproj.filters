@@ -91,6 +91,24 @@
     <Filter Include="ヘッダー ファイル\Game\Bullet">
       <UniqueIdentifier>{7abcf60f-026c-4bc9-b0a3-f1244502af11}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Scene\ResultScene">
+      <UniqueIdentifier>{eefbbf86-ace8-4c23-adea-c809e97fa2a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene\ResultScene">
+      <UniqueIdentifier>{56341327-def2-4e06-983e-e169f004cb86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\UI">
+      <UniqueIdentifier>{88dfb152-44b8-463e-b8dd-a595fea4b6ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\UI">
+      <UniqueIdentifier>{1f195684-b928-4a48-914f-598dd75968ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Test">
+      <UniqueIdentifier>{1ae3fdd6-3f0a-4aca-ad18-fcf3e2bd1c20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Test">
+      <UniqueIdentifier>{1067c816-7644-4b23-9d7f-8de625887068}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineSetting.h">
@@ -171,12 +189,6 @@
     <ClInclude Include="ParticleResource.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="UI_Cursol.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="UI_Player.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>ヘッダー ファイル\Game\Player</Filter>
     </ClInclude>
@@ -193,7 +205,19 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="ResultScene.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Scene\ResultScene</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_Cursol.h">
+      <Filter>ヘッダー ファイル\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_Player.h">
+      <Filter>ヘッダー ファイル\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScene.h">
+      <Filter>ヘッダー ファイル\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScene2.h">
+      <Filter>ヘッダー ファイル\Test</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -251,15 +275,6 @@
     <ClCompile Include="NumberView.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="UI_Cursol.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="UI_Player.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="EnemyAttribute_Zako_2.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -270,7 +285,22 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="ResultScene.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Scene\ResultScene</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_Player.cpp">
+      <Filter>ソース ファイル\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_Cursol.cpp">
+      <Filter>ソース ファイル\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>ソース ファイル\Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScene.cpp">
+      <Filter>ソース ファイル\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScene2.cpp">
+      <Filter>ソース ファイル\Test</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

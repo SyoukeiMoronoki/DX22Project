@@ -24,11 +24,13 @@ public:
   virtual void Update() override;
 
 private:
-  Camera3D* camera3d_;
+  Camera3D_LookAt* camera3d_;
   Camera2D* camera2d_;
 
   Player* player_;
   EnemyManager* enemy_manager_;
+
+  MeshField* field_;
 
   UI_Player* ui_player_;
   UI_Cursol* ui_cursol_;

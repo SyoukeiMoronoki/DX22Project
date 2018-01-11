@@ -180,6 +180,8 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerCamera.cpp" />
     <ClCompile Include="ResultScene.cpp" />
+    <ClCompile Include="TestScene.cpp" />
+    <ClCompile Include="TestScene2.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="EngineSetting.cpp" />
     <ClCompile Include="GameEntity.cpp" />
@@ -215,6 +217,8 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerCamera.h" />
     <ClInclude Include="ResultScene.h" />
+    <ClInclude Include="TestScene.h" />
+    <ClInclude Include="TestScene2.h" />
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="EngineSetting.h" />
     <ClInclude Include="GameEntity.h" />

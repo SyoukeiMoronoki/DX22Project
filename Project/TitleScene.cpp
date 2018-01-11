@@ -4,6 +4,7 @@
 #include "EngineSetting.h"
 
 #include "Asset.h"
+#include "GameInput.h"
 
 static const T_FLOAT NEAR = 128.0f;
 static const T_FLOAT FAR = 1024.0f;
@@ -30,7 +31,7 @@ void TitleScene::OnSetup()
   this->press_a_button_->GetTransform()->SetY(-200);
   this->press_a_button_->GetTransform()->SetScale(0.5f);
   
-  this->AddChild(this->title_);
+  //this->AddChild(this->title_);
   this->AddChild(this->press_a_button_);
 
   //this->cube_ = new Cube3D();
@@ -73,7 +74,8 @@ void TitleScene::Update()
   this->press_a_button_->SetVisible((cnt / 30) % 2 == 0);
   cnt++;  
   using namespace EngineInput;
-  if (HalEngine::Input(0)->AnyButton())
+  //if (HalEngine::Input(0)->GetButtonDown(GameInput::FIRE))
+  if (HalEngine::Input(0)->AnyButtonDown())
   {
     Director::GetInstance()->ChangeScene(new GameScene());
     return;

@@ -15,8 +15,8 @@ public:
 public:
   void GameInit();
 
-  bool ControllProcess(const EngineInputState& state);
-  void Update(const UpdateEventState& state);
+  bool ControllProcess();
+  void Update() override;
 
 public:
   void AddControlDelay(T_UINT16 delay);

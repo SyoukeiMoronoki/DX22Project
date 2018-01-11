@@ -2,6 +2,7 @@
 #include "TitleScene.h"
 #include "GameScene.h"
 #include "GameDirector.h"
+#include "TestScene.h"
 
 InitScene::InitScene()
 {
@@ -55,5 +56,5 @@ void InitScene::Update()
 
   //実行するシーン、キャラクターの参加状況、ゲームの設定をGameDirectorに渡し、ゲーム開始
   //GameDirector::GameStart(new GameScene(), setting);
-  Director::GetInstance()->ChangeScene(new TitleScene());
+  Director::GetInstance()->ChangeScene(new GameScene());
 }

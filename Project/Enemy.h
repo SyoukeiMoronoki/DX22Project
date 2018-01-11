@@ -25,7 +25,7 @@ public:
   virtual void OnAllocated();
   virtual void OnFree();
 
-  virtual void Update() override;
+  virtual void EnemyUpdate();
   virtual void OnDamaged();
   virtual void OnWeakPointDamaged();
 
@@ -53,8 +53,6 @@ public:
   }
   
 private:
-  bool is_allocated_;
-
   T_UINT16 count_;
   T_UINT8 move_delay_;
 

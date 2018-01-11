@@ -13,6 +13,8 @@ enum
 {
   X_AXIS, //X軸入力
   Y_AXIS, //Y軸入力
+  SCREEN_X, //X軸画面上位置
+  SCREEN_Y, //Y軸画面上位置
   FIRE,   //ショット
   EYE,    //眼
 

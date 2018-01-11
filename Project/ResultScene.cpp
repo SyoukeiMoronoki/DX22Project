@@ -15,14 +15,25 @@ static const T_FLOAT BONUS_WIDTH = 256.0f;
 static const T_UINT8 TOTAL_SCORE_DIGIT_COUNT = 8;
 static const T_FLOAT TOTAL_SCORE_WIDTH = 256.0f;
 
-
-void ResultScene::OnLoad(IResourceLoadReserver * resource)
+void ResultScene::OnLoad(IResourceLoadReserver* resource)
 {
-
+  resource->ReserveLoad(Asset::Texture::FIELD_BG);
+  resource->ReserveLoad(Asset::Texture::FONT_NUMBER);
+  resource->ReserveLoad(Asset::Texture::TEXT_SCORE);
+  resource->ReserveLoad(Asset::Texture::TEXT_BONUS);
+  resource->ReserveLoad(Asset::Texture::TEXT_RESULT);
 }
 
 void ResultScene::OnSetup()
 {
+  this->camera2d_ = new Camera2D();
+  this->camera2d_->GetRenderState()->AddTargetLayerId(0);
+  this->AddCamera(this->camera2d_);
+
+  this->camera3d_ = new Camera3D();
+  this->camera3d_->GetRenderState()->AddTargetLayerId(0);
+  this->AddCamera(this->camera3d_);
+
   this->score_view_ = new NumberView(SCORE_DIGIT_COUNT, SCORE_WIDTH);
   this->bonus_view_ = new NumberView(BONUS_DIGIT_COUNT, BONUS_WIDTH);
   this->total_score_view_ = new NumberView(TOTAL_SCORE_DIGIT_COUNT, TOTAL_SCORE_WIDTH);
@@ -128,7 +139,8 @@ void ResultScene::Update()
 
 void ResultScene::EngineInput()
 {
-  if (!HalEngine::Input(0)->GetButton(GameInput::FIRE))
+  if (!HalEngine::Input(0)->AnyButtonDown())
+  //if (!HalEngine::Input(0)->GetButton(GameInput::FIRE))
   {
     return;
   }
