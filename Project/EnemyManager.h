@@ -5,7 +5,8 @@
 #include "AllocatableGameEntityManager.h"
 #include "EnemyDataManager.h"
 #include "Enemy.h"
-#include "Player.h"
+
+class Player;
 
 class EnemyManager : public AllocatableGameEntityManager<Enemy>
 {
@@ -17,12 +18,12 @@ public:
 
 public:
   void GameInit();
-  void Update();
+  void Update(bool is_sonar);
   void OnDamaged();
   bool AttackToPlayer(Player* player);
 
 public:
-  Enemy* SpawnToRandomPosition();
+  Enemy* SpawnToRandomPosition(Player* player);
 
 private:
   EnemyDataManager* data_manager_;

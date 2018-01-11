@@ -49,7 +49,7 @@ void ResultScene::OnSetup()
   this->bg_ = Sprite::CreateWithTexture(&Asset::Texture::FIELD_BG);
 
   this->bg_->GetTransform()->SetScale(3);
-  this->AddChild(this->bg_);
+  //this->AddChild(this->bg_);
 
   this->score_text_ = Sprite::CreateWithTexture(&Asset::Texture::TEXT_SCORE);
   this->bonus_text_ = Sprite::CreateWithTexture(&Asset::Texture::TEXT_BONUS);

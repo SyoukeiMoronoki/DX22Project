@@ -9,7 +9,7 @@ public:
   ~EnemyDataManager();
 
 private:
-  void SetEnemyData(T_UINT8 id, T_UINT8 pid, T_UINT16 tid, TSizef view_size, const char* name, IEnemyAttribute* attribute);
+  void SetEnemyData(T_UINT8 id, const Texture& texture, TSizef view_size, const char* name, IEnemyAttribute* attribute);
 
 public:
   void GameInit();

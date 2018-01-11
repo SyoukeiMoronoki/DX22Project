@@ -54,7 +54,7 @@ public:
     return SelectAll(
       dest,
       [&](T* p) {
-        return p->HitCheck(other);
+        return p->HitCheck(other->GetCollider());
       }
     );
   }

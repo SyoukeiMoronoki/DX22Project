@@ -11,18 +11,19 @@ static const T_UINT8 ANIMATION_LENGTH = 4;
 static const T_UINT8 ANIMATION_DURATION = 6;
 static const T_UINT8 DAMAGE_EFFECT_COUNT = 10;
 static const T_UINT8 DAMAGE_MOVE_DELAY = 30;
-static const T_UINT8 DEATH_COUNT = 120;
+static const T_UINT8 DEATH_COUNT = 80;
 
 Enemy::Enemy()
   : data_(nullptr)
 {
-  this->body_ = new BillBoard();
-  this->AddChild(this->body_);
-
+  this->SetBillboardingFlag(true);
   this->texture_region_ = new TiledTextureRegion();
   this->sprite_ = new AnimatedSprite3D();
+  this->sprite_->SetBlendFunction(BlendFunction::BLEND_DEFAULT_SRC, BlendFunction::BLEND_DEFAULT_DST);
+  this->sprite_->SetLightingEnabled(false);
+  this->sprite_->SetZTestFlag(true);
   this->sprite_->SetTextureRegion(this->texture_region_);
-  this->body_->AddChild(this->sprite_);
+  this->AddChild(this->sprite_);
 
   this->weak_point_sprite_ = new BillBoard();
   this->weak_point_sprite_->SetTexture(Asset::Texture::ENEMY_WEAK_POINT);
@@ -33,6 +34,7 @@ Enemy::Enemy()
 
   this->weak_point_ = new Collider3D_Sphare(this->weak_point_sprite_);
   this->SetVisible(false);
+  this->SetHitRadius(0.5f);
 }
 
 Enemy::~Enemy()
@@ -51,13 +53,15 @@ void Enemy::OnAllocated()
 {
   GameEntity::OnAllocated();
   this->SetEnabled(true);
+  this->is_dead_ = false;
   this->count_ = 0;
   this->move_delay_ = 0;
   this->damage_effect_count_ = 0;
   this->death_count_ = 0;
   this->weak_point_ = NULL;
-  //this->GetTransform()->SetRotation(0.0f);
-  //this->sprite_->SetColor(255, 255, 255);
+  this->GetTransform()->Init();
+  this->sprite_->GetTransform()->Init();
+  this->sprite_->GetMaterial()->SetDiffuse(255, 255, 255, 255);
   this->sprite_->Animate(ANIMATION_DURATION);
   this->SetVisible(true);
 }
@@ -69,23 +73,24 @@ void Enemy::OnFree()
   this->SetVisible(false);
 }
 
-void Enemy::EnemyUpdate()
+void Enemy::EnemyUpdate(bool is_sonar)
 {
-  //if (facade.IsSonar())
-  //{
-  //  this->sprite_->SetAnimateRange(ANIMATION_LENGTH, ANIMATION_LENGTH * 2 - 1);
-  //}
-  //else
-  //{
-  //  this->sprite_->SetAnimateRange(0, ANIMATION_LENGTH - 1);
-  //}
+  if (is_sonar)
+  {
+    this->sprite_->SetAnimateRange(ANIMATION_LENGTH, ANIMATION_LENGTH * 2 - 1);
+  }
+  else
+  {
+    this->sprite_->SetAnimateRange(0, ANIMATION_LENGTH - 1);
+  }
   if (this->death_count_ > 0)
   {
     this->death_count_--;
     T_UINT8 death_angle = (T_UINT8)std::min((T_INT32)DEATH_COUNT, ((T_INT32)DEATH_COUNT - (T_INT32)this->death_count_) * 4);
-    //this->GetTransform()->SetRotation((T_FLOAT)death_angle / DEATH_COUNT * MathConstants::PI * 0.5f);
+    this->sprite_->GetTransform()->GetRotator()->SetEularZ((T_FLOAT)death_angle / DEATH_COUNT * MathConstants::PI * 0.5f);
     if (this->death_count_ == 0)
     {
+      this->is_dead_ = true;
       return;
     }
     return;
@@ -93,20 +98,20 @@ void Enemy::EnemyUpdate()
   //this->weak_point_sprite_->SetVisible(facade.IsSonar());
   this->count_++;
   T_FLOAT width = this->weak_point_sprite_->GetTransform()->GetScaleMax();
-  this->weak_point_->SetRadius(std::max(0.0f, 1.0f - this->GetRadialRate() * 1.2f) * 16);
-  this->weak_point_sprite_->GetTransform()->SetScale(this->weak_point_->GetRadius() * 2 / width);
-  if (this->move_delay_ > 0)
-  {
-    this->move_delay_--;
-    if (this->move_delay_ == 0)
-    {
-      this->sprite_->Animate(ANIMATION_DURATION);
-    }
-  }
-  else
-  {
-    //this->data_->attribute->OnUpdate(this);
-  }
+  //this->weak_point_->SetRadius(std::max(0.0f, 1.0f - this->GetRadialRate() * 1.2f) * 16);
+  //this->weak_point_sprite_->GetTransform()->SetScale(this->weak_point_->GetRadius() * 2 / width);
+  //if (this->move_delay_ > 0)
+  //{
+  //  this->move_delay_--;
+  //  if (this->move_delay_ == 0)
+  //  {
+  //    this->sprite_->Animate(ANIMATION_DURATION);
+  //  }
+  //}
+  //else
+  //{
+  //  //this->data_->attribute->OnUpdate(this);
+  //}
   if (this->damage_effect_count_ > 0)
   {
     this->damage_effect_count_--;
@@ -141,12 +146,12 @@ void Enemy::OnWeakPointDamaged()
   {
     return;
   }
-  //this->sprite_->SetColor(32, 32, 100);
-  //this->death_count_ = DEATH_COUNT;
-  //this->SetMoveDelayNegative(DEATH_COUNT);
-  //this->weak_point_sprite_->SetVisible(false);
-  //this->sprite_->Animate(0);
-  GameSceneDirector::GetInstance().AddScore((T_UINT32)(1000 * (this->GetRadialRate() + 0.5f)));
+  this->sprite_->GetMaterial()->SetDiffuse(32, 32, 100, 255);
+  this->death_count_ = DEATH_COUNT;
+  this->SetMoveDelayNegative(DEATH_COUNT);
+  this->weak_point_sprite_->SetVisible(false);
+  this->sprite_->Animate(0);
+  GameSceneDirector::GetInstance().AddScore(100);
 }
 
 void Enemy::AddMoveDelay(T_UINT8 delay)
@@ -161,7 +166,7 @@ void Enemy::SetMoveDelayNegative(T_UINT8 delay)
 
 void Enemy::MoveRadialRate(T_FLOAT rate)
 {
-  GameEntity::MoveRadialRate(rate);
+  //GameEntity::MoveRadialRate(rate);
 }
 
 void Enemy::MoveTangential(T_FLOAT value)
@@ -170,7 +175,7 @@ void Enemy::MoveTangential(T_FLOAT value)
   {
     return;
   }
-  GameEntity::MoveTangential(value);
+  //GameEntity::MoveTangential(value);
 }
 
 void Enemy::SetWeakPoint(const TVec3f& pos)
@@ -185,9 +190,8 @@ bool Enemy::WeakPointHitCheck(Collider3D* collider)
 
 void Enemy::Spawn(const EnemyData* data)
 {
-  //this->data_ = data;
-  //const Texture* texture = Director::GetInstance()->GetTexture(data->pid, data->tid);
-  this->texture_region_->SetTexture(&Asset::Texture::ENEMY_ZAKO1);
+  this->data_ = data;
+  this->texture_region_->SetTexture(&data->texture);
   this->texture_region_->SetXNum(4);
   this->texture_region_->SetYNum(2);
   this->texture_region_->FitToTexture();

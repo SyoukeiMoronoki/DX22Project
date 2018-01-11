@@ -24,7 +24,6 @@ public:
   virtual void Update() override;
 
 private:
-  Camera3D_LookAt* camera3d_;
   Camera2D* camera2d_;
 
   Player* player_;

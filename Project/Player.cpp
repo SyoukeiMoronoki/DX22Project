@@ -11,17 +11,35 @@
 #include "GameConstants.h"
 #include "GameInput.h"
 
+#include "GameDirector.h"
+
 static const T_UINT8 DEFAULT_POWER = 8;
 static const T_UINT8 ATTACK_DELAY = 10;
 
 Player::Player()
-{}
+{
+  this->bullets_ = new BulletManager(10);
+}
 
 Player::~Player()
 {}
 
 void Player::GameInit()
 {
+  this->mae_ = new Cube3D();
+  this->mae_->SetLightingEnabled(false);
+  this->mae_->GetTransform()->SetY(-0.5f);
+  this->mae_->GetTransform()->SetZ(0.5f);
+  this->mae_->GetTransform()->SetScale(0.01f, 0.01f, 1.5f);
+  this->AddChild(this->mae_);
+  this->camera_ = new Camera3D_LookAt();
+  Scene* scene = GameDirector::GetScene();
+  this->camera_->GetRenderState()->AddTargetLayerId(0);
+  scene->AddCamera(this->camera_);
+  this->camera_->SetPlayer(this);
+
+  this->bullets_->AttachToEntity(scene->GetRoot3d());
+
   this->cursol_pos_ = TVec2f(0.0f, 0.0f);
   this->control_delay_ = 0;
   this->attack_delay_ = 0;
@@ -44,8 +62,25 @@ bool Player::ControllProcess()
   bool fire = false;
   const T_FLOAT w = (T_FLOAT)Director::GetInstance()->GetScreenWidth();
   const T_FLOAT h = (T_FLOAT)Director::GetInstance()->GetScreenHeight();
-  this->cursol_pos_.x = HalEngine::Input(0)->GetAxis(GameInput::SCREEN_X, 0.0f) * w;
-  this->cursol_pos_.y = HalEngine::Input(0)->GetAxis(GameInput::SCREEN_Y, 0.0f) * h;
+  //this->cursol_pos_.x = HalEngine::Input(0)->GetAxis(GameInput::SCREEN_X, 0.0f) * w;
+  //this->cursol_pos_.y = HalEngine::Input(0)->GetAxis(GameInput::SCREEN_Y, 0.0f) * h;
+
+  const T_FLOAT drx = HalEngine::Input(0)->GetAxis(GameInput::SCREEN_X, 0.0f);
+  const T_FLOAT dry = HalEngine::Input(0)->GetAxis(GameInput::SCREEN_Y, 0.0f);
+  const T_FLOAT LOOK_AT_X_MAX = 10.0f;
+  const T_FLOAT LOOK_AT_Y_MAX = 10.0f;
+  const T_FLOAT look_at_pos_x = std::min(LOOK_AT_X_MAX, std::max(-LOOK_AT_X_MAX, this->camera_->GetLookAtPosX() + drx));
+  const T_FLOAT look_at_pos_y = std::min(LOOK_AT_Y_MAX, std::max(-LOOK_AT_Y_MAX, this->camera_->GetLookAtPosY() - dry));
+  this->camera_->SetLookAtPosX(look_at_pos_x);
+  this->camera_->SetLookAtPosY(look_at_pos_y);
+  //this->camera_->GetTransform()->GetRotator()->RotateXAxis(0.1f);
+  //if (dry != 0.0f)
+  //{
+  //}
+  //if (drx != 0.0f)
+  //{
+  //  this->camera_->GetTransform()->GetRotator()->RotateYAxis(drx);
+  //}
 
   const T_FLOAT dx = HalEngine::Input(0)->GetAxis(GameInput::X_AXIS);
   const T_FLOAT dy = HalEngine::Input(0)->GetAxis(GameInput::Y_AXIS);
@@ -95,6 +130,7 @@ bool Player::ControllProcess()
       fire = true;
       this->attack_delay_ = ATTACK_DELAY;
       this->cursol_view_->OnAttack();
+      this->bullets_->Emmision(this, this->camera_->GetDirection());
     }
   }
   else
@@ -119,6 +155,7 @@ bool Player::ControllProcess()
 void Player::Update()
 {
   this->ControllProcess();
+  this->bullets_->Update();
   if (this->use_ear_)
   {
     this->ear_gauge_ = (T_UINT16)std::max((T_INT32)0, (T_INT32)(this->ear_gauge_ - 1));
@@ -188,4 +225,19 @@ void Player::OnEarChanged()
 void Player::OnCursolChanged()
 {
   this->cursol_view_->UpdatePosition(this->cursol_pos_);
+}
+
+void Player::AttackToEnemy(EnemyManager* enemys)
+{
+  std::map<Bullet*, std::deque<Enemy*>> results = std::map<Bullet*, std::deque<Enemy*>>();
+  this->bullets_->GetHitEntities(enemys, &results);
+  for (auto itr = results.begin(); itr != results.end(); ++itr)
+  {
+    Bullet* bullet = itr->first;
+    for (Enemy* enemy : itr->second)
+    {
+      enemy->OnWeakPointDamaged();
+    }
+  }
+
 }

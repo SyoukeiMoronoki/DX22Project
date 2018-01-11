@@ -3,13 +3,11 @@
 
 #include "GameSceneDirector.h"
 
-static const T_UINT8 COLLIDER_MAX = 3;
-
 GameEntity::GameEntity()
   : is_enabled_(false)
-  , collider_count_(0)
 {
-  this->collider_ = new GameEntityCollider*[COLLIDER_MAX];
+  this->collider_ = new GameEntityCollider(this);
+  this->SetVisible(false);
 }
 
 GameEntity::~GameEntity()
@@ -18,43 +16,12 @@ GameEntity::~GameEntity()
 
 void GameEntity::OnAllocated()
 {
-  for (T_UINT8 i = 0; i < COLLIDER_MAX; ++i)
-  {
-    this->collider_[i] = NULL;
-  }
-  this->collider_count_ = 0;
   this->SetVisible(true);
 }
 
 void GameEntity::OnFree()
 {
-  for (T_UINT8 i = 0; i < COLLIDER_MAX; ++i)
-  {
-    if (!this->collider_[i])
-    {
-      continue;
-    }
-    //GameSceneDirector::GetInstance().GetColliderAllocator()->Free(this->collider_[i]);
-    this->collider_[i] = NULL;
-  }
-  this->collider_count_ = 0;
   this->SetVisible(false);
-}
-
-void GameEntity::SetRadialRates(T_FLOAT radial_rate, T_FLOAT tangential_rate)
-{
-  this->radial_rate_ = radial_rate;
-  this->tangential_rate_ = tangential_rate;
-}
-
-void GameEntity::MoveRadialRate(T_FLOAT rate)
-{
-  this->radial_rate_ += rate;
-}
-
-void GameEntity::MoveTangential(T_FLOAT value)
-{
-  this->tangential_move_ += value;
 }
 
 //void GameEntity::ApplyViewPort(const ViewPort& viewport)
@@ -113,25 +80,7 @@ void GameEntity::MoveTangential(T_FLOAT value)
 //  this->ChangeTransform(view_scale * scale, pos_x * view_scale, -100);
 //}
 
-void GameEntity::AddCollider(GameEntityCollider* collider)
-{
-  if (this->collider_count_ == COLLIDER_MAX)
-  {
-    return;
-  }
-  this->collider_[this->collider_count_] = collider;
-  this->collider_count_++;
-  //collider->AttachEntity(this);
-}
-
 bool GameEntity::HitCheck(Collider3D* collider)
 {
-  for (T_UINT8 i = 0; i < this->collider_count_; ++i)
-  {
-    if (collider->Collision(*this->collider_[i]))
-    {
-      return true;
-    }
-  }
-  return false;
+  return collider->Collision(*this->collider_);
 }

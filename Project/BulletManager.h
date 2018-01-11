@@ -14,6 +14,6 @@ public:
   void Update();
 
 public:
-  void Emmision(GameObject3D* emmitter);
+  void Emmision(GameObject3D* emmitter, const TVec3f& direction);
 
 };

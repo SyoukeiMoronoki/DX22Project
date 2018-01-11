@@ -2,6 +2,7 @@
 
 #include <stdlib.h>
 #include "EnemyData.h"
+#include "Player.h"
 
 EnemyManager::EnemyManager(T_UINT8 enemy_max)
   : AllocatableGameEntityManager<Enemy>(enemy_max)
@@ -24,8 +25,12 @@ void EnemyManager::GameInit()
   this->data_manager_->GameInit();
 }
 
-void EnemyManager::Update()
+void EnemyManager::Update(bool is_sonar)
 {
+  this->Loop([&](Enemy* enemy)
+  {
+    enemy->EnemyUpdate(is_sonar);
+  });
   std::deque<Enemy*> dead_enemies = std::deque<Enemy*>();
   this->SelectAll(&dead_enemies, [](Enemy* enemy)
   {
@@ -90,14 +95,16 @@ bool EnemyManager::AttackToPlayer(Player* player)
 //  return weak_hit;
 //}
 
-Enemy* EnemyManager::SpawnToRandomPosition()
+Enemy* EnemyManager::SpawnToRandomPosition(Player* player)
 {
   Enemy* enemy = (Enemy*)this->Allocate();
   if (!enemy)
   {
     return nullptr;
   }
-  enemy->SetRadialRates(1.0f, (rand() % 360) / 360.f);
+  TVec3f pos = player->GetTransform()->GetPosition();
+  T_FLOAT rot = (rand() % 360) / 360.f;
+  enemy->GetTransform()->SetPosition(pos.x + cos(rot) * 10.0f, 0.0f, pos.z + sin(rot) * 10.0f);
   enemy->Spawn(this->data_manager_->GetRandom());
   return enemy;
 }

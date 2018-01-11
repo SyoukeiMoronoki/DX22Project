@@ -59,5 +59,6 @@ void Gauge::OnUpdateView()
   const T_FLOAT scale_x = this->width_ / this->sprite_->GetWidth();
   const T_FLOAT rate = (T_FLOAT)this->display_value_ / this->value_max_;
   this->sprite_->GetTransform()->SetScaleX(scale_x * rate);
+  this->sprite_->GetTransform()->SetX(this->width_ * 0.5f * rate);
 }
 

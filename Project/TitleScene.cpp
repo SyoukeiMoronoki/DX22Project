@@ -5,6 +5,7 @@
 
 #include "Asset.h"
 #include "GameInput.h"
+#include "InitScene.h"
 
 static const T_FLOAT NEAR = 128.0f;
 static const T_FLOAT FAR = 1024.0f;
@@ -77,7 +78,7 @@ void TitleScene::Update()
   //if (HalEngine::Input(0)->GetButtonDown(GameInput::FIRE))
   if (HalEngine::Input(0)->AnyButtonDown())
   {
-    Director::GetInstance()->ChangeScene(new GameScene());
+    Director::GetInstance()->ChangeScene(new InitScene());
     return;
   }
 }

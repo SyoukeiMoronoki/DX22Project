@@ -25,7 +25,7 @@ public:
   virtual void OnAllocated();
   virtual void OnFree();
 
-  virtual void EnemyUpdate();
+  virtual void EnemyUpdate(bool is_sonar);
   virtual void OnDamaged();
   virtual void OnWeakPointDamaged();
 
@@ -49,7 +49,7 @@ public:
 
   inline bool IsAlive() const
   {
-    return true;
+    return !this->is_dead_;
   }
   
 private:
@@ -66,5 +66,5 @@ private:
   const EnemyData* data_;
   TiledTextureRegion* texture_region_;
   AnimatedSprite3D* sprite_;
-  BillBoard* body_;
+  bool is_dead_;
 };

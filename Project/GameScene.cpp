@@ -65,11 +65,6 @@ void GameScene::OnLoad(IResourceLoadReserver* resource)
 
 void GameScene::OnSetup()
 {
-  Cube3D* cube = new Cube3D();
-  cube->SetLightingEnabled(false);
-  cube->GetTransform()->SetZ(10.0f);
-  this->AddChild(cube);
-
   this->camera2d_ = new Camera2D();
   this->camera2d_->SetViewportClear(false);
   this->camera2d_->GetRenderState()->AddTargetLayerId(0);
@@ -78,17 +73,12 @@ void GameScene::OnSetup()
   this->field_ = new MeshField(2000.0f, 2000.0f, 10, 10);
   this->field_->SetLightingEnabled(false);
   this->field_->SetTexture(Asset::Texture::FIELD_BG);
-  this->field_->GetTransform()->SetY(-5.0f);
+  this->field_->GetTransform()->SetY(-1.25f);
   this->field_->GetTransform()->GetRotator()->SetEularX(MathConstants::DegToRad(90.0f));
   this->AddChild(this->field_);
 
-  this->camera3d_ = new Camera3D_LookAt();
-  this->camera3d_->GetRenderState()->AddTargetLayerId(0);
-  this->AddCamera(this->camera3d_);
-
   this->player_ = new Player();
   this->AddChild(this->player_);
-  this->camera3d_->SetPlayer(this->player_);
 
   this->enemy_manager_ = new EnemyManager(ENEMY_MAX);
   this->enemy_manager_->AttachToEntity(this->GetRoot3d());
@@ -105,7 +95,6 @@ void GameScene::OnSetup()
   this->ui_player_ = new UI_Player();
   this->ui_player_->SetZIndex(ZINDEX_UI);
 
-  //‚±‚±‚Å‚ÌView‚Æ‚ÍMVC‚Å‚ÌView‚ÌŽ–
   this->player_->SetView(this->ui_player_, this->ui_cursol_);
 
   this->text_time_up_ = Sprite::CreateWithTexture(&Asset::Texture::TEXT_TIMEUP);
@@ -116,6 +105,22 @@ void GameScene::OnSetup()
   this->AddChild(this->boya_);
   this->AddChild(this->ui_cursol_);
   this->AddChild(this->ui_player_);
+  GameSceneDirector::GetInstance().Init();
+
+  this->player_->GameInit();
+  this->enemy_manager_->GameInit();
+  this->ui_player_->GameInit();
+  this->ui_cursol_->GameInit();
+
+  this->boya_->SetVisible(true);
+  this->boya_->SetColor(0, 0, 0, 255);
+  this->text_time_up_->SetVisible(false);
+
+  this->timeup_text_show_time_ = 0;
+  this->grand_slam_count_ = 0;
+  this->weak_happy_count_ = 0;
+  this->damage_count_ = 0;
+  this->time_count_ = GameConstants::GAME_TIME;
 }
 
 void GameScene::OnUnload()
@@ -144,22 +149,7 @@ void GameScene::OnUnload()
 
 void GameScene::OnShow(ISceneShowListener* listener)
 {
-  GameSceneDirector::GetInstance().Init();
 
-  this->player_->GameInit();
-  this->enemy_manager_->GameInit();
-  this->ui_player_->GameInit();
-  this->ui_cursol_->GameInit();
-
-  this->boya_->SetVisible(true);
-  this->boya_->SetColor(0, 0, 0, 255);
-  this->text_time_up_->SetVisible(false);
-
-  this->timeup_text_show_time_ = 0;
-  this->grand_slam_count_ = 0;
-  this->weak_happy_count_ = 0;
-  this->damage_count_ = 0;
-  this->time_count_ = GameConstants::GAME_TIME;
 }
 
 void GameScene::OnHide(ISceneHideListener* listener)
@@ -204,25 +194,17 @@ void GameScene::Update()
     this->boya_->SetRed((T_UINT8)(128 * damage_effect_rate));
   }
   
-  //this->player_->Update();
-  //this->ui_cursol_->Update();
-
-  //EnemyUpdateFacade enemy_update_facade;
-  //enemy_update_facade.SetSonarFlag(this->player_->IsUseEar());
-  this->enemy_manager_->Update();
+  bool use_ear = this->player_->IsUseEar();
+  this->field_->SetVisible(!use_ear);
+  this->enemy_manager_->Update(use_ear);
+ 
   this->ui_player_->Update();
-
-  //this->bg_->Update(this->player_->IsUseEar());
 
   if (rand() % ENEMY_SPWAN_PROBABILITY == 0)
   {
-    //this->enemy_manager_->SpawnToRandomPosition();
+    this->enemy_manager_->SpawnToRandomPosition(this->player_);
   }
-
-  //const ViewPort* view_port = this->player_->GetViewPort();
-  //this->enemy_manager_->ApplyViewPort(*view_port);
-  //this->bg_->ApplyViewPort(*view_port);
-
+  
   if (this->enemy_manager_->AttackToPlayer(this->player_))
   {
     if (this->damage_count_ == 0)
@@ -230,6 +212,8 @@ void GameScene::Update()
       this->damage_count_ = DAMAGE_EFFECT_TIME;
     }
   }
+
+  this->player_->AttackToEnemy(this->enemy_manager_);
   //bool fire = this->player_->ControllProcess(state);
   //if (fire)
   //{

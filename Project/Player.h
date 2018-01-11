@@ -2,6 +2,9 @@
 
 #include <HalEngine.h>
 
+#include "BulletManager.h"
+#include "EnemyManager.h"
+
 class GameEntity;
 class UI_Player;
 class UI_Cursol;
@@ -34,6 +37,8 @@ public:
   void OnEarChanged();
   void OnCursolChanged();
 
+  void AttackToEnemy(EnemyManager* enemys);
+
 public:
   inline T_UINT8 GetPower() const
   {
@@ -49,6 +54,9 @@ public:
   }
 
 private:
+  Cube3D* mae_;
+
+  Camera3D_LookAt* camera_;
   TVec2f cursol_pos_;
 
   T_UINT16 control_delay_;
@@ -62,8 +70,10 @@ private:
   T_UINT8 power_;
   T_FLOAT view_angle_;
 
-  //後々全てリスナーを用意して処理する
   UI_Cursol* cursol_view_;
   UI_Player* view_;
+
+  BulletManager* bullets_;
+
 };
 

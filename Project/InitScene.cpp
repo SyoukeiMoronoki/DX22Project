@@ -55,6 +55,6 @@ void InitScene::Update()
   //（プレイヤーやＣＰＵの人数、ステージの広さなど）
 
   //実行するシーン、キャラクターの参加状況、ゲームの設定をGameDirectorに渡し、ゲーム開始
-  //GameDirector::GameStart(new GameScene(), setting);
-  Director::GetInstance()->ChangeScene(new GameScene());
+  GameDirector::GameStart(new GameScene(), setting);
+  //Director::GetInstance()->ChangeScene(new GameScene());
 }
