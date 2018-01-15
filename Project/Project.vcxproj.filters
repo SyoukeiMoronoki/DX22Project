@@ -258,6 +258,9 @@
     <ClInclude Include="Spot.h">
       <Filter>ヘッダー ファイル\Game\Spot</Filter>
     </ClInclude>
+    <ClInclude Include="TestScene3.h">
+      <Filter>ヘッダー ファイル\Test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineSetting.cpp">
@@ -358,6 +361,9 @@
     </ClCompile>
     <ClCompile Include="NumberView.cpp">
       <Filter>ソース ファイル\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScene3.cpp">
+      <Filter>ソース ファイル\Test</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

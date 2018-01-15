@@ -103,7 +103,6 @@ void GameScene::OnSetup()
   GameSceneDirector::GetInstance().Init();
 
   this->player_->GameInit();
-  this->enemy_manager_->GameInit();
   this->ui_player_->GameInit();
 
   this->boya_->SetVisible(true);
@@ -144,6 +143,7 @@ void GameScene::OnShow(ISceneShowListener* listener)
 
 void GameScene::OnHide(ISceneHideListener* listener)
 {
+
 }
 
 void GameScene::Update()

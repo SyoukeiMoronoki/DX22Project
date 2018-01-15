@@ -1,5 +1,6 @@
 #include "EngineSetting.h"
 #include "InitScene.h"
+#include "TestScene3.h"
 
 #include "GameInput.h"
 
@@ -20,6 +21,7 @@ void EngineSetting::InputSetting(InputSettingBuilder* setting)
 Scene* EngineSetting::FirstScene()
 {
   return new InitScene();
+//  return new TestScene3();
 }
 
 TSize EngineSetting::WinodwSize()

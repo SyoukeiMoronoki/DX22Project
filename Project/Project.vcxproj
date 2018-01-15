@@ -188,6 +188,7 @@
     <ClCompile Include="ResultScene.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="TestScene2.cpp" />
+    <ClCompile Include="TestScene3.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="EngineSetting.cpp" />
     <ClCompile Include="GameEntity.cpp" />
@@ -229,6 +230,7 @@
     <ClInclude Include="Spot.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="TestScene2.h" />
+    <ClInclude Include="TestScene3.h" />
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="EngineSetting.h" />
     <ClInclude Include="GameEntity.h" />
