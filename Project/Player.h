@@ -4,10 +4,13 @@
 
 #include "BulletManager.h"
 #include "EnemyManager.h"
+#include "PlayerController_Walk.h"
+#include "PlayerController_Scope.h"
+#include "PlayerActor.h"
 
 class GameEntity;
 class UI_Player;
-class UI_Cursol;
+class PlayerUI_Player;
 
 class Player : public GameObject3D
 {
@@ -27,17 +30,17 @@ public:
   //最低限必要なディレイを入力。既にそれ以上のディレイがあれば何もしない
   void SetControlDelayNegative(T_UINT16 delay);
 
-  bool PayCost(T_UINT8 cost);
-
-  void SetView(UI_Player* view, UI_Cursol* cursol);
+  void SetView(UI_Player* view);
 
   bool AddDamage();
 
   void OnHPChanged();
   void OnEarChanged();
-  void OnCursolChanged();
 
   void AttackToEnemy(EnemyManager* enemys);
+
+protected:
+  void SetController(PlayerController* controller);
 
 public:
   inline T_UINT8 GetPower() const
@@ -52,13 +55,18 @@ public:
   {
     return this->hp_;
   }
+  inline PlayerActor* GetActor()
+  {
+    return this->actor_;
+  }
 
 private:
-  Cube3D* mae_;
+  PlayerController_Scope* scope_controller_;
+  PlayerController_Walk* walk_controller_;
+  PlayerController* current_controller_;
 
-  Camera3D_LookAt* camera_;
-  TVec2f cursol_pos_;
-
+  PlayerActor* actor_;
+  
   T_UINT16 control_delay_;
   T_UINT8 attack_delay_;
 
@@ -68,9 +76,7 @@ private:
   bool use_ear_;
   
   T_UINT8 power_;
-  T_FLOAT view_angle_;
 
-  UI_Cursol* cursol_view_;
   UI_Player* view_;
 
   BulletManager* bullets_;

@@ -4,16 +4,14 @@
 
 #include "GameEntity.h"
 
-class UI_Cursol : public GameObject2D
+class PlayerUI_Cursol : public GameObject2D
 {
 public:
-  UI_Cursol();
-  ~UI_Cursol();
+  PlayerUI_Cursol();
+  ~PlayerUI_Cursol();
 
 public:
-  void GameInit();
   void Update();
-  void UpdatePosition(const TVec2f& pos);
   void OnAttack();
     
 private:

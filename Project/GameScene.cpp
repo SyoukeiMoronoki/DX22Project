@@ -67,15 +67,14 @@ void GameScene::OnSetup()
 {
   this->camera2d_ = new Camera2D();
   this->camera2d_->SetViewportClear(false);
-  this->camera2d_->GetRenderState()->AddTargetLayerId(0);
   this->AddCamera(this->camera2d_);
 
   this->field_ = new MeshField(2000.0f, 2000.0f, 10, 10);
   this->field_->SetLightingEnabled(false);
   this->field_->SetTexture(Asset::Texture::FIELD_BG);
   this->field_->GetTransform()->SetY(-1.25f);
-  this->field_->GetTransform()->GetRotator()->SetEularX(MathConstants::DegToRad(90.0f));
-  this->AddChild(this->field_);
+  this->field_->GetTransform()->SetEularX(MathConstants::DegToRad(90.0f));
+  //this->AddChild(this->field_);
 
   this->player_ = new Player();
   this->AddChild(this->player_);
@@ -89,13 +88,10 @@ void GameScene::OnSetup()
   this->boya_->GetTransform()->SetScale(screen_size.width / boya_width, screen_size.height / boya_width);
   this->boya_->SetZIndex(ZINDEX_BOYA);
 
-  this->ui_cursol_ = new UI_Cursol();
-  this->ui_cursol_->SetZIndex(ZINDEX_CURSOL);
-
   this->ui_player_ = new UI_Player();
   this->ui_player_->SetZIndex(ZINDEX_UI);
 
-  this->player_->SetView(this->ui_player_, this->ui_cursol_);
+  this->player_->SetView(this->ui_player_);
 
   this->text_time_up_ = Sprite::CreateWithTexture(&Asset::Texture::TEXT_TIMEUP);
   this->text_time_up_->SetVisible(false);
@@ -103,14 +99,12 @@ void GameScene::OnSetup()
   this->AddChild(this->text_time_up_);
 
   this->AddChild(this->boya_);
-  this->AddChild(this->ui_cursol_);
   this->AddChild(this->ui_player_);
   GameSceneDirector::GetInstance().Init();
 
   this->player_->GameInit();
   this->enemy_manager_->GameInit();
   this->ui_player_->GameInit();
-  this->ui_cursol_->GameInit();
 
   this->boya_->SetVisible(true);
   this->boya_->SetColor(0, 0, 0, 255);
@@ -136,10 +130,6 @@ void GameScene::OnUnload()
   if (this->boya_)
   {
     delete this->boya_;
-  }
-  if (this->ui_cursol_)
-  {
-    delete this->ui_cursol_;
   }
   if (this->ui_player_)
   {

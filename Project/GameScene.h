@@ -2,8 +2,6 @@
 
 #include <HalEngine.h>
 
-#include "UI_Cursol.h"
-
 class Player;
 class EnemyManager;
 class UI_Player;
@@ -32,7 +30,6 @@ private:
   MeshField* field_;
 
   UI_Player* ui_player_;
-  UI_Cursol* ui_cursol_;
 
   Sprite* boya_;
   Sprite* text_time_up_;

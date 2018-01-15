@@ -15,8 +15,10 @@ enum
   Y_AXIS, //Y軸入力
   SCREEN_X, //X軸画面上位置
   SCREEN_Y, //Y軸画面上位置
+  FOCUS,  //視点を合わせる
   FIRE,   //ショット
   EYE,    //眼
+  SCOPE,  //スコープ
 
   GAME_INPUT_DATANUM, //ここは触らない
 };

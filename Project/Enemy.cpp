@@ -25,8 +25,7 @@ Enemy::Enemy()
   this->sprite_->SetTextureRegion(this->texture_region_);
   this->AddChild(this->sprite_);
 
-  this->weak_point_sprite_ = new BillBoard();
-  this->weak_point_sprite_->SetTexture(Asset::Texture::ENEMY_WEAK_POINT);
+  this->weak_point_sprite_ = Sprite3D::CreateWithTexture(&Asset::Texture::ENEMY_WEAK_POINT);
   this->weak_point_sprite_->SetLightingEnabled(false);
   //this->weak_point_sprite_->SetColor(Color::RED);
   this->weak_point_sprite_->SetVisible(false);
@@ -87,7 +86,7 @@ void Enemy::EnemyUpdate(bool is_sonar)
   {
     this->death_count_--;
     T_UINT8 death_angle = (T_UINT8)std::min((T_INT32)DEATH_COUNT, ((T_INT32)DEATH_COUNT - (T_INT32)this->death_count_) * 4);
-    this->sprite_->GetTransform()->GetRotator()->SetEularZ((T_FLOAT)death_angle / DEATH_COUNT * MathConstants::PI * 0.5f);
+    this->sprite_->GetTransform()->SetEularZ((T_FLOAT)death_angle / DEATH_COUNT * MathConstants::PI * 0.5f);
     if (this->death_count_ == 0)
     {
       this->is_dead_ = true;

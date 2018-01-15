@@ -180,7 +180,11 @@
     <ClCompile Include="InitScene.cpp" />
     <ClCompile Include="NumberView.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerActor.cpp" />
     <ClCompile Include="PlayerCamera.cpp" />
+    <ClCompile Include="PlayerController.cpp" />
+    <ClCompile Include="PlayerController_Scope.cpp" />
+    <ClCompile Include="PlayerController_Walk.cpp" />
     <ClCompile Include="ResultScene.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="TestScene2.cpp" />
@@ -188,7 +192,7 @@
     <ClCompile Include="EngineSetting.cpp" />
     <ClCompile Include="GameEntity.cpp" />
     <ClCompile Include="GameEntityCollider.cpp" />
-    <ClCompile Include="UI_Cursol.cpp" />
+    <ClCompile Include="PlayerUI_Cursol.cpp" />
     <ClCompile Include="UI_Player.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -215,9 +219,12 @@
     <ClInclude Include="GameInput.h" />
     <ClInclude Include="IPlayerCamera.h" />
     <ClInclude Include="NumberView.h" />
-    <ClInclude Include="ParticleResource.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerActor.h" />
     <ClInclude Include="PlayerCamera.h" />
+    <ClInclude Include="PlayerController.h" />
+    <ClInclude Include="PlayerController_Scope.h" />
+    <ClInclude Include="PlayerController_Walk.h" />
     <ClInclude Include="ResultScene.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="TestScene2.h" />
@@ -226,7 +233,7 @@
     <ClInclude Include="GameEntity.h" />
     <ClInclude Include="GameEntityManager.h" />
     <ClInclude Include="GameEntityCollider.h" />
-    <ClInclude Include="UI_Cursol.h" />
+    <ClInclude Include="PlayerUI_Cursol.h" />
     <ClInclude Include="UI_Player.h" />
   </ItemGroup>
   <ItemGroup>

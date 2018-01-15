@@ -109,6 +109,30 @@
     <Filter Include="ソース ファイル\Test">
       <UniqueIdentifier>{1067c816-7644-4b23-9d7f-8de625887068}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Player\Controller">
+      <UniqueIdentifier>{c9f33665-3e1f-4974-8d00-bac3fc1d433a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Player\Controller">
+      <UniqueIdentifier>{6375a969-78fe-41fb-8444-0fcf63af2fa4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Player\Controller\Scope">
+      <UniqueIdentifier>{e2119ba5-f5e1-490d-9a8d-5b41733cfd25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Player\Controller\Walk">
+      <UniqueIdentifier>{e70cbd84-2ef4-498a-9a47-885510cb72f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Player\Controller\Scope">
+      <UniqueIdentifier>{bf2fa40a-f196-4e39-9ab7-77d5d1935720}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Player\Controller\Walk">
+      <UniqueIdentifier>{24057f9c-d618-4064-8efd-2aafa9c4831b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Enemy">
+      <UniqueIdentifier>{258c953c-6919-4c5c-8eda-78227d2593ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Enemy">
+      <UniqueIdentifier>{720f5a55-d9fb-4e1a-a911-3a7fe3357058}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineSetting.h">
@@ -165,41 +189,11 @@
     <ClInclude Include="BulletManager.h">
       <Filter>ヘッダー ファイル\Game\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyAttribute_Zako_1.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyData.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="IEnemyAttribute.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="NumberView.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleResource.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>ヘッダー ファイル\Game\Player</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyAttribute_Zako_2.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyDataManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="ResultScene.h">
       <Filter>ヘッダー ファイル\Scene\ResultScene</Filter>
-    </ClInclude>
-    <ClInclude Include="UI_Cursol.h">
-      <Filter>ヘッダー ファイル\Game\UI</Filter>
     </ClInclude>
     <ClInclude Include="UI_Player.h">
       <Filter>ヘッダー ファイル\Game\UI</Filter>
@@ -218,6 +212,45 @@
     </ClInclude>
     <ClInclude Include="GameSceneDirector.h">
       <Filter>ヘッダー ファイル\Scene\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerController.h">
+      <Filter>ヘッダー ファイル\Game\Player\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerController_Scope.h">
+      <Filter>ヘッダー ファイル\Game\Player\Controller\Scope</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerController_Walk.h">
+      <Filter>ヘッダー ファイル\Game\Player\Controller\Walk</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerUI_Cursol.h">
+      <Filter>ヘッダー ファイル\Game\Player\Controller\Scope</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerActor.h">
+      <Filter>ヘッダー ファイル\Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyDataManager.h">
+      <Filter>ヘッダー ファイル\Game\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>ヘッダー ファイル\Game\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyAttribute_Zako_1.h">
+      <Filter>ヘッダー ファイル\Game\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyAttribute_Zako_2.h">
+      <Filter>ヘッダー ファイル\Game\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyData.h">
+      <Filter>ヘッダー ファイル\Game\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyManager.h">
+      <Filter>ヘッダー ファイル\Game\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="IEnemyAttribute.h">
+      <Filter>ヘッダー ファイル\Game\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="NumberView.h">
+      <Filter>ヘッダー ファイル\Game\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -260,34 +293,10 @@
     <ClCompile Include="GameSetting.cpp">
       <Filter>ソース ファイル\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyAttribute_Zako_1.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyData.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="NumberView.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyAttribute_Zako_2.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyDataManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="ResultScene.cpp">
       <Filter>ソース ファイル\Scene\ResultScene</Filter>
     </ClCompile>
     <ClCompile Include="UI_Player.cpp">
-      <Filter>ソース ファイル\Game\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="UI_Cursol.cpp">
       <Filter>ソース ファイル\Game\UI</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
@@ -306,6 +315,42 @@
       <Filter>ソース ファイル\Game\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Gauge.cpp">
+      <Filter>ソース ファイル\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerController.cpp">
+      <Filter>ソース ファイル\Game\Player\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerController_Walk.cpp">
+      <Filter>ソース ファイル\Game\Player\Controller\Walk</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerController_Scope.cpp">
+      <Filter>ソース ファイル\Game\Player\Controller\Scope</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerUI_Cursol.cpp">
+      <Filter>ソース ファイル\Game\Player\Controller\Scope</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerActor.cpp">
+      <Filter>ソース ファイル\Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>ソース ファイル\Game\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyAttribute_Zako_1.cpp">
+      <Filter>ソース ファイル\Game\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyAttribute_Zako_2.cpp">
+      <Filter>ソース ファイル\Game\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyData.cpp">
+      <Filter>ソース ファイル\Game\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyDataManager.cpp">
+      <Filter>ソース ファイル\Game\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManager.cpp">
+      <Filter>ソース ファイル\Game\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="NumberView.cpp">
       <Filter>ソース ファイル\Game\UI</Filter>
     </ClCompile>
   </ItemGroup>

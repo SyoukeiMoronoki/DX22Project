@@ -28,8 +28,12 @@ void BulletManager::Emmision(GameObject3D* emmitter, const TVec3f& direction)
   //TODO:@‹O“¹‚ª‚¨‚©‚µ‚¢
   bullet->GetTransform()->SetPosition(emmitter->GetTransform()->GetWorldPosition());
   TVec3f dir = direction;
-  dir.x *= -1.0f;
-  dir.y *= -1.0f;
+  //dir.x *= -1.0f;
+
+  //emmitter->GetTransform()->GetRotationMatrix()->Apply(&dir);
+  //ret = ret.Normalized();
+  //ret *= -1.0f;
+
   bullet->SetVelocity(dir);
   //bullet->SetVelocity(emmitter->GetTransform()->GetDirection());
 }

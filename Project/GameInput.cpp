@@ -24,12 +24,14 @@ using namespace EngineInput;
 
 static const InputEntity INPUT_ENTITIES[GameInput::GAME_INPUT_DATANUM] =
 {
-  { GameInput::X_AXIS, Digital::ID_LEFT, Digital::ID_RIGHT, Analog::ID_L_0_XY, Analog::DIMENSION_X },
-  { GameInput::Y_AXIS, Digital::ID_DOWN, Digital::ID_UP, Analog::ID_L_0_XY, Analog::DIMENSION_Y },
-  { GameInput::SCREEN_X, Analog::ID_SCREEN_1_XY, Analog::DIMENSION_X },
-  { GameInput::SCREEN_Y, Analog::ID_SCREEN_1_XY, Analog::DIMENSION_Y },
+  { GameInput::X_AXIS, Digital::ID_LEFT2, Digital::ID_RIGHT2, Analog::ID_L_0_XY, Analog::DIMENSION_X },
+  { GameInput::Y_AXIS, Digital::ID_DOWN2, Digital::ID_UP2, Analog::ID_L_0_XY, Analog::DIMENSION_Y },
+  { GameInput::SCREEN_X, Digital::ID_LEFT3, Digital::ID_RIGHT3, Analog::ID_R_0_XY, Analog::DIMENSION_X },
+  { GameInput::SCREEN_Y, Digital::ID_DOWN3, Digital::ID_UP3, Analog::ID_R_0_XY, Analog::DIMENSION_Y },
+  { GameInput::FOCUS, Digital::ID_L1 },
   { GameInput::FIRE, Digital::ID_X },
   { GameInput::EYE, Digital::ID_Y },
+  { GameInput::SCOPE, Digital::ID_A },
 };
 
 //Ç±Ç±ÇÕêGÇÁÇ»Ç¢

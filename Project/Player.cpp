@@ -4,7 +4,6 @@
 #include "GameEntity.h"
 
 #include "UI_Player.h"
-#include "UI_Cursol.h"
 
 #include "GameSceneDirector.h"
 
@@ -17,30 +16,30 @@ static const T_UINT8 DEFAULT_POWER = 8;
 static const T_UINT8 ATTACK_DELAY = 10;
 
 Player::Player()
+  : current_controller_(nullptr)
 {
+  this->actor_ = new PlayerActor(this);
   this->bullets_ = new BulletManager(10);
+  this->walk_controller_ = new PlayerController_Walk(this);
+  this->scope_controller_ = new PlayerController_Scope(this);
 }
 
 Player::~Player()
-{}
+{
+  delete this->actor_;
+  delete this->bullets_;
+  delete this->walk_controller_;
+  delete this->scope_controller_;
+}
 
 void Player::GameInit()
 {
-  this->mae_ = new Cube3D();
-  this->mae_->SetLightingEnabled(false);
-  this->mae_->GetTransform()->SetY(-0.5f);
-  this->mae_->GetTransform()->SetZ(0.5f);
-  this->mae_->GetTransform()->SetScale(0.01f, 0.01f, 1.5f);
-  this->AddChild(this->mae_);
-  this->camera_ = new Camera3D_LookAt();
-  Scene* scene = GameDirector::GetScene();
-  this->camera_->GetRenderState()->AddTargetLayerId(0);
-  scene->AddCamera(this->camera_);
-  this->camera_->SetPlayer(this);
+  this->SetController(this->walk_controller_);
 
-  this->bullets_->AttachToEntity(scene->GetRoot3d());
+  this->AddChild(this->actor_);
 
-  this->cursol_pos_ = TVec2f(0.0f, 0.0f);
+  this->bullets_->AttachToEntity(GameDirector::GetScene()->GetRoot3d());
+
   this->control_delay_ = 0;
   this->attack_delay_ = 0;
   this->hp_ = GameConstants::HP_MAX;
@@ -48,105 +47,54 @@ void Player::GameInit()
   this->use_ear_ = false;
   this->power_ = DEFAULT_POWER;
 
-  this->OnCursolChanged();
   this->OnEarChanged();
   this->OnHPChanged();
 }
 
 bool Player::ControllProcess()
 {
+  using namespace HalEngine;
+  using namespace GameInput;
+  if (Input(0)->GetButtonDown(SCOPE))
+  {
+    if (this->current_controller_ == this->scope_controller_)
+    {
+      this->SetController(this->walk_controller_);
+    }
+    else
+    {
+      this->SetController(this->scope_controller_);
+    }
+  }
   if (this->control_delay_ > 0)
   {
     return false;
   }
+  this->current_controller_->ControllProcess();
   bool fire = false;
-  const T_FLOAT w = (T_FLOAT)Director::GetInstance()->GetScreenWidth();
-  const T_FLOAT h = (T_FLOAT)Director::GetInstance()->GetScreenHeight();
-  //this->cursol_pos_.x = HalEngine::Input(0)->GetAxis(GameInput::SCREEN_X, 0.0f) * w;
-  //this->cursol_pos_.y = HalEngine::Input(0)->GetAxis(GameInput::SCREEN_Y, 0.0f) * h;
 
-  const T_FLOAT drx = HalEngine::Input(0)->GetAxis(GameInput::SCREEN_X, 0.0f);
-  const T_FLOAT dry = HalEngine::Input(0)->GetAxis(GameInput::SCREEN_Y, 0.0f);
-  const T_FLOAT LOOK_AT_X_MAX = 10.0f;
-  const T_FLOAT LOOK_AT_Y_MAX = 10.0f;
-  const T_FLOAT look_at_pos_x = std::min(LOOK_AT_X_MAX, std::max(-LOOK_AT_X_MAX, this->camera_->GetLookAtPosX() + drx));
-  const T_FLOAT look_at_pos_y = std::min(LOOK_AT_Y_MAX, std::max(-LOOK_AT_Y_MAX, this->camera_->GetLookAtPosY() - dry));
-  this->camera_->SetLookAtPosX(look_at_pos_x);
-  this->camera_->SetLookAtPosY(look_at_pos_y);
-  //this->camera_->GetTransform()->GetRotator()->RotateXAxis(0.1f);
-  //if (dry != 0.0f)
-  //{
-  //}
-  //if (drx != 0.0f)
-  //{
-  //  this->camera_->GetTransform()->GetRotator()->RotateYAxis(drx);
-  //}
-
-  const T_FLOAT dx = HalEngine::Input(0)->GetAxis(GameInput::X_AXIS);
-  const T_FLOAT dy = HalEngine::Input(0)->GetAxis(GameInput::Y_AXIS);
-  this->GetTransform()->GetRotator()->RotateY(dx * 0.1f);
-  this->GetTransform()->MoveZ(dy * 0.5f);
-
-  this->OnCursolChanged();
-
-  if (this->cursol_pos_.x < -w * 0.4f)
-  {
-    this->view_angle_ -= 0.02f;
-  }
-  else if (this->cursol_pos_.x > w * 0.4f)
-  {
-    this->view_angle_ += 0.02f;
-  }
-  else if (this->cursol_pos_.x < -w * 0.3f)
-  {
-    this->view_angle_ -= 0.005f;
-  }
-  else if (this->cursol_pos_.x > w * 0.3f)
-  {
-    this->view_angle_ += 0.005f;
-  }
-
-  if (this->view_angle_ > 1.0f)
-  {
-    this->view_angle_ -= 1.0f;
-  }
-  else if (this->view_angle_ < 0.0f)
-  {
-    this->view_angle_ += 1.0f;
-  }
-
-  //this->viewport_.SetCameraAngleRad(this->view_angle_ * MathConstants::PI2);
-
-  if (this->view_angle_ < 0.1f)
-  {
-    this->view_angle_ = this->view_angle_ * 1.0f;
-  }
-
-  using namespace EngineInput::Digital;
   if (attack_delay_ == 0)
   {
-    if (HalEngine::Input(0)->GetButton(GameInput::FIRE))
+    if (Input(0)->GetButton(FIRE))
     {
       fire = true;
       this->attack_delay_ = ATTACK_DELAY;
-      this->cursol_view_->OnAttack();
-      this->bullets_->Emmision(this, this->camera_->GetDirection());
+      this->current_controller_->OnAttack();
+      this->bullets_->Emmision(this, this->current_controller_->GetBulletDirection());
     }
   }
   else
   {
     this->attack_delay_--;
-  }
-  if (this->use_ear_)
+  }    
+  
+  if (Input(0)->GetButtonDown(EYE))
   {
-    if (!HalEngine::Input(0)->GetButton(GameInput::EYE))
-    {
-      this->use_ear_ = false;
-    }
+    this->use_ear_ = !this->use_ear_;
   }
-  else if (this->ear_gauge_ > 50 && HalEngine::Input(0)->GetButton(GameInput::EYE))
+  if (this->ear_gauge_ < 50)
   {
-    this->use_ear_ = true;
+    this->use_ear_ = false;
   }
 
   return fire;
@@ -156,6 +104,7 @@ void Player::Update()
 {
   this->ControllProcess();
   this->bullets_->Update();
+
   if (this->use_ear_)
   {
     this->ear_gauge_ = (T_UINT16)std::max((T_INT32)0, (T_INT32)(this->ear_gauge_ - 1));
@@ -186,19 +135,12 @@ void Player::SetControlDelayNegative(T_UINT16 delay)
   this->control_delay_ = std::max(this->control_delay_, delay);
 }
 
-bool Player::PayCost(T_UINT8 cost)
-{
-  return true;
-}
-
-void Player::SetView(UI_Player* view, UI_Cursol* cursol)
+void Player::SetView(UI_Player* view)
 {
   this->view_ = view;
-  this->cursol_view_ = cursol;
 
   this->OnHPChanged();
   this->OnEarChanged();
-  this->OnCursolChanged();
 }
 
 bool Player::AddDamage()
@@ -222,11 +164,6 @@ void Player::OnEarChanged()
   this->view_->GetEarView()->SetValue(this->ear_gauge_);
 }
 
-void Player::OnCursolChanged()
-{
-  this->cursol_view_->UpdatePosition(this->cursol_pos_);
-}
-
 void Player::AttackToEnemy(EnemyManager* enemys)
 {
   std::map<Bullet*, std::deque<Enemy*>> results = std::map<Bullet*, std::deque<Enemy*>>();
@@ -240,4 +177,15 @@ void Player::AttackToEnemy(EnemyManager* enemys)
     }
   }
 
+}
+
+void Player::SetController(PlayerController* controller)
+{
+  if (this->current_controller_)
+  {
+    this->current_controller_->End();
+  }
+  PlayerController* const prev = this->current_controller_;
+  this->current_controller_ = controller;
+  this->current_controller_->Start(prev);
 }

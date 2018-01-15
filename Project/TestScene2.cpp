@@ -6,6 +6,9 @@
 void TestScene2::OnLoad(IResourceLoadReserver* resource)
 {
   resource->ReserveLoad(Asset::Texture::FIELD_BOYA);
+  resource->ReserveLoad(Asset::Texture::PLAYER_BULLET);
+  resource->ReserveLoad(Asset::Texture::FIELD_BG_SONAR);
+  resource->ReserveLoad(Asset::Texture::UI_HPGAUGE);
 }
 
 void TestScene2::OnSetup()
@@ -13,8 +16,10 @@ void TestScene2::OnSetup()
   Camera2D* camera = new Camera2D();
   camera->GetRenderState()->AddTargetLayerId(0);
   this->AddCamera(camera);
-  Sprite* sprite = Sprite::CreateWithTexture(&Asset::Texture::FIELD_BOYA);
-  this->AddChild(sprite);
+  this->AddChild(Sprite::CreateWithTexture(&Asset::Texture::FIELD_BOYA));
+  this->AddChild(Sprite::CreateWithTexture(&Asset::Texture::PLAYER_BULLET));
+  this->AddChild(Sprite::CreateWithTexture(&Asset::Texture::FIELD_BG_SONAR));
+  this->AddChild(Sprite::CreateWithTexture(&Asset::Texture::UI_HPGAUGE));
 }
 
 void TestScene2::OnUnload()

@@ -61,7 +61,7 @@ private:
   T_UINT8 death_count_;
 
   Collider3D_Sphare* weak_point_;
-  BillBoard* weak_point_sprite_;
+  Sprite3D* weak_point_sprite_;
 
   const EnemyData* data_;
   TiledTextureRegion* texture_region_;
