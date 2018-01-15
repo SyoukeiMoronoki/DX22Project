@@ -133,6 +133,9 @@
     <Filter Include="ソース ファイル\Game\Enemy">
       <UniqueIdentifier>{720f5a55-d9fb-4e1a-a911-3a7fe3357058}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Spot">
+      <UniqueIdentifier>{de6b6efe-98a9-4d45-a79d-25b7b534badc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineSetting.h">
@@ -251,6 +254,9 @@
     </ClInclude>
     <ClInclude Include="NumberView.h">
       <Filter>ヘッダー ファイル\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Spot.h">
+      <Filter>ヘッダー ファイル\Game\Spot</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

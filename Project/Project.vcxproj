@@ -100,7 +100,7 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
-      <AdditionalIncludeDirectories>..\Engine\Engine;..\Engine\Engine\spine-c\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Engine\Engine;..\Engine\Engine\Lib\include;..\Engine\Engine\spine-c\include</AdditionalIncludeDirectories>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -110,7 +110,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <CompileAs>CompileAsCpp</CompileAs>
-      <AdditionalIncludeDirectories>..\Engine\Engine;..\Engine\Engine\spine-c\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Engine\Engine;..\Engine\Engine\Lib\include;..\Engine\Engine\spine-c\include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
     </ClCompile>
@@ -131,7 +131,7 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
-      <AdditionalIncludeDirectories>..\Engine\Engine;..\Engine\Engine\spine-c\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Engine\Engine;..\Engine\Engine\Lib\include;..\Engine\Engine\spine-c\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -147,7 +147,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <CompileAs>CompileAsCpp</CompileAs>
-      <AdditionalIncludeDirectories>..\Engine\Engine;..\Engine\Engine\spine-c\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Engine\Engine;..\Engine\Engine\Lib\include;..\Engine\Engine\spine-c\include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
     </ClCompile>
@@ -226,6 +226,7 @@
     <ClInclude Include="PlayerController_Scope.h" />
     <ClInclude Include="PlayerController_Walk.h" />
     <ClInclude Include="ResultScene.h" />
+    <ClInclude Include="Spot.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="TestScene2.h" />
     <ClInclude Include="TitleScene.h" />

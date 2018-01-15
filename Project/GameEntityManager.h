@@ -33,6 +33,13 @@ public:
     });
   }
 
+  T* Collision(Collider3D* collider)
+  {
+    return Select([&](T* p) {
+      return collider->Collision(*p->GetCollider());
+    });
+  }
+
   T* GetHitEntity(GameEntity* other)
   {
     return Select([&](T* p) {

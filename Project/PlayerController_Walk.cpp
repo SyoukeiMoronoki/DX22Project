@@ -10,6 +10,9 @@ PlayerController_Walk::PlayerController_Walk(Player* player)
 
 void PlayerController_Walk::OnStart(const PlayerController* prev)
 {
+  this->player_->GetActor()->GetTransform()->SetEularY(0.0f);
+  this->camera_->GetTransform()->SetEularAngles(TVec3f(0.0f, 0.0f, 0.0f));
+  this->direction_quaternion_.FromRotationMatrix(*this->player_->GetActor()->GetTransform()->GetWorldMatrix());
 }
 
 void PlayerController_Walk::OnEnd()
@@ -33,6 +36,10 @@ void PlayerController_Walk::ControllProcess()
     TVec3f(0.0f, 0.0f, 1.0f),
     0.25f
   ));
+  this->player_->GetTransform()->LerpRotation(
+    this->direction_quaternion_,
+    0.25f
+  );
 
   const T_FLOAT dx = Input(0)->GetAxis(X_AXIS);
   const T_FLOAT dy = Input(0)->GetAxis(Y_AXIS);
@@ -41,6 +48,11 @@ void PlayerController_Walk::ControllProcess()
   if (dx != 0.0f || dy != 0.0f)
   {
     this->player_->GetActor()->Walk(dx, dy);
+  }
+  if (Input(0)->GetButtonDown(FOCUS))
+  {
+    this->direction_quaternion_.FromRotationMatrix(*this->player_->GetActor()->GetTransform()->GetWorldMatrix());
+    this->player_->GetActor()->Face();
   }
 }
 

@@ -19,5 +19,5 @@ public:
   const TVec3f GetBulletDirection() const override;
 
 private:
-
+  Quaternion direction_quaternion_;
 };

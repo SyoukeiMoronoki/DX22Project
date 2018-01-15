@@ -17,6 +17,11 @@ public:
     ENEMY_SUB_DATANUM,
   };
 
+  enum SpecialSpotColor
+  {
+    SPOT_RED,
+  };
+
 public:
   Enemy();
   ~Enemy();

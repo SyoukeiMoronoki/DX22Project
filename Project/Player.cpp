@@ -22,6 +22,8 @@ Player::Player()
   this->bullets_ = new BulletManager(10);
   this->walk_controller_ = new PlayerController_Walk(this);
   this->scope_controller_ = new PlayerController_Scope(this);
+  this->collider_ = new Collider3D_Sphare(this);
+  this->collider_->SetRadius(0.5f);
 }
 
 Player::~Player()
@@ -166,6 +168,7 @@ void Player::OnEarChanged()
 
 void Player::AttackToEnemy(EnemyManager* enemys)
 {
+
   std::map<Bullet*, std::deque<Enemy*>> results = std::map<Bullet*, std::deque<Enemy*>>();
   this->bullets_->GetHitEntities(enemys, &results);
   for (auto itr = results.begin(); itr != results.end(); ++itr)
@@ -174,6 +177,7 @@ void Player::AttackToEnemy(EnemyManager* enemys)
     for (Enemy* enemy : itr->second)
     {
       enemy->OnWeakPointDamaged();
+      bullet->OnHitEnemy();
     }
   }
 

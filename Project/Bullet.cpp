@@ -34,3 +34,8 @@ void Bullet::Update()
   this->lifetime_--;
   this->GetTransform()->SetPosition(this->GetTransform()->GetPosition() + this->velocity_);
 }
+
+void Bullet::OnHitEnemy()
+{
+  this->lifetime_ = 0;
+}

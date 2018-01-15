@@ -49,7 +49,7 @@ void InitScene::Update()
   param.power_weight = 0.01f;
 
   //param.star_levels.star_count = 100;
-    
+  
   //これらの設定を決める過程をプログラム内で行っているが、
   //実際にはゲーム開始までに至る画面でプレイヤー側がある程度設定できるようにするといい
   //（プレイヤーやＣＰＵの人数、ステージの広さなど）

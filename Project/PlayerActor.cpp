@@ -27,19 +27,16 @@ PlayerActor::~PlayerActor()
 
 void PlayerActor::Update()
 {
-  //this->GetTransform()->LerpRotation(this->direction_quaternion_, 0.25f);
+  this->GetTransform()->LerpRotation(this->direction_quaternion_, 0.25f);
 }
 
 void PlayerActor::Walk(T_FLOAT x, T_FLOAT y)
 {
   T_FLOAT rad = -atan2f(y, x) + MathConstants::PI_1_2;
-  //this->direction_quaternion_ = Quaternion(TVec3f(0.0f, 1.0f, 0.0f), rad);
+  this->direction_quaternion_ = Quaternion(TVec3f(0.0f, 1.0f, 0.0f), rad);
 }
 
-//
-//void PlayerActor::Face()
-//{
-//  T_FLOAT rot = this->GetTransform()->GetEularY();
-//  this->GetTransform()->SetEularY(0.0f);
-//  this->player_->GetTransform()->SetEularY(-this->player_->GetTransform()->GetEularY() - rot);
-//}
+void PlayerActor::Face()
+{
+  this->direction_quaternion_ = Quaternion();
+}

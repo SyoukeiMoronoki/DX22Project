@@ -5,7 +5,7 @@
 namespace GameConstants
 {
 
-static const T_UINT16 GAME_TIME = 3000;
+static const T_UINT16 GAME_TIME = 1000;
 static const T_UINT16 HP_MAX = 1000;
 static const T_UINT16 EYE_GAUGE_MAX = 1000;
 

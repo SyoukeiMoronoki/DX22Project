@@ -60,6 +60,7 @@ void Enemy::OnAllocated()
   this->weak_point_ = NULL;
   this->GetTransform()->Init();
   this->sprite_->GetTransform()->Init();
+  this->sprite_->GetTransform()->SetZ(1.5f);
   this->sprite_->GetMaterial()->SetDiffuse(255, 255, 255, 255);
   this->sprite_->Animate(ANIMATION_DURATION);
   this->SetVisible(true);

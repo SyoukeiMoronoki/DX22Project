@@ -74,7 +74,7 @@ void GameScene::OnSetup()
   this->field_->SetTexture(Asset::Texture::FIELD_BG);
   this->field_->GetTransform()->SetY(-1.25f);
   this->field_->GetTransform()->SetEularX(MathConstants::DegToRad(90.0f));
-  //this->AddChild(this->field_);
+  this->AddChild(this->field_);
 
   this->player_ = new Player();
   this->AddChild(this->player_);
@@ -204,6 +204,14 @@ void GameScene::Update()
   }
 
   this->player_->AttackToEnemy(this->enemy_manager_);
+
+  if (this->enemy_manager_->AttackToPlayer(this->player_))
+  {
+    if (this->damage_count_ == 0)
+    {
+      this->damage_count_ = DAMAGE_EFFECT_TIME;
+    }
+  }
   //bool fire = this->player_->ControllProcess(state);
   //if (fire)
   //{

@@ -15,6 +15,7 @@ public:
 
 public:
   void Update() override;
+  void OnHitEnemy();
 
 public:
   inline bool IsAlive()

@@ -13,8 +13,14 @@ public:
 
 public:
   void Walk(T_FLOAT x, T_FLOAT y);
-  //void Face();
+  void Face();
   
+public:
+  inline const Quaternion& GetDirectionQuaternion() const
+  {
+    return this->direction_quaternion_;
+  }
+
 private:
   GameObject3D* const player_;
   Cube3D* body_;

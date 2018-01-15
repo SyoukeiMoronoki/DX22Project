@@ -7,19 +7,18 @@
 #include "Enemy.h"
 
 class Player;
+class Bullet;
 
 class EnemyManager : public AllocatableGameEntityManager<Enemy>
 {
 public:
   EnemyManager(T_UINT8 enemy_max);
 
-  virtual GameEntity* CreateInstance();
-  virtual void DeleteInstance(GameEntity* entity);
-
 public:
-  void GameInit();
   void Update(bool is_sonar);
   void OnDamaged();
+
+  bool HitCheck(Bullet* bullet);
   bool AttackToPlayer(Player* player);
 
 public:

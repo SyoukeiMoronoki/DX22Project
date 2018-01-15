@@ -10,21 +10,6 @@ EnemyManager::EnemyManager(T_UINT8 enemy_max)
   this->data_manager_ = new EnemyDataManager();
 }
 
-GameEntity* EnemyManager::CreateInstance()
-{
-  return new Enemy();
-}
-
-void EnemyManager::DeleteInstance(GameEntity* entity)
-{
-  delete ((Enemy*)entity);
-}
-
-void EnemyManager::GameInit()
-{
-  this->data_manager_->GameInit();
-}
-
 void EnemyManager::Update(bool is_sonar)
 {
   this->Loop([&](Enemy* enemy)
@@ -50,22 +35,20 @@ void EnemyManager::OnDamaged()
   });
 }
 
+bool EnemyManager::HitCheck(Bullet* bullet)
+{
+  return true;
+}
+
 bool EnemyManager::AttackToPlayer(Player* player)
 {
   bool damaged = false;
-  //for (T_UINT16 i = 0; i < this->size_; ++i)
-  //{
-  //  Enemy* enemy = ((Enemy*)this->pool_[i]);
-  //  if (!enemy->IsEnabled())
-  //  {
-  //    continue;
-  //  }
-  //  if (enemy->GetRadialRate() < 0.01f)
-  //  {
-  //    damaged = true;
-  //    player->AddDamage();
-  //  }
-  //}
+  Enemy* enemy = this->Collision(player->GetCollider());
+  if (enemy)
+  {
+    player->AddDamage();
+    damaged = true;
+  }
   return damaged;
 }
 

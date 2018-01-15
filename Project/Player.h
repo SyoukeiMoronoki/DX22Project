@@ -55,15 +55,20 @@ public:
   {
     return this->hp_;
   }
-  inline PlayerActor* GetActor()
+  inline PlayerActor* GetActor() const
   {
     return this->actor_;
+  }
+  inline Collider3D_Sphare* GetCollider() const
+  {
+    return this->collider_;
   }
 
 private:
   PlayerController_Scope* scope_controller_;
   PlayerController_Walk* walk_controller_;
   PlayerController* current_controller_;
+  Collider3D_Sphare * collider_;
 
   PlayerActor* actor_;
   
@@ -80,6 +85,5 @@ private:
   UI_Player* view_;
 
   BulletManager* bullets_;
-
 };
 

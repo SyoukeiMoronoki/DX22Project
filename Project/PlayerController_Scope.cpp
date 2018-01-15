@@ -17,8 +17,8 @@ PlayerController_Scope::~PlayerController_Scope()
 
 void PlayerController_Scope::OnStart(const PlayerController* prev)
 {
-  this->player_->GetActor()->GetTransform()->SetEularY(0.0f);
   this->look_quaternion_.FromRotationMatrix(*this->player_->GetActor()->GetTransform()->GetWorldMatrix());
+  this->player_->GetActor()->Face();
   this->look_at_pos_ = TVec3f(0.0f, 0.0f, 1.0f);
 }
 

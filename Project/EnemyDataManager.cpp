@@ -25,10 +25,6 @@ EnemyDataManager::~EnemyDataManager()
 {
 }
 
-void EnemyDataManager::GameInit()
-{
-}
-
 void EnemyDataManager::SetEnemyData(T_UINT8 id, const Texture& texture, TSizef view_size, const char* name, IEnemyAttribute* attribute)
 {
   this->datas_[id] = new EnemyData(id, texture, view_size, name, attribute);
