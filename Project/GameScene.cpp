@@ -36,7 +36,7 @@ static const T_UINT8 GRAND_SLAM_ATTACK = 10;
 
 static const T_UINT8 WEAK_HAPPY = 10;
 
-static const T_UINT8 DAMAGE_EFFECT_TIME = 30;
+static const T_UINT8 DAMAGE_EFFECT_TIME = 60;
 
 static const T_UINT8 TIME_UP_SHOW_TIME = 120;
 
@@ -106,7 +106,7 @@ void GameScene::OnSetup()
   this->ui_player_->GameInit();
 
   this->boya_->SetVisible(true);
-  this->boya_->SetColor(0, 0, 0, 255);
+  this->boya_->GetMaterial()->SetColor(0.0f, 0.0f, 0.0f, 1.0f);
   this->text_time_up_->SetVisible(false);
 
   this->timeup_text_show_time_ = 0;
@@ -175,13 +175,13 @@ void GameScene::Update()
   if (this->weak_happy_count_ > 0)
   {
     this->weak_happy_count_--;
-    this->boya_->SetAlpha((T_UINT8)(255 * (1.0f - ((T_FLOAT)this->weak_happy_count_ / WEAK_HAPPY))));
+    this->boya_->GetMaterial()->SetAlpha(1.0f - ((T_FLOAT)this->weak_happy_count_ / WEAK_HAPPY));
   }
   if (this->damage_count_ > 0)
   {
     this->damage_count_--;
     const T_FLOAT damage_effect_rate = (T_FLOAT)this->damage_count_ / DAMAGE_EFFECT_TIME;
-    this->boya_->SetRed((T_UINT8)(128 * damage_effect_rate));
+    this->boya_->GetMaterial()->SetRed(damage_effect_rate);
   }
   
   bool use_ear = this->player_->IsUseEar();
