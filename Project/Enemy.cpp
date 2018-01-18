@@ -19,14 +19,14 @@ Enemy::Enemy()
   this->SetBillboardingFlag(true);
   this->texture_region_ = new TiledTextureRegion();
   this->sprite_ = new AnimatedSprite3D();
-  this->sprite_->SetBlendFunction(BlendFunction::BLEND_DEFAULT_SRC, BlendFunction::BLEND_DEFAULT_DST);
-  this->sprite_->SetLightingEnabled(false);
-  this->sprite_->SetZTestFlag(true);
+  //this->sprite_->SetBlendFunction(BlendFunction::BLEND_DEFAULT_SRC, BlendFunction::BLEND_DEFAULT_DST);
+  //this->sprite_->SetLightingEnabled(false);
+  this->sprite_->GetMaterial()->SetZTestFlag(true);
   this->sprite_->SetTextureRegion(this->texture_region_);
   this->AddChild(this->sprite_);
 
   this->weak_point_sprite_ = Sprite3D::CreateWithTexture(&Asset::Texture::ENEMY_WEAK_POINT);
-  this->weak_point_sprite_->SetLightingEnabled(false);
+  //this->weak_point_sprite_->SetLightingEnabled(false);
   //this->weak_point_sprite_->SetColor(Color::RED);
   this->weak_point_sprite_->SetVisible(false);
   this->AddChild(this->weak_point_sprite_);

@@ -70,8 +70,8 @@ void GameScene::OnSetup()
   this->AddCamera(this->camera2d_);
 
   this->field_ = new MeshField(2000.0f, 2000.0f, 10, 10);
-  this->field_->SetLightingEnabled(false);
-  this->field_->SetTexture(Asset::Texture::FIELD_BG);
+  //this->field_->SetLightingEnabled(false);
+  //this->field_->SetTexture(Asset::Texture::FIELD_BG);
   this->field_->GetTransform()->SetY(-1.25f);
   this->field_->GetTransform()->SetEularX(MathConstants::DegToRad(90.0f));
   this->AddChild(this->field_);
@@ -106,7 +106,7 @@ void GameScene::OnSetup()
   this->ui_player_->GameInit();
 
   this->boya_->SetVisible(true);
-  this->boya_->GetMaterial()->SetColor(0.0f, 0.0f, 0.0f, 1.0f);
+  this->boya_->GetMaterial()->GetDiffuse().SetColor(0.0f, 0.0f, 0.0f, 1.0f);
   this->text_time_up_->SetVisible(false);
 
   this->timeup_text_show_time_ = 0;
@@ -175,13 +175,13 @@ void GameScene::Update()
   if (this->weak_happy_count_ > 0)
   {
     this->weak_happy_count_--;
-    this->boya_->GetMaterial()->SetAlpha(1.0f - ((T_FLOAT)this->weak_happy_count_ / WEAK_HAPPY));
+    this->boya_->GetMaterial()->GetDiffuse().SetAlpha(1.0f - ((T_FLOAT)this->weak_happy_count_ / WEAK_HAPPY));
   }
   if (this->damage_count_ > 0)
   {
     this->damage_count_--;
     const T_FLOAT damage_effect_rate = (T_FLOAT)this->damage_count_ / DAMAGE_EFFECT_TIME;
-    this->boya_->GetMaterial()->SetRed(damage_effect_rate);
+    this->boya_->GetMaterial()->GetDiffuse().SetRed(damage_effect_rate);
   }
   
   bool use_ear = this->player_->IsUseEar();

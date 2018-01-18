@@ -7,14 +7,14 @@ PlayerActor::PlayerActor(GameObject3D* player)
   this->body_ = new Cube3D();
   this->body_->GetTransform()->SetScale(0.5f, 1.0f, 0.5f);
   this->body_->GetTransform()->SetPosition(0.0f, 0.0f, 0.0f);
-  this->body_->SetLightingEnabled(false);
+  //this->body_->SetLightingEnabled(false);
   this->body_->SetLayerId(1);
   this->AddChild(this->body_);
 
   this->gun_ = new Cube3D();
   this->gun_->GetTransform()->SetScale(0.1f, 0.1f, 1.0f);
   this->gun_->GetTransform()->SetPosition(0.0f, -0.25f, 0.5f);
-  this->gun_->SetLightingEnabled(false);
+  //this->gun_->SetLightingEnabled(false);
   this->gun_->SetLayerId(1);
   this->AddChild(this->gun_);
 }

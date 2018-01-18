@@ -5,9 +5,9 @@
 Bullet::Bullet()
 {
   this->body_ = Sprite3D::CreateWithTexture(&Asset::Texture::PLAYER_BULLET);
-  this->body_->SetBlendFunction(BlendFunction::BLEND_DEFAULT_SRC, BlendFunction::BLEND_DEFAULT_DST);
-  this->body_->SetLightingEnabled(false);
-  this->body_->SetZTestFlag(true);
+  //this->body_->SetBlendFunction(BlendFunction::BLEND_DEFAULT_SRC, BlendFunction::BLEND_DEFAULT_DST);
+  //this->body_->SetLightingEnabled(false);
+  this->body_->GetMaterial()->SetZTestFlag(true);
   this->body_->SetBillboardingFlag(true);
   this->AddChild(this->body_);
   this->SetHitRadius(1.0f);
