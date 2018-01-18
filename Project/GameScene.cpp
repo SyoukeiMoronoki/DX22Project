@@ -69,9 +69,14 @@ void GameScene::OnSetup()
   this->camera2d_->SetViewportClear(false);
   this->AddCamera(this->camera2d_);
 
+  Cube3D* cube = new Cube3D();
+  cube->GetTransform()->SetZ(2.0f);
+  //cube->SetBillboardingFlag(true);
+  this->AddChild(cube);
+
   this->field_ = new MeshField(2000.0f, 2000.0f, 10, 10);
-  //this->field_->SetLightingEnabled(false);
-  //this->field_->SetTexture(Asset::Texture::FIELD_BG);
+  this->field_->UniqueMaterial();
+  this->field_->GetMaterial()->SetMainTexture(&Asset::Texture::FIELD_BG);
   this->field_->GetTransform()->SetY(-1.25f);
   this->field_->GetTransform()->SetEularX(MathConstants::DegToRad(90.0f));
   this->AddChild(this->field_);
@@ -87,6 +92,7 @@ void GameScene::OnSetup()
   const T_FLOAT boya_width = (T_FLOAT)this->boya_->GetTextureRegion()->GetTexture()->GetWidth();
   this->boya_->GetTransform()->SetScale(screen_size.width / boya_width, screen_size.height / boya_width);
   this->boya_->SetZIndex(ZINDEX_BOYA);
+  this->boya_->UniqueMaterial();
 
   this->ui_player_ = new UI_Player();
   this->ui_player_->SetZIndex(ZINDEX_UI);

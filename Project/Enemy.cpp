@@ -21,6 +21,7 @@ Enemy::Enemy()
   this->sprite_ = new AnimatedSprite3D();
   //this->sprite_->SetBlendFunction(BlendFunction::BLEND_DEFAULT_SRC, BlendFunction::BLEND_DEFAULT_DST);
   //this->sprite_->SetLightingEnabled(false);
+  this->sprite_->UniqueMaterial();
   this->sprite_->GetMaterial()->SetZTestFlag(true);
   this->sprite_->SetTextureRegion(this->texture_region_);
   this->AddChild(this->sprite_);
