@@ -62,7 +62,7 @@ void Enemy::OnAllocated()
   this->GetTransform()->Init();
   this->sprite_->GetTransform()->Init();
   this->sprite_->GetTransform()->SetZ(1.5f);
-  this->sprite_->GetMaterial()->SetDiffuse(255, 255, 255, 255);
+  this->sprite_->GetMaterial()->SetDiffuse(1.0f, 1.0f, 1.0f, 1.0f);
   this->sprite_->Animate(ANIMATION_DURATION);
   this->SetVisible(true);
 }
