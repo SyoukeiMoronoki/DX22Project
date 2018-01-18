@@ -5,7 +5,7 @@ namespace Asset
 
 namespace Spine
 {
-SpineResource Asset::Spine::TEST("Asset/spine/skeleton");
+SpineResource TEST("Asset/spine/skeleton");
 SpineResource ANUBIS("Asset/spine/anubis");
 } // namespace Spine
 
@@ -45,7 +45,6 @@ class Texture UI_EARGAUGE("Asset/texture/ui/EarGauge.png");
 class Texture UI_HPGAUGE("Asset/texture/ui/HPGauge.png");
 class Texture UI_PLAYER_ID("Asset/texture/ui/player_id.png");
 class Texture UI_TEATER("Asset/texture/ui/teater.png");
-
 } // namespace Texture
 
 } // namespace Asset

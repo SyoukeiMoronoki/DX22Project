@@ -46,7 +46,6 @@ extern class Texture UI_EARGAUGE;
 extern class Texture UI_HPGAUGE;
 extern class Texture UI_PLAYER_ID;
 extern class Texture UI_TEATER;
-
 };// namespace Texture
 
 }; // namespace Asset
