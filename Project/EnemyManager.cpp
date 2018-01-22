@@ -86,8 +86,9 @@ Enemy* EnemyManager::SpawnToRandomPosition(Player* player)
     return nullptr;
   }
   TVec3f pos = player->GetTransform()->GetPosition();
-  T_FLOAT rot = (rand() % 360) / 360.f;
-  enemy->GetTransform()->SetPosition(pos.x + cos(rot) * 10.0f, 0.0f, pos.z + sin(rot) * 10.0f);
+  T_FLOAT range = 10.0f;
+  enemy->GetTransform()->SetX(pos.x + Util::GetRandom(-range, range));
+  enemy->GetTransform()->SetZ(pos.z + Util::GetRandom(-range, range));
   enemy->Spawn(this->data_manager_->GetRandom());
   return enemy;
 }

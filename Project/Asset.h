@@ -57,12 +57,14 @@ namespace Shader
 {
 extern const ShaderResource SKY;
 extern const ShaderResource ZENITH;
+extern const ShaderResource ENEMY_BODY;
 } // namespace Shader
 
 namespace Material
 {
 extern class Material SKY;
 extern class Material ZENITH;
+extern class Material ENEMY_BODY;
 } // namespace Material
 
 }; // namespace Asset

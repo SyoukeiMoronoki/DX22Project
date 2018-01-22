@@ -47,7 +47,12 @@ public:
   void Spawn(const EnemyData* data);
 
 public:
-  T_UINT16 GetCount() const
+  inline T_FLOAT GetRadius() const
+  {
+    return this->body_->GetTransform()->GetScaleMax() * 0.5f;
+  }
+
+  inline T_UINT16 GetCount() const
   {
     return this->count_;
   }
@@ -70,6 +75,6 @@ private:
 
   const EnemyData* data_;
   TiledTextureRegion* texture_region_;
-  AnimatedSprite3D* sprite_;
+  Cube3D* body_;
   bool is_dead_;
 };

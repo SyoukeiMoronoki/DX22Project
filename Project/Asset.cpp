@@ -56,12 +56,14 @@ namespace Shader
 {
 const ShaderResource SKY("Asset/shader/Sky.cso");
 const ShaderResource ZENITH("Asset/shader/Zenith.cso");
+const ShaderResource ENEMY_BODY("Asset/shader/EnemyBody.cso");
 } // namespace Shader
 
 namespace Material
 {
 class Material SKY(Shader::SKY);
 class Material ZENITH(Shader::ZENITH);
+class Material ENEMY_BODY(Shader::ENEMY_BODY);
 } // namespace Material
 
 } // namespace Asset

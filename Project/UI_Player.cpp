@@ -9,11 +9,11 @@ static const T_FLOAT SCORE_WIDTH = 256.0f;
 static const T_UINT8 TIMER_DIGIT_COUNT = 3;
 static const T_FLOAT TIMER_WIDTH = 128.0f;
 
-static const T_FLOAT EAR_GAGUGE_WIDTH = 512.0f;
-static const T_FLOAT EAR_GAGUGE_HEIGHT = 32.0f;
+static const T_FLOAT EAR_GAGUGE_WIDTH = 400.0f;
+static const T_FLOAT EAR_GAGUGE_HEIGHT = 16.0f;
 
-static const T_FLOAT HP_GAGUGE_WIDTH = 512.0f;
-static const T_FLOAT HP_GAGUGE_HEIGHT = 32.0f;
+static const T_FLOAT HP_GAGUGE_WIDTH = 400.0f;
+static const T_FLOAT HP_GAGUGE_HEIGHT = 16.0f;
 
 UI_Player::UI_Player()
 {
@@ -31,12 +31,12 @@ UI_Player::UI_Player()
 
   this->ear_gauge_ = new Gauge(&Asset::Texture::UI_EARGAUGE, EAR_GAGUGE_WIDTH, EAR_GAGUGE_HEIGHT);
   this->ear_gauge_->SetMaxValue(GameConstants::EYE_GAUGE_MAX);
-  this->ear_gauge_->GetTransform()->SetPositon(-width * 0.4f, -height * 0.4f);
+  this->ear_gauge_->GetTransform()->SetPositon(-width * 0.45f, -height * 0.425f);
   this->AddChild(this->ear_gauge_);
 
   this->hp_gauge_ = new Gauge(&Asset::Texture::UI_HPGAUGE, HP_GAGUGE_WIDTH, HP_GAGUGE_HEIGHT);
   this->hp_gauge_->SetMaxValue(GameConstants::HP_MAX);
-  this->hp_gauge_->GetTransform()->SetPositon(-width * 0.4f, -height * 0.35f);
+  this->hp_gauge_->GetTransform()->SetPositon(-width * 0.45f, -height * 0.4f);
   this->AddChild(this->hp_gauge_);
 }
 

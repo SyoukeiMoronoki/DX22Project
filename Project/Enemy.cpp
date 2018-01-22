@@ -17,19 +17,15 @@ Enemy::Enemy()
   : data_(nullptr)
 {
   this->texture_region_ = new TiledTextureRegion();
-  this->sprite_ = new AnimatedSprite3D();
-  this->sprite_->SetBillboardingFlag(true);
-  //this->sprite_->SetBlendFunction(BlendFunction::BLEND_DEFAULT_SRC, BlendFunction::BLEND_DEFAULT_DST);
-  //this->sprite_->SetLightingEnabled(false);
-  this->sprite_->UniqueMaterial();
-  this->sprite_->GetMaterial()->SetZTestFlag(true);
-  this->sprite_->SetTextureRegion(this->texture_region_);
-  this->AddChild(this->sprite_);
+  this->body_ = new Cube3D();
+  this->body_->SetMaterial(Asset::Material::ENEMY_BODY);
+  this->AddChild(this->body_);
 
   this->weak_point_sprite_ = Sprite3D::CreateWithTexture(&Asset::Texture::ENEMY_WEAK_POINT);
-  //this->weak_point_sprite_->SetLightingEnabled(false);
-  //this->weak_point_sprite_->SetColor(Color::RED);
+  this->weak_point_sprite_->GetMaterial()->SetZTestLevel(2);
+  this->weak_point_sprite_->GetMaterial()->SetDiffuse(Color4F::RED);
   this->weak_point_sprite_->SetVisible(false);
+  this->weak_point_sprite_->SetBillboardingFlag(true);
   this->AddChild(this->weak_point_sprite_);
 
   this->weak_point_ = new Collider3D_Sphare(this->weak_point_sprite_);
@@ -39,14 +35,8 @@ Enemy::Enemy()
 
 Enemy::~Enemy()
 {
-  if (this->texture_region_)
-  {
-    delete this->texture_region_;
-  }
-  if (this->sprite_)
-  {
-    delete this->sprite_;
-  }
+  delete this->texture_region_;
+  delete this->body_;
 }
 
 void Enemy::OnAllocated()
@@ -60,10 +50,7 @@ void Enemy::OnAllocated()
   this->death_count_ = 0;
   this->weak_point_ = NULL;
   this->GetTransform()->Init();
-  this->sprite_->GetTransform()->Init();
-  this->sprite_->GetTransform()->SetZ(1.5f);
-  this->sprite_->GetMaterial()->SetDiffuse(1.0f, 1.0f, 1.0f, 1.0f);
-  this->sprite_->Animate(ANIMATION_DURATION);
+  this->body_->Init();
   this->SetVisible(true);
 }
 
@@ -76,19 +63,11 @@ void Enemy::OnFree()
 
 void Enemy::EnemyUpdate(bool is_sonar)
 {
-  if (is_sonar)
-  {
-    this->sprite_->SetAnimateRange(ANIMATION_LENGTH, ANIMATION_LENGTH * 2 - 1);
-  }
-  else
-  {
-    this->sprite_->SetAnimateRange(0, ANIMATION_LENGTH - 1);
-  }
   if (this->death_count_ > 0)
   {
     this->death_count_--;
-    T_UINT8 death_angle = (T_UINT8)std::min((T_INT32)DEATH_COUNT, ((T_INT32)DEATH_COUNT - (T_INT32)this->death_count_) * 4);
-    this->sprite_->GetTransform()->SetEularZ((T_FLOAT)death_angle / DEATH_COUNT * MathConstants::PI * 0.5f);
+    //T_UINT8 death_angle = (T_UINT8)std::min((T_INT32)DEATH_COUNT, ((T_INT32)DEATH_COUNT - (T_INT32)this->death_count_) * 4);
+    //this->sprite_->GetTransform()->SetEularZ((T_FLOAT)death_angle / DEATH_COUNT * MathConstants::PI * 0.5f);
     if (this->death_count_ == 0)
     {
       this->is_dead_ = true;
@@ -96,7 +75,7 @@ void Enemy::EnemyUpdate(bool is_sonar)
     }
     return;
   }
-  //this->weak_point_sprite_->SetVisible(facade.IsSonar());
+  this->weak_point_sprite_->SetVisible(is_sonar);
   this->count_++;
   T_FLOAT width = this->weak_point_sprite_->GetTransform()->GetScaleMax();
   //this->weak_point_->SetRadius(std::max(0.0f, 1.0f - this->GetRadialRate() * 1.2f) * 16);
@@ -147,11 +126,9 @@ void Enemy::OnWeakPointDamaged()
   {
     return;
   }
-  this->sprite_->GetMaterial()->SetDiffuse(32, 32, 100, 255);
   this->death_count_ = DEATH_COUNT;
   this->SetMoveDelayNegative(DEATH_COUNT);
   this->weak_point_sprite_->SetVisible(false);
-  this->sprite_->Animate(0);
   GameSceneDirector::GetInstance().AddScore(100);
 }
 
@@ -192,12 +169,18 @@ bool Enemy::WeakPointHitCheck(Collider3D* collider)
 void Enemy::Spawn(const EnemyData* data)
 {
   this->data_ = data;
-  this->sprite_->GetMaterial()->SetMainTexture(&data->texture);
+  
+  this->body_->GetTransform()->SetScale(Util::GetRandom(1.0f, 5.0f));
+  T_FLOAT radius = this->GetRadius();
+
+  this->body_->GetTransform()->SetY(radius);
+  this->weak_point_sprite_->GetTransform()->SetX(Util::GetRandom(-radius, radius));
+  this->weak_point_sprite_->GetTransform()->SetY(radius + Util::GetRandom(-radius, radius));
+  this->weak_point_sprite_->GetTransform()->SetZ(Util::GetRandom(-radius, radius));
+
   this->texture_region_->SetTexture(&data->texture);
   this->texture_region_->SetXNum(4);
   this->texture_region_->SetYNum(2);
   this->texture_region_->FitToTexture();
-  this->sprite_->FitToTexture();
-  this->sprite_->SetCurrentIndex(0);
   //this->data_->attribute->OnAttached(this);
 }

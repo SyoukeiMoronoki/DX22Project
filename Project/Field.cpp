@@ -58,7 +58,7 @@ Field::Field()
   this->ground_->GetMaterial()->SetMainTexture(&Asset::Texture::FIELD_BG);
   this->ground_->GetTransform()->SetEularX(MathConstants::DegToRad(90.0f));
   this->ground_->GetTransform()->SetScale(SKY_DISTANCE * 2.0f);
-  //this->AddChild(this->ground_);
+  this->AddChild(this->ground_);
 }
 
 Field::~Field()

@@ -64,6 +64,7 @@ void GameScene::OnLoad(IResourceLoadReserver* resource)
 
   resource->ReserveLoad(Asset::Shader::SKY);
   resource->ReserveLoad(Asset::Shader::ZENITH);
+  resource->ReserveLoad(Asset::Shader::ENEMY_BODY);
 
   //resource->ReserveLoad(Asset::FBX::NEKO);
 }
@@ -188,6 +189,7 @@ void GameScene::Update()
   bool use_ear = this->player_->IsUseEar();
   this->field_->SetVisible(!use_ear);
   this->enemy_manager_->Update(use_ear);
+  //Asset::Material::ENEMY_BODY.BoolProperty("_UseEye") = use_ear;
  
   this->ui_player_->Update();
 

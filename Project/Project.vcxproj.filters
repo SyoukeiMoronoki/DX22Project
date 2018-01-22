@@ -376,7 +376,16 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Sky.hlsli" />
-    <FxCompile Include="Zenith.hlsli" />
+    <FxCompile Include="Sky.hlsli">
+      <Filter>リソース ファイル\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Zenith.hlsli">
+      <Filter>リソース ファイル\Shader</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="EnemyBody.hlsli">
+      <Filter>リソース ファイル\Shader</Filter>
+    </None>
   </ItemGroup>
 </Project>
