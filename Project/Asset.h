@@ -17,6 +17,11 @@ extern ModelData SKYBOX;
 extern ModelData DOITYU;
 }; // namespace Model
 
+namespace FBX
+{
+extern FbxResource NEKO;
+}; // namespace FBX
+
 namespace Texture
 { 
 extern class Texture ENEMY_WEAK_POINT;
@@ -47,5 +52,17 @@ extern class Texture UI_HPGAUGE;
 extern class Texture UI_PLAYER_ID;
 extern class Texture UI_TEATER;
 };// namespace Texture
+
+namespace Shader
+{
+extern const ShaderResource SKY;
+extern const ShaderResource ZENITH;
+} // namespace Shader
+
+namespace Material
+{
+extern class Material SKY;
+extern class Material ZENITH;
+} // namespace Material
 
 }; // namespace Asset

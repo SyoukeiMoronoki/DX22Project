@@ -61,24 +61,23 @@ void GameScene::OnLoad(IResourceLoadReserver* resource)
   resource->ReserveLoad(Asset::Texture::TEXT_TIMEUP);
   resource->ReserveLoad(Asset::Texture::UI_EARGAUGE);
   resource->ReserveLoad(Asset::Texture::UI_HPGAUGE);
+
+  resource->ReserveLoad(Asset::Shader::SKY);
+  resource->ReserveLoad(Asset::Shader::ZENITH);
+
+  resource->ReserveLoad(Asset::FBX::NEKO);
 }
 
 void GameScene::OnSetup()
 {
+  Model* model = new Model(*Asset::FBX::NEKO.GetContents());
+  this->AddChild(model);
+
   this->camera2d_ = new Camera2D();
   this->camera2d_->SetViewportClear(false);
   this->AddCamera(this->camera2d_);
-
-  Cube3D* cube = new Cube3D();
-  cube->GetTransform()->SetZ(2.0f);
-  //cube->SetBillboardingFlag(true);
-  this->AddChild(cube);
-
-  this->field_ = new MeshField(2000.0f, 2000.0f, 10, 10);
-  this->field_->UniqueMaterial();
-  this->field_->GetMaterial()->SetMainTexture(&Asset::Texture::FIELD_BG);
-  this->field_->GetTransform()->SetY(-1.25f);
-  this->field_->GetTransform()->SetEularX(MathConstants::DegToRad(90.0f));
+  
+  this->field_ = new Field();
   this->AddChild(this->field_);
 
   this->player_ = new Player();
@@ -89,10 +88,9 @@ void GameScene::OnSetup()
 
   const TSize screen_size = Director::GetInstance()->GetScreenSize();
   this->boya_ = Sprite::CreateWithTexture(&Asset::Texture::FIELD_BOYA);
-  const T_FLOAT boya_width = (T_FLOAT)this->boya_->GetTextureRegion()->GetTexture()->GetWidth();
+  const T_FLOAT boya_width = (T_FLOAT)this->boya_->GetMaterial()->GetMainTexture()->GetWidth();
   this->boya_->GetTransform()->SetScale(screen_size.width / boya_width, screen_size.height / boya_width);
   this->boya_->SetZIndex(ZINDEX_BOYA);
-  this->boya_->UniqueMaterial();
 
   this->ui_player_ = new UI_Player();
   this->ui_player_->SetZIndex(ZINDEX_UI);

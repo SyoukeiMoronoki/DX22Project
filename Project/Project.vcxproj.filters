@@ -15,12 +15,6 @@
     <Filter Include="ソース ファイル\Scene\TitleScene">
       <UniqueIdentifier>{b82404ac-7e32-4db0-a8a4-66d814a86082}</UniqueIdentifier>
     </Filter>
-    <Filter Include="リソース ファイル\palette">
-      <UniqueIdentifier>{6c26d79e-b11d-4b39-9d68-98a9b079eedf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="リソース ファイル\particle">
-      <UniqueIdentifier>{6cc68105-f020-4fc3-91b0-9e8d467dd9cc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Scene\InitScene">
       <UniqueIdentifier>{ad29dcaf-4db3-4740-a0d7-38f2ea582106}</UniqueIdentifier>
     </Filter>
@@ -135,6 +129,15 @@
     </Filter>
     <Filter Include="ヘッダー ファイル\Game\Spot">
       <UniqueIdentifier>{de6b6efe-98a9-4d45-a79d-25b7b534badc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル\Shader">
+      <UniqueIdentifier>{2e362673-9512-43fd-a6f4-a36a878eecbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Field">
+      <UniqueIdentifier>{20024bfc-75e9-44cc-bdee-8392395aaf55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Field">
+      <UniqueIdentifier>{77a19dd5-fa17-4712-b0e5-38daee7aa386}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -261,6 +264,9 @@
     <ClInclude Include="TestScene3.h">
       <Filter>ヘッダー ファイル\Test</Filter>
     </ClInclude>
+    <ClInclude Include="Field.h">
+      <Filter>ヘッダー ファイル\Game\Field</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineSetting.cpp">
@@ -365,25 +371,12 @@
     <ClCompile Include="TestScene3.cpp">
       <Filter>ソース ファイル\Test</Filter>
     </ClCompile>
+    <ClCompile Include="Field.cpp">
+      <Filter>ソース ファイル\Game\Field</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Asset\texture\game.palette">
-      <Filter>リソース ファイル\palette</Filter>
-    </None>
-    <None Include="..\Asset\texture\title.palette">
-      <Filter>リソース ファイル\palette</Filter>
-    </None>
-    <None Include="..\Asset\particle\particle_texture.json">
-      <Filter>リソース ファイル\particle</Filter>
-    </None>
-    <None Include="..\Asset\particle\particle_primitives.atlas">
-      <Filter>リソース ファイル\particle</Filter>
-    </None>
-    <None Include="..\Asset\texture\common.palette">
-      <Filter>リソース ファイル\palette</Filter>
-    </None>
-    <None Include="..\Asset\texture\ka.palette">
-      <Filter>リソース ファイル\palette</Filter>
-    </None>
+    <FxCompile Include="Sky.hlsli" />
+    <FxCompile Include="Zenith.hlsli" />
   </ItemGroup>
 </Project>

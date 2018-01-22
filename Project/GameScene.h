@@ -2,6 +2,8 @@
 
 #include <HalEngine.h>
 
+#include "Field.h"
+
 class Player;
 class EnemyManager;
 class UI_Player;
@@ -27,7 +29,7 @@ private:
   Player* player_;
   EnemyManager* enemy_manager_;
 
-  MeshField* field_;
+  Field* field_;
 
   UI_Player* ui_player_;
 

@@ -13,8 +13,13 @@ namespace Model
 {
 ModelData CART("Asset/model/cart/cart.x");
 ModelData SKYBOX("Asset/model/skybox/skybox.x");
-ModelData DOITYU("Asset/model/doityu/doityu.x");;
+ModelData DOITYU("Asset/model/doityu/doityu.x");
 } // namespace Model
+
+namespace FBX
+{
+FbxResource NEKO("Asset/fbx/neko.fbx");
+}; // namespace FBX
 
 namespace Texture
 {
@@ -46,5 +51,17 @@ class Texture UI_HPGAUGE("Asset/texture/ui/HPGauge.png");
 class Texture UI_PLAYER_ID("Asset/texture/ui/player_id.png");
 class Texture UI_TEATER("Asset/texture/ui/teater.png");
 } // namespace Texture
+
+namespace Shader
+{
+const ShaderResource SKY("Asset/shader/Sky.cso");
+const ShaderResource ZENITH("Asset/shader/Zenith.cso");
+} // namespace Shader
+
+namespace Material
+{
+class Material SKY(Shader::SKY);
+class Material ZENITH(Shader::ZENITH);
+} // namespace Material
 
 } // namespace Asset
