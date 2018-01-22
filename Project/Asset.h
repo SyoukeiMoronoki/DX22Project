@@ -19,7 +19,7 @@ extern ModelData DOITYU;
 
 namespace FBX
 {
-extern FbxResource NEKO;
+//extern FbxResource NEKO;
 }; // namespace FBX
 
 namespace Texture

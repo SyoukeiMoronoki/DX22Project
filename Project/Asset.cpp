@@ -18,7 +18,7 @@ ModelData DOITYU("Asset/model/doityu/doityu.x");
 
 namespace FBX
 {
-FbxResource NEKO("Asset/fbx/neko.fbx");
+//FbxResource NEKO("Asset/fbx/neko.fbx");
 }; // namespace FBX
 
 namespace Texture

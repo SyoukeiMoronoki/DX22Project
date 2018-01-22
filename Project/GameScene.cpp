@@ -65,14 +65,11 @@ void GameScene::OnLoad(IResourceLoadReserver* resource)
   resource->ReserveLoad(Asset::Shader::SKY);
   resource->ReserveLoad(Asset::Shader::ZENITH);
 
-  resource->ReserveLoad(Asset::FBX::NEKO);
+  //resource->ReserveLoad(Asset::FBX::NEKO);
 }
 
 void GameScene::OnSetup()
 {
-  Model* model = new Model(*Asset::FBX::NEKO.GetContents());
-  this->AddChild(model);
-
   this->camera2d_ = new Camera2D();
   this->camera2d_->SetViewportClear(false);
   this->AddCamera(this->camera2d_);
