@@ -9,10 +9,9 @@ Gauge::Gauge(const Texture* texture, T_FLOAT width, T_FLOAT height)
   this->sprite_ = Sprite::CreateWithTexture(texture);
   this->sprite_->GetTransform()->SetScaleX((T_FLOAT)width / this->sprite_->GetWidth());
   this->sprite_->GetTransform()->SetScaleY((T_FLOAT)height / this->sprite_->GetHeight());
-  this->sprite_->UniqueMaterial();
+  this->sprite_->GetTransform()->SetX(width * 0.5f);
   //this->sprite_->GetTransform()->SetCenterX(this->sprite_->GetWidth() * -0.5f);
   this->AddChild(this->sprite_);
-  this->sprite_->GetTransform()->SetX(width * 0.5f);
 }
 
 void Gauge::ViewInit(T_UINT32 max_value, T_UINT32 value)

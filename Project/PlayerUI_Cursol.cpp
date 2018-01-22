@@ -16,7 +16,6 @@ PlayerUI_Cursol::PlayerUI_Cursol()
   this->sprite_->GetTiledTextureRegion()->FitToTexture();
   this->sprite_->FitToTexture();
   this->sprite_->Animate(6);
-  this->sprite_->UniqueMaterial();
   this->AddChild(this->sprite_);
   this->position_ = TVec2f(0.0f, 0.0f);
   this->scaling_duration_ = 0;

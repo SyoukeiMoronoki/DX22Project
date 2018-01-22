@@ -13,17 +13,12 @@ NumberView::NumberView(T_UINT8 digit_count, T_FLOAT width)
   this->sprites_ = new AnimatedSprite*[digit_count];
   const T_FLOAT digit_width = width / digit_count;
   const T_FLOAT offset_x = -digit_width * 0.5f;
-  Material* material = nullptr;
+  Material* material = EngineAsset::Material::SPRITE.Clone();
+  material->SetMainTexture(&Asset::Texture::FONT_NUMBER);
   //”Ô†‚ªá‚¢‡‚©‚ç‚P‚ÌˆÊ‚ğ’S“–
   for (T_UINT8 i = 0; i < digit_count; ++i)
   {
-    this->sprites_[i] = AnimatedSprite::CreateWithTexture(&Asset::Texture::FONT_NUMBER, 5, 2);
-    if (!material)
-    {
-      this->sprites_[i]->UniqueMaterial();
-      material = this->sprites_[i]->GetMaterial();
-    }
-    this->sprites_[i]->SetMaterial(*material);
+    this->sprites_[i] = AnimatedSprite::CreateWithMaterial(material, 5, 2);
     this->sprites_[i]->GetTiledTextureRegion()->SetXNum(5);
     this->sprites_[i]->GetTiledTextureRegion()->SetYNum(2);
     this->sprites_[i]->GetTiledTextureRegion()->FitToTexture();

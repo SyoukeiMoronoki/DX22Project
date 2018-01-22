@@ -16,9 +16,9 @@ static const T_UINT8 DEATH_COUNT = 80;
 Enemy::Enemy()
   : data_(nullptr)
 {
-  this->SetBillboardingFlag(true);
   this->texture_region_ = new TiledTextureRegion();
   this->sprite_ = new AnimatedSprite3D();
+  this->sprite_->SetBillboardingFlag(true);
   //this->sprite_->SetBlendFunction(BlendFunction::BLEND_DEFAULT_SRC, BlendFunction::BLEND_DEFAULT_DST);
   //this->sprite_->SetLightingEnabled(false);
   this->sprite_->UniqueMaterial();
@@ -192,6 +192,7 @@ bool Enemy::WeakPointHitCheck(Collider3D* collider)
 void Enemy::Spawn(const EnemyData* data)
 {
   this->data_ = data;
+  this->sprite_->GetMaterial()->SetMainTexture(&data->texture);
   this->texture_region_->SetTexture(&data->texture);
   this->texture_region_->SetXNum(4);
   this->texture_region_->SetYNum(2);

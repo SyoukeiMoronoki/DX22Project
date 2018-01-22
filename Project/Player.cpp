@@ -19,6 +19,7 @@ Player::Player()
   : current_controller_(nullptr)
 {
   this->actor_ = new PlayerActor(this);
+  this->GetTransform()->SetY(0.5f);
   this->bullets_ = new BulletManager(10);
   this->walk_controller_ = new PlayerController_Walk(this);
   this->scope_controller_ = new PlayerController_Scope(this);
