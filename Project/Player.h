@@ -21,7 +21,7 @@ public:
 public:
   void GameInit();
 
-  bool ControllProcess();
+  void ControllProcess();
   void Update() override;
 
 public:
@@ -51,6 +51,10 @@ public:
   {
     return this->use_ear_;
   }
+  inline bool OnShot() const
+  {
+    return this->on_shot_;
+  }
   inline T_UINT16 GetHP() const
   {
     return this->hp_;
@@ -63,6 +67,10 @@ public:
   {
     return this->collider_;
   }
+  inline const PlayerController* GetController() const
+  {
+    return this->current_controller_;
+  }
 
 private:
   PlayerController_Scope* scope_controller_;
@@ -71,6 +79,8 @@ private:
   Collider3D_Sphare * collider_;
 
   PlayerActor* actor_;
+
+  Sprite3D* bullet_effect_;
   
   T_UINT16 control_delay_;
   T_UINT8 attack_delay_;
@@ -79,6 +89,8 @@ private:
 
   T_UINT16 ear_gauge_;
   bool use_ear_;
+
+  bool on_shot_;
   
   T_UINT8 power_;
 

@@ -30,7 +30,10 @@ static const Color4F DARK_SKY_BASE_COLOR = Color4F::CreateBy4BitFormat(0, 0, 30)
 static const Color4F DARK_SKY_FADE_COLOR = Color4F::CreateBy4BitFormat(0, 12, 64);
 static const Color4F DARK_SKY_LIGHT_COLOR = Color4F::CreateBy4BitFormat(8, 0, 32);
 
+static const T_UINT8 SHOT_EFFECT_DURATION = 8;
+
 Field::Field()
+  : shot_effect_duration_(0)
 {
   this->sky_material_ = Asset::Material::SKY.Clone();
   this->sky_material_->SetDiffuse(SKY_BASE_COLOR);
@@ -75,15 +78,22 @@ Field::~Field()
   delete this->zenith_;
 }
 
-#include "GameInput.h"
-
 void Field::Update(Player* player)
 {
-  this->ground_->GetMaterial()->Vec3fProperty("_LightPosition") = player->GetTransform()->GetWorldPosition() + player->GetActor()->GetTransform()->GetWorldDirection();
-  this->ground_->GetMaterial()->Vec3fProperty("_LightDirection") = -player->GetActor()->GetTransform()->GetWorldDirection();
+  if (player->OnShot())
+  {
+    this->shot_effect_duration_ = SHOT_EFFECT_DURATION;
+  }
 
-  this->ground_->GetMaterial()->FloatProperty("_LightBrightness") = 4.0f + (sinf( HalEngine::Time::ElapsedFrameSinceSceneCreate() * 0.05f) + 1.0f) * 0.5f;
-  
+  if (this->shot_effect_duration_ > 0)
+  {
+    this->shot_effect_duration_--;
+    const TVec3f player_world_position = player->GetTransform()->GetWorldPosition();
+    const TVec3f player_world_direction = player->GetController()->GetBulletDirection();
+    this->ground_->GetMaterial()->Vec3fProperty("_LightPosition") = player_world_position + player_world_direction;
+    this->ground_->GetMaterial()->Vec3fProperty("_LightDirection") = -player_world_direction;
+    this->ground_->GetMaterial()->FloatProperty("_LightBrightness") = 5.0f * sinf((T_FLOAT)this->shot_effect_duration_ / SHOT_EFFECT_DURATION * MathConstants::PI_1_2);
+  }
   
   //this->sky_material_->SetDiffuse(Color4F::Lerp(this->sky_material_->GetDiffuse(), DARK_SKY_BASE_COLOR, 0.001f));
   //this->zenith_->GetMaterial()->SetDiffuse(Color4F::Lerp(this->zenith_->GetMaterial()->GetDiffuse(), DARK_SKY_BASE_COLOR, 0.001f));

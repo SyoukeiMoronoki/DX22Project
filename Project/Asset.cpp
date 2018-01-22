@@ -34,6 +34,7 @@ class Texture FIELD_BOYA("Asset/texture/field/boya.png");
 class Texture FONT_NUMBER("Asset/texture/font/number.png");
 
 class Texture PLAYER_BULLET("Asset/texture/player/bullet.png");
+class Texture PLAYER_BULLET_EFFECT("Asset/texture/player/bullet_effect.png");
 class Texture PLAYER_TURGET("Asset/texture/player/target.png");
 
 class Texture TEXT_BONUS("Asset/texture/text/BONUS.png");

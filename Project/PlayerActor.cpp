@@ -14,7 +14,7 @@ PlayerActor::PlayerActor(GameObject3D* player)
 
   this->gun_ = new Cube3D();
   this->gun_->GetTransform()->SetScale(0.1f, 0.1f, 1.0f);
-  this->gun_->GetTransform()->SetPosition(0.0f, -0.25f, 0.5f);
+  this->gun_->GetTransform()->SetPosition(0.0f, 0.0f, 0.5f);
   this->gun_->UniqueMaterial();
   //this->gun_->SetLightingEnabled(false);
   this->gun_->SetLayerId(1);

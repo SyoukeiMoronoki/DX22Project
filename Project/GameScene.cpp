@@ -53,6 +53,7 @@ void GameScene::OnLoad(IResourceLoadReserver* resource)
   resource->ReserveLoad(Asset::Texture::FIELD_BOYA);
   resource->ReserveLoad(Asset::Texture::FONT_NUMBER);
   resource->ReserveLoad(Asset::Texture::PLAYER_BULLET);
+  resource->ReserveLoad(Asset::Texture::PLAYER_BULLET_EFFECT);
   resource->ReserveLoad(Asset::Texture::PLAYER_TURGET);
   resource->ReserveLoad(Asset::Texture::TEXT_HP);
   resource->ReserveLoad(Asset::Texture::TEXT_SCORE);
@@ -102,7 +103,7 @@ void GameScene::OnSetup()
   this->AddChild(this->text_time_up_);
 
   this->AddChild(this->boya_);
-  //this->AddChild(this->ui_player_);
+  this->AddChild(this->ui_player_);
   GameSceneDirector::GetInstance().Init();
 
   this->player_->GameInit();

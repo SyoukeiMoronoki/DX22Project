@@ -12,6 +12,8 @@
 
 #include "GameDirector.h"
 
+#include "Asset.h"
+
 static const T_UINT8 DEFAULT_POWER = 8;
 static const T_UINT8 ATTACK_DELAY = 10;
 
@@ -25,6 +27,11 @@ Player::Player()
   this->scope_controller_ = new PlayerController_Scope(this);
   this->collider_ = new Collider3D_Sphare(this);
   this->collider_->SetRadius(0.5f);
+  this->bullet_effect_ = Sprite3D::CreateWithTexture(&Asset::Texture::PLAYER_BULLET_EFFECT);
+  this->bullet_effect_->GetMaterial()->SetDiffuse(1.0f, 1.0f, 1.0f, 0.0f);
+  this->bullet_effect_->GetMaterial()->SetZTestLevel(1);
+  this->bullet_effect_->SetBillboardingFlag(true);
+  //this->AddChild(this->bullet_effect_);
 }
 
 Player::~Player()
@@ -54,10 +61,19 @@ void Player::GameInit()
   this->OnHPChanged();
 }
 
-bool Player::ControllProcess()
+void Player::ControllProcess()
 {
   using namespace HalEngine;
   using namespace GameInput;
+
+  this->on_shot_ = false;
+  this->bullet_effect_->GetMaterial()->SetDiffuse(Color4F::Lerp(this->bullet_effect_->GetMaterial()->GetDiffuse(), Color4F(1.0f, 1.0f, 1.0f, 0.0f), 0.25f));
+
+  if (this->control_delay_ > 0)
+  {
+    return;
+  }
+
   if (Input(0)->GetButtonDown(SCOPE))
   {
     if (this->current_controller_ == this->scope_controller_)
@@ -69,21 +85,18 @@ bool Player::ControllProcess()
       this->SetController(this->scope_controller_);
     }
   }
-  if (this->control_delay_ > 0)
-  {
-    return false;
-  }
   this->current_controller_->ControllProcess();
-  bool fire = false;
 
   if (attack_delay_ == 0)
   {
     if (Input(0)->GetButton(FIRE))
     {
-      fire = true;
       this->attack_delay_ = ATTACK_DELAY;
       this->current_controller_->OnAttack();
       this->bullets_->Emmision(this, this->current_controller_->GetBulletDirection());
+      this->on_shot_ = true;
+      this->bullet_effect_->GetMaterial()->SetDiffuse(1.0f, 1.0f, 1.0f, 1.0f);
+      this->bullet_effect_->GetTransform()->SetPosition(this->current_controller_->GetBulletDirection());
     }
   }
   else
@@ -99,14 +112,12 @@ bool Player::ControllProcess()
   {
     this->use_ear_ = false;
   }
-
-  return fire;
 }
 
 void Player::Update()
 {
-  this->ControllProcess();
   this->bullets_->Update();
+  this->ControllProcess();
 
   if (this->use_ear_)
   {

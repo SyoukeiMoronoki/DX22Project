@@ -35,6 +35,7 @@ extern class Texture FIELD_BOYA;
 extern class Texture FONT_NUMBER;
 
 extern class Texture PLAYER_BULLET;
+extern class Texture PLAYER_BULLET_EFFECT;
 extern class Texture PLAYER_TURGET;
 
 extern class Texture TEXT_BONUS;
