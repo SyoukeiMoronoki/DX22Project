@@ -17,7 +17,7 @@ static const T_FLOAT TOTAL_SCORE_WIDTH = 256.0f;
 
 void ResultScene::OnLoad(IResourceLoadReserver* resource)
 {
-  resource->ReserveLoad(Asset::Texture::FIELD_BG);
+  resource->ReserveLoad(Asset::Texture::FIELD_GROUND);
   resource->ReserveLoad(Asset::Texture::FONT_NUMBER);
   resource->ReserveLoad(Asset::Texture::TEXT_SCORE);
   resource->ReserveLoad(Asset::Texture::TEXT_BONUS);
@@ -46,7 +46,7 @@ void ResultScene::OnSetup()
   this->bonus_view_->GetTransform()->SetY(0);
   this->total_score_view_->GetTransform()->SetY(-150);
 
-  this->bg_ = Sprite::CreateWithTexture(&Asset::Texture::FIELD_BG);
+  this->bg_ = Sprite::CreateWithTexture(&Asset::Texture::FIELD_GROUND);
 
   this->bg_->GetTransform()->SetScale(3);
   //this->AddChild(this->bg_);

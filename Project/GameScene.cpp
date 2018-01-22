@@ -48,8 +48,8 @@ void GameScene::OnLoad(IResourceLoadReserver* resource)
   resource->ReserveLoad(Asset::Texture::ENEMY_WEAK_POINT);
   resource->ReserveLoad(Asset::Texture::ENEMY_ZAKO1);
   resource->ReserveLoad(Asset::Texture::ENEMY_ZAKO2);
-  resource->ReserveLoad(Asset::Texture::FIELD_BG);
-  resource->ReserveLoad(Asset::Texture::FIELD_BG_SONAR);
+  resource->ReserveLoad(Asset::Texture::FIELD_GROUND);
+  resource->ReserveLoad(Asset::Texture::FIELD_GROUND_NORMAL);
   resource->ReserveLoad(Asset::Texture::FIELD_BOYA);
   resource->ReserveLoad(Asset::Texture::FONT_NUMBER);
   resource->ReserveLoad(Asset::Texture::PLAYER_BULLET);
@@ -65,6 +65,7 @@ void GameScene::OnLoad(IResourceLoadReserver* resource)
   resource->ReserveLoad(Asset::Shader::SKY);
   resource->ReserveLoad(Asset::Shader::ZENITH);
   resource->ReserveLoad(Asset::Shader::ENEMY_BODY);
+  resource->ReserveLoad(Asset::Shader::GROUND);
 
   //resource->ReserveLoad(Asset::FBX::NEKO);
 }
@@ -101,7 +102,7 @@ void GameScene::OnSetup()
   this->AddChild(this->text_time_up_);
 
   this->AddChild(this->boya_);
-  this->AddChild(this->ui_player_);
+  //this->AddChild(this->ui_player_);
   GameSceneDirector::GetInstance().Init();
 
   this->player_->GameInit();
@@ -189,6 +190,7 @@ void GameScene::Update()
   bool use_ear = this->player_->IsUseEar();
   this->field_->SetVisible(!use_ear);
   this->enemy_manager_->Update(use_ear);
+  this->field_->Update(this->player_);
   //Asset::Material::ENEMY_BODY.BoolProperty("_UseEye") = use_ear;
  
   this->ui_player_->Update();

@@ -382,9 +382,15 @@
     <FxCompile Include="Zenith.hlsli">
       <Filter>リソース ファイル\Shader</Filter>
     </FxCompile>
+    <FxCompile Include="EnemyBody.hlsli">
+      <Filter>リソース ファイル\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="LightingGround.hlsli">
+      <Filter>リソース ファイル\Shader</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="EnemyBody.hlsli">
+    <None Include="Ground.hlsli">
       <Filter>リソース ファイル\Shader</Filter>
     </None>
   </ItemGroup>
