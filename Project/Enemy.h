@@ -3,8 +3,11 @@
 #include "../Engine/AnimatedSprite.h"
 #include "GameEntity.h"
 #include "EnemyData.h"
+#include "EnemyBulletManager.h"
 
-class Enemy : public GameEntity
+class Player;
+
+class Enemy : public GameEntity, public IPoolAllocatable
 {
 public:
   enum EnemySubspecies
@@ -27,10 +30,10 @@ public:
   ~Enemy();
 
 public:
-  virtual void OnAllocated();
-  virtual void OnFree();
+  virtual void OnAllocated() override;
+  virtual void OnFree() override;
 
-  virtual void EnemyUpdate(bool is_sonar);
+  virtual void EnemyUpdate(Player* player);
   virtual void OnDamaged();
   virtual void OnWeakPointDamaged();
 
@@ -47,6 +50,11 @@ public:
   void Spawn(const EnemyData* data);
 
 public:
+  inline void SetEnemyBulletManager(EnemyBulletManager* manager)
+  {
+    this->bullet_manager_ = manager;
+  }
+
   inline T_FLOAT GetRadius() const
   {
     return this->body_->GetTransform()->GetScaleMax() * 0.5f;
@@ -61,8 +69,18 @@ public:
   {
     return !this->is_dead_;
   }
-  
+ 
+  inline void SetHomingPos(T_FLOAT rad, T_FLOAT radius)
+  {
+    this->homing_rad_ = rad;
+    this->homing_radius_ = radius;
+  }
+
 private:
+  EnemyBulletManager* bullet_manager_;
+  T_FLOAT homing_rad_;
+  T_FLOAT homing_radius_;
+
   T_UINT16 count_;
   T_UINT8 move_delay_;
 
@@ -70,11 +88,13 @@ private:
 
   T_UINT8 death_count_;
 
+  T_UINT8 bullet_emmision_diray_;
+
   Collider3D_Sphare* weak_point_;
   Sprite3D* weak_point_sprite_;
 
   const EnemyData* data_;
   TiledTextureRegion* texture_region_;
-  Cube3D* body_;
+  AnimatedSprite3D* body_;
   bool is_dead_;
 };

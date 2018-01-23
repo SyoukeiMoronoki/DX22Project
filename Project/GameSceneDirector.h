@@ -2,6 +2,8 @@
 
 #include <HalEngine.h>
 
+#include "Field.h"
+
 class GameSceneDirector
 {
 public:
@@ -44,7 +46,19 @@ public:
     return this->bonus_;
   }
 
+  inline void SetField(Field* field)
+  {
+    this->field_ = field;
+  }
+
+  inline const Field* GetField() const
+  {
+    return this->field_;
+  }
+
 private:
   T_UINT32 score_;
   T_UINT32 bonus_;
+
+  Field* field_;
 };

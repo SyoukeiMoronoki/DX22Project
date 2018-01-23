@@ -7,6 +7,7 @@
 class Player;
 class EnemyManager;
 class UI_Player;
+class BossController;
 
 class GameScene : public Scene
 {
@@ -28,6 +29,7 @@ private:
 
   Player* player_;
   EnemyManager* enemy_manager_;
+  BossController* boss_controller_;
 
   Field* field_;
 

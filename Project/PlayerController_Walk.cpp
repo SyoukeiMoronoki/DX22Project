@@ -27,13 +27,13 @@ void PlayerController_Walk::ControllProcess()
   this->camera_->GetTransform()->SetPosition(TVec3f::EaseIn(
     EasingFunction::Quadratic::GetInstance(),
     this->camera_->GetTransform()->GetPosition(),
-    TVec3f(0.0f, 1.0f, -4.0f),
+    TVec3f(0.0f, 2.5f, -9.0f),
     0.25f
   ));
   this->camera_->SetLookAtPos(TVec3f::EaseIn(
     EasingFunction::Quadratic::GetInstance(),
     this->camera_->GetLookAtPos(),
-    TVec3f(0.0f, 0.0f, 1.0f),
+    TVec3f(0.0f, 0.0f, 0.5f),
     0.25f
   ));
   this->player_->GetTransform()->LerpRotation(

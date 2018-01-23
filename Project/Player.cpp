@@ -121,7 +121,7 @@ void Player::Update()
 
   if (this->use_ear_)
   {
-    this->ear_gauge_ = (T_UINT16)std::max((T_INT32)0, (T_INT32)(this->ear_gauge_ - 1));
+    //this->ear_gauge_ = (T_UINT16)std::max((T_INT32)0, (T_INT32)(this->ear_gauge_ - 1));
     if (this->ear_gauge_ == 0)
     {
       this->use_ear_ = false;
@@ -180,8 +180,14 @@ void Player::OnEarChanged()
 
 void Player::AttackToEnemy(EnemyManager* enemys)
 {
-
+  std::vector<Bullet*> hited_bullet_ = std::vector<Bullet*>();
   std::map<Bullet*, std::deque<Enemy*>> results = std::map<Bullet*, std::deque<Enemy*>>();
+  this->bullets_->Loop([&](Bullet* bullet)
+  {
+    bool hited= enemys->HitCheck(bullet);
+    hited_bullet_.push_back(bullet);
+  });
+
   this->bullets_->GetHitEntities(enemys, &results);
   for (auto itr = results.begin(); itr != results.end(); ++itr)
   {

@@ -79,12 +79,6 @@
     <Filter Include="ソース ファイル\Asset">
       <UniqueIdentifier>{388a9aa6-8ef5-433a-a878-1e060706368a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Game\Bullet">
-      <UniqueIdentifier>{07f3aaf1-5984-4a49-8d75-1d7a8e05743d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Game\Bullet">
-      <UniqueIdentifier>{7abcf60f-026c-4bc9-b0a3-f1244502af11}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Scene\ResultScene">
       <UniqueIdentifier>{eefbbf86-ace8-4c23-adea-c809e97fa2a2}</UniqueIdentifier>
     </Filter>
@@ -139,6 +133,24 @@
     <Filter Include="ソース ファイル\Game\Field">
       <UniqueIdentifier>{77a19dd5-fa17-4712-b0e5-38daee7aa386}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Enemy\Bullet">
+      <UniqueIdentifier>{821375df-6bdd-47bb-b148-c56073c3ac74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Player\Bullet">
+      <UniqueIdentifier>{7abcf60f-026c-4bc9-b0a3-f1244502af11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Enemy\Bullet">
+      <UniqueIdentifier>{8f36f71c-9090-40da-a0be-b7c8a0260617}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Player\Bullet">
+      <UniqueIdentifier>{07f3aaf1-5984-4a49-8d75-1d7a8e05743d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Boss">
+      <UniqueIdentifier>{4a5808a5-77b3-4e96-8d8b-eb1223351dbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Boss">
+      <UniqueIdentifier>{2d0d16ac-b0e6-4f6d-b9c8-e3add003bc4a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineSetting.h">
@@ -190,10 +202,10 @@
       <Filter>ヘッダー ファイル\Asset</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
-      <Filter>ヘッダー ファイル\Game\Bullet</Filter>
+      <Filter>ヘッダー ファイル\Game\Player\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="BulletManager.h">
-      <Filter>ヘッダー ファイル\Game\Bullet</Filter>
+      <Filter>ヘッダー ファイル\Game\Player\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>ヘッダー ファイル\Game\Player</Filter>
@@ -267,6 +279,18 @@
     <ClInclude Include="Field.h">
       <Filter>ヘッダー ファイル\Game\Field</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyBulletManager.h">
+      <Filter>ヘッダー ファイル\Game\Enemy\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyBullet.h">
+      <Filter>ヘッダー ファイル\Game\Enemy\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="BossController.h">
+      <Filter>ヘッダー ファイル\Game\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="BossBody.h">
+      <Filter>ヘッダー ファイル\Game\Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineSetting.cpp">
@@ -324,10 +348,10 @@
       <Filter>ソース ファイル\Test</Filter>
     </ClCompile>
     <ClCompile Include="BulletManager.cpp">
-      <Filter>ソース ファイル\Game\Bullet</Filter>
+      <Filter>ソース ファイル\Game\Player\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
-      <Filter>ソース ファイル\Game\Bullet</Filter>
+      <Filter>ソース ファイル\Game\Player\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Gauge.cpp">
       <Filter>ソース ファイル\Game\UI</Filter>
@@ -374,6 +398,18 @@
     <ClCompile Include="Field.cpp">
       <Filter>ソース ファイル\Game\Field</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyBulletManager.cpp">
+      <Filter>ソース ファイル\Game\Enemy\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyBullet.cpp">
+      <Filter>ソース ファイル\Game\Enemy\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="BossController.cpp">
+      <Filter>ソース ファイル\Game\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="BossBody.cpp">
+      <Filter>ソース ファイル\Game\Boss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Sky.hlsli">
@@ -388,10 +424,6 @@
     <FxCompile Include="LightingGround.hlsli">
       <Filter>リソース ファイル\Shader</Filter>
     </FxCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Ground.hlsli">
-      <Filter>リソース ファイル\Shader</Filter>
-    </None>
+    <FxCompile Include="Ground.hlsli" />
   </ItemGroup>
 </Project>

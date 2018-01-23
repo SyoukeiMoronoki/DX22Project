@@ -6,6 +6,7 @@
 
 #include "Player.h"
 #include "EnemyManager.h"
+#include "BossController.h"
 
 #include "UI_Player.h"
 #include "GameConstants.h"
@@ -22,7 +23,7 @@ enum ENTITY_ZINDEXES
   ZINDEX_UI,
 };
 
-static const T_UINT16 ENEMY_MAX = 12;
+static const T_UINT16 ENEMY_MAX = 36;
 static const T_UINT16 ENEMY_SPWAN_PROBABILITY = 64;
 
 static const T_FLOAT NEAR = 128.0f;
@@ -80,11 +81,17 @@ void GameScene::OnSetup()
   this->field_ = new Field();
   this->AddChild(this->field_);
 
+  GameSceneDirector::GetInstance().SetField(this->field_);
+
   this->player_ = new Player();
   this->AddChild(this->player_);
 
   this->enemy_manager_ = new EnemyManager(ENEMY_MAX);
   this->enemy_manager_->AttachToEntity(this->GetRoot3d());
+  this->enemy_manager_->GetBulletManager()->AttachToEntity(this->GetRoot3d());
+
+  this->boss_controller_ = new BossController();
+  this->boss_controller_->AttachToEntity(this->GetRoot3d());
 
   const TSize screen_size = Director::GetInstance()->GetScreenSize();
   this->boya_ = Sprite::CreateWithTexture(&Asset::Texture::FIELD_BOYA);
@@ -189,11 +196,16 @@ void GameScene::Update()
   }
   
   bool use_ear = this->player_->IsUseEar();
-  this->field_->SetVisible(!use_ear);
-  this->enemy_manager_->Update(use_ear);
+  this->enemy_manager_->Update(this->player_);
   this->field_->Update(this->player_);
+  this->boss_controller_->Update(this->player_);
   //Asset::Material::ENEMY_BODY.BoolProperty("_UseEye") = use_ear;
  
+  if (this->timeup_text_show_time_ == 0 && this->player_->GetHP() == 0)
+  {
+    this->time_count_ = 1;
+  }
+
   this->ui_player_->Update();
 
   if (rand() % ENEMY_SPWAN_PROBABILITY == 0)

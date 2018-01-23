@@ -5,6 +5,7 @@
 #include "AllocatableGameEntityManager.h"
 #include "EnemyDataManager.h"
 #include "Enemy.h"
+#include "EnemyBulletManager.h"
 
 class Player;
 class Bullet;
@@ -15,7 +16,7 @@ public:
   EnemyManager(T_UINT8 enemy_max);
 
 public:
-  void Update(bool is_sonar);
+  void Update(Player* player);
   void OnDamaged();
 
   bool HitCheck(Bullet* bullet);
@@ -24,7 +25,14 @@ public:
 public:
   Enemy* SpawnToRandomPosition(Player* player);
 
+public:
+  inline EnemyBulletManager* GetBulletManager()
+  {
+    return this->enemy_bullet_manager_;
+  }
+
 private:
   EnemyDataManager* data_manager_;
+  EnemyBulletManager* enemy_bullet_manager_;
 
 };

@@ -1,8 +1,8 @@
-#include "Bullet.h"
+#include "EnemyBullet.h"
 
 #include "Asset.h"
 
-Bullet::Bullet()
+EnemyBullet::EnemyBullet()
 {
   this->body_ = Sprite3D::CreateWithTexture(&Asset::Texture::PLAYER_BULLET);
   this->body_->GetMaterial()->SetZTestLevel(1);
@@ -11,19 +11,19 @@ Bullet::Bullet()
   this->SetHitRadius(1.0f);
 }
 
-void Bullet::OnAllocated()
+void EnemyBullet::OnAllocated()
 {
   GameEntity::OnAllocated();
   this->velocity_ = TVec3f(0.0f, 0.0f, 0.0f);
   this->lifetime_ = 100;
 }
 
-void Bullet::OnFree()
+void EnemyBullet::OnFree()
 {
   GameEntity::OnFree();
 }
 
-void Bullet::Update()
+void EnemyBullet::Update()
 {
   if (!this->IsAlive())
   {
@@ -31,9 +31,10 @@ void Bullet::Update()
   }
   this->lifetime_--;
   this->GetTransform()->SetPosition(this->GetTransform()->GetPosition() + this->velocity_);
+
 }
 
-void Bullet::OnHitEnemy()
+void EnemyBullet::OnHited()
 {
   this->lifetime_ = 0;
 }

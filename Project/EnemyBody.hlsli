@@ -10,10 +10,24 @@ struct v2f
   float4 vertex : SV_POSITION;
 };
 
+texture _MainTex;
+sampler _MainTexSampler = sampler_state
+{
+  Texture = _MainTex;
+  MipFilter = LINEAR;
+  MinFilter = LINEAR;
+  MagFilter = LINEAR;
+};
+
 float4x4 _WorldViewProj;
 float4 _Diffuse;
+float4 _Ambient;
 
-bool _UseEye;
+float _LightBrightness;
+float4 _LightDiffuse;
+float3 _LightPosition;
+
+bool _UseEar;
 
 static const int GRID_COUNT = 16;
 static const float GRID_WIDTH = 0.002f;
@@ -28,19 +42,13 @@ v2f vert(appdata v)
 
 float4 frag(v2f i) : SV_TARGET
 {
-  if (!_UseEye)
+  float4 col = _Ambient * _Diffuse;
+  if (_UseEar)
   {
-    return _Diffuse;
+    i.uv.y += 0.5f;
+    col = float4(1.0f, 1.0f, 1.0f, 1.0f);
   }
-  float d = 1.0f / GRID_COUNT;
-  float dx = fmod(i.uv.x, d) - d * 0.5f;
-  float dy = fmod(i.uv.y, d) - d * 0.5f;
-  if (abs(dx) < GRID_WIDTH || abs(dy) < GRID_WIDTH)
-  {
-    return float4(1.0f, 1.0f, 1.0f, 1.0f);
-  }
-  float4 col = _Diffuse;
-  col.a *= 0.2f;
+  col *= tex2D(_MainTexSampler, i.uv);
   return col;
 }
 

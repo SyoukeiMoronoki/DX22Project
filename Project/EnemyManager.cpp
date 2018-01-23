@@ -8,13 +8,33 @@ EnemyManager::EnemyManager(T_UINT8 enemy_max)
   : AllocatableGameEntityManager<Enemy>(enemy_max)
 {
   this->data_manager_ = new EnemyDataManager();
+  this->enemy_bullet_manager_ = new EnemyBulletManager(enemy_max * 2);
+  const T_UINT16 depth = 2;
+  const T_UINT16 round_max = enemy_max / depth;
+  T_UINT8 round_count = 0;
+  const T_FLOAT rad_d = MathConstants::PI_2 / round_max;
+  T_FLOAT rad_offset = 0.0f;
+  const T_FLOAT length_d = 2.0f;
+  T_FLOAT length_offset = 5.0f;
+  this->LoopIncludingPool([&](Enemy* enemy)
+  {
+    enemy->SetHomingPos(rad_offset + rad_d * round_count, length_offset);
+    enemy->SetEnemyBulletManager(this->enemy_bullet_manager_);
+    round_count++;
+    if (round_count == round_max)
+    {
+      round_count = 0;
+      length_offset += length_d;
+    }
+  });
 }
 
-void EnemyManager::Update(bool is_sonar)
+void EnemyManager::Update(Player* player)
 {
+  this->enemy_bullet_manager_->Update();
   this->Loop([&](Enemy* enemy)
   {
-    enemy->EnemyUpdate(is_sonar);
+    enemy->EnemyUpdate(player);
   });
   std::deque<Enemy*> dead_enemies = std::deque<Enemy*>();
   this->SelectAll(&dead_enemies, [](Enemy* enemy)
@@ -46,8 +66,17 @@ bool EnemyManager::AttackToPlayer(Player* player)
   Enemy* enemy = this->Collision(player->GetCollider());
   if (enemy)
   {
-    player->AddDamage();
+    //player->AddDamage();
     damaged = true;
+  }
+  if (!damaged)
+  {
+    EnemyBullet* bullet = this->enemy_bullet_manager_->Collision(player->GetCollider());
+    if (bullet)
+    {
+     // player->AddDamage();
+      damaged = true;
+    }
   }
   return damaged;
 }
