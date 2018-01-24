@@ -1,6 +1,6 @@
 #include "BossController.h"
 
-static const T_UINT8 BOSS_BODY_COUNT = 3;
+static const T_UINT8 BOSS_BODY_COUNT = 30;
 
 BossController::BossController()
   : AllocatableGameEntityManager(BOSS_BODY_COUNT)
@@ -17,7 +17,7 @@ void BossController::Update(Player* player)
   BossBody* front = nullptr;
   this->Loop([&](BossBody* body)
   {
-    body->BodyUpdate(front);
+    body->BodyUpdate(front, player);
     front = body;
   });
 }

@@ -88,7 +88,7 @@ private:
 
   T_UINT8 death_count_;
 
-  T_UINT8 bullet_emmision_diray_;
+  T_UINT8 bullet_emmision_delay_;
 
   Collider3D_Sphare* weak_point_;
   Sprite3D* weak_point_sprite_;

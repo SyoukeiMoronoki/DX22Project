@@ -14,6 +14,10 @@
 
 #include "Asset.h"
 
+static const T_UINT16 EAR_GAUGE_NEED = 100;
+static const T_UINT16 EAR_GAUGE_DEC = 10;
+static const T_UINT16 EAR_GAUGE_HEAL = 4;
+
 static const T_UINT8 DEFAULT_POWER = 8;
 static const T_UINT8 ATTACK_DELAY = 10;
 
@@ -53,7 +57,7 @@ void Player::GameInit()
   this->control_delay_ = 0;
   this->attack_delay_ = 0;
   this->hp_ = GameConstants::HP_MAX;
-  this->ear_gauge_ = 0;
+  this->ear_gauge_ = GameConstants::EYE_GAUGE_MAX;
   this->use_ear_ = false;
   this->power_ = DEFAULT_POWER;
 
@@ -106,9 +110,17 @@ void Player::ControllProcess()
   
   if (Input(0)->GetButtonDown(EYE))
   {
-    this->use_ear_ = !this->use_ear_;
+    if (!this->use_ear_ && this->ear_gauge_ >= EAR_GAUGE_NEED)
+    {
+      this->ear_gauge_ = (T_UINT16)std::max((T_INT32)0, (T_INT32)(this->ear_gauge_ - EAR_GAUGE_NEED));
+      this->use_ear_ = true;
+    }
+    else
+    {
+      this->use_ear_ = false;
+    }
   }
-  if (this->ear_gauge_ < 50)
+  if (this->ear_gauge_ == 0 || this->on_shot_)
   {
     this->use_ear_ = false;
   }
@@ -121,7 +133,7 @@ void Player::Update()
 
   if (this->use_ear_)
   {
-    //this->ear_gauge_ = (T_UINT16)std::max((T_INT32)0, (T_INT32)(this->ear_gauge_ - 1));
+    this->ear_gauge_ = (T_UINT16)std::max((T_INT32)0, (T_INT32)(this->ear_gauge_ - EAR_GAUGE_DEC));
     if (this->ear_gauge_ == 0)
     {
       this->use_ear_ = false;
@@ -129,7 +141,7 @@ void Player::Update()
   }
   else
   {
-    this->ear_gauge_ = (T_UINT16)std::min((T_UINT16)GameConstants::EYE_GAUGE_MAX, (T_UINT16)(this->ear_gauge_ + 2));
+    this->ear_gauge_ = (T_UINT16)std::min((T_UINT16)GameConstants::EYE_GAUGE_MAX, (T_UINT16)(this->ear_gauge_ + EAR_GAUGE_HEAL));
   }
   this->OnEarChanged();
 }

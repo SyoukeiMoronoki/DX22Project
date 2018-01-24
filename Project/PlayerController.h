@@ -29,6 +29,10 @@ public:
   {
     return this->camera_->GetLookAtPos();
   }
+  inline const Camera3D_LookAt* GetCamera() const
+  {
+    return this->camera_;
+  }
 
 protected:
   Player* const player_;

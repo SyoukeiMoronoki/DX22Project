@@ -30,7 +30,7 @@ static const Color4F DARK_SKY_BASE_COLOR = Color4F::CreateBy4BitFormat(0, 0, 30)
 static const Color4F DARK_SKY_FADE_COLOR = Color4F::CreateBy4BitFormat(0, 12, 64);
 static const Color4F DARK_SKY_LIGHT_COLOR = Color4F::CreateBy4BitFormat(8, 0, 32);
 
-static const T_UINT8 SHOT_EFFECT_DURATION = 8;
+static const T_UINT16 SHOT_EFFECT_DURATION = 10000;
 
 Field::Field()
   : shot_effect_duration_(0)
@@ -68,8 +68,13 @@ Field::Field()
   this->AddChild(this->ground_);
 
   this->field_ambient_color_ = SKY_BASE_COLOR;
+  //this->field_ambient_color_ = Color4F::WHITE;
   this->field_fade_color_ = SKY_FADE_COLOR;
   this->field_light_color_ = SKY_LIGHT_COLOR;
+
+  this->next_field_ambient_color_ = this->field_ambient_color_;
+  this->next_field_fade_color_ = this->field_fade_color_;
+  this->next_field_light_color_ = this->field_light_color_;
 
   this->next_field_ambient_color_ = DARK_SKY_BASE_COLOR;
   this->next_field_fade_color_ = DARK_SKY_FADE_COLOR;
@@ -109,7 +114,7 @@ void Field::Update(Player* player)
     this->light_brightness_ = 5.0f * sinf((T_FLOAT)this->shot_effect_duration_ / SHOT_EFFECT_DURATION * MathConstants::PI_1_2);
     this->light_diffuse_ = Color4F::WHITE;
     this->light_position_ = player_world_position + player_world_direction;
-    this->light_direction_ = -player_world_direction;
+    this->light_direction_ = player_world_direction;
 
     this->ground_->GetMaterial()->FloatProperty("_LightBrightness") = this->light_brightness_;
     this->ground_->GetMaterial()->ColorProperty("_LightDiffuse") = this->light_diffuse_;

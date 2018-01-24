@@ -55,7 +55,7 @@ private:
   Plane3D* zenith_;
   Plane3D* ground_;
 
-  T_UINT8 shot_effect_duration_;
+  T_UINT16 shot_effect_duration_;
   
   T_FLOAT light_brightness_;
   TVec3f light_position_;

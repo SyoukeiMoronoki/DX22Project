@@ -23,7 +23,7 @@ enum ENTITY_ZINDEXES
   ZINDEX_UI,
 };
 
-static const T_UINT16 ENEMY_MAX = 36;
+static const T_UINT16 ENEMY_MAX = 24;
 static const T_UINT16 ENEMY_SPWAN_PROBABILITY = 64;
 
 static const T_FLOAT NEAR = 128.0f;
@@ -63,6 +63,7 @@ void GameScene::OnLoad(IResourceLoadReserver* resource)
   resource->ReserveLoad(Asset::Texture::TEXT_TIMEUP);
   resource->ReserveLoad(Asset::Texture::UI_EARGAUGE);
   resource->ReserveLoad(Asset::Texture::UI_HPGAUGE);
+  resource->ReserveLoad(Asset::Texture::UI_KEYBOARD);
 
   resource->ReserveLoad(Asset::Shader::SKY);
   resource->ReserveLoad(Asset::Shader::ZENITH);

@@ -151,6 +151,12 @@
     <Filter Include="ヘッダー ファイル\Game\Boss">
       <UniqueIdentifier>{2d0d16ac-b0e6-4f6d-b9c8-e3add003bc4a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Boss\Brain">
+      <UniqueIdentifier>{ae48562c-d537-43a9-b703-9472a16265e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Boss\Brain">
+      <UniqueIdentifier>{31be174b-e048-4bfc-a21f-3c776860c742}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineSetting.h">
@@ -291,6 +297,15 @@
     <ClInclude Include="BossBody.h">
       <Filter>ヘッダー ファイル\Game\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="BossBrain.h">
+      <Filter>ヘッダー ファイル\Game\Boss\Brain</Filter>
+    </ClInclude>
+    <ClInclude Include="BossBrain_Patrol.h">
+      <Filter>ヘッダー ファイル\Game\Boss\Brain</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonView.h">
+      <Filter>ヘッダー ファイル\Game\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineSetting.cpp">
@@ -410,6 +425,9 @@
     <ClCompile Include="BossBody.cpp">
       <Filter>ソース ファイル\Game\Boss</Filter>
     </ClCompile>
+    <ClCompile Include="ButtonView.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Sky.hlsli">
@@ -424,6 +442,8 @@
     <FxCompile Include="LightingGround.hlsli">
       <Filter>リソース ファイル\Shader</Filter>
     </FxCompile>
-    <FxCompile Include="Ground.hlsli" />
+    <FxCompile Include="Ground.hlsli">
+      <Filter>リソース ファイル\Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

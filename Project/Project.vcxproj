@@ -166,6 +166,7 @@
     <ClCompile Include="BossController.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletManager.cpp" />
+    <ClCompile Include="ButtonView.cpp" />
     <ClCompile Include="CollisionHelper.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyAttribute_Zako_1.cpp" />
@@ -205,9 +206,12 @@
     <ClInclude Include="AllocatableGameEntityManager.h" />
     <ClInclude Include="Asset.h" />
     <ClInclude Include="BossBody.h" />
+    <ClInclude Include="BossBrain.h" />
+    <ClInclude Include="BossBrain_Patrol.h" />
     <ClInclude Include="BossController.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletManager.h" />
+    <ClInclude Include="ButtonView.h" />
     <ClInclude Include="CollisionHelper.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyAttribute_Zako_1.h" />

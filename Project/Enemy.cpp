@@ -14,14 +14,16 @@ static const T_UINT8 DAMAGE_EFFECT_COUNT = 10;
 static const T_UINT8 DAMAGE_MOVE_DELAY = 30;
 static const T_UINT8 DEATH_COUNT = 80;
 
+static const T_UINT8 BULLET_EMMISION_DELAY = 120;
+
 Enemy::Enemy()
   : data_(nullptr)
 {
   this->texture_region_ = new TiledTextureRegion();
   this->body_ = new AnimatedSprite3D();
   this->body_->SetMaterial(Asset::Material::ENEMY_BODY);
-  this->body_->SetBillboardingFlag(true);
   this->body_->UniqueMaterial();
+  this->body_->SetBillboardingFlag(true);
   this->body_->GetMaterial()->SetZTestLevel(1);
   this->body_->SetTextureRegion(this->texture_region_);
   this->AddChild(this->body_);
@@ -55,18 +57,18 @@ void Enemy::OnAllocated()
   this->damage_effect_count_ = 0;
   this->death_count_ = 0;
   this->weak_point_ = NULL;
-  this->bullet_emmision_diray_ = 0;
+  this->bullet_emmision_delay_ = 0;
   this->GetTransform()->Init();
   this->body_->Init();
   this->body_->Animate(ANIMATION_DURATION);
   this->body_->SetAnimateRange(0, 3);
   this->body_->GetMaterial()->SetDiffuse(Color4F::WHITE);
   const Field* field = GameSceneDirector::GetInstance().GetField();
+  this->body_->GetMaterial()->MatrixProperty("_World") = this->GetTransform()->GetWorldMatrix();
   this->body_->GetMaterial()->ColorProperty("_Ambient") = field->GetFieldAmbientColor();
   this->body_->GetMaterial()->FloatProperty("_LightBrightness") = field->GetLightBrightness();
   this->body_->GetMaterial()->ColorProperty("_LightDiffuse") = field->GetLightDiffuse();
   this->body_->GetMaterial()->Vec3fProperty("_LightPosition") = field->GetLightPosition();
-  this->SetVisible(true);
 }
 
 void Enemy::OnFree()
@@ -79,13 +81,21 @@ void Enemy::OnFree()
 void Enemy::EnemyUpdate(Player* player)
 {
   bool is_sonar = player->IsUseEar();
+  this->SetVisible(true);
   this->body_->GetMaterial()->BoolProperty("_UseEar") = is_sonar;
   const Field* field = GameSceneDirector::GetInstance().GetField();
   this->body_->GetMaterial()->ColorProperty("_Ambient") = field->GetFieldAmbientColor();
   this->body_->GetMaterial()->FloatProperty("_LightBrightness") = field->GetLightBrightness();
   this->body_->GetMaterial()->ColorProperty("_LightDiffuse") = field->GetLightDiffuse();
   this->body_->GetMaterial()->Vec3fProperty("_LightPosition") = field->GetLightPosition();
-
+  this->body_->GetMaterial()->Vec3fProperty("_LightDirection") = field->GetLightDirection();
+  this->body_->GetMaterial()->Vec3fProperty("_ViewDirection") = player->GetController()->GetCamera()->GetDirection();
+  //TVec3f a = field->GetLightDirection();
+  //TVec3f b = player->GetController()->GetCamera()->GetDirection();
+  //if (TVec3f::InnerProduct(a, b) > 0.0f)
+  //{
+  //  return;
+  //}
   if (this->death_count_ > 0)
   {
     this->death_count_--;
@@ -121,15 +131,15 @@ void Enemy::EnemyUpdate(Player* player)
     if (length > 0.1f)
     {
       this->GetTransform()->SetPosition(this->GetTransform()->GetPosition() + vec / length * this->data_->speed);
-      this->bullet_emmision_diray_ = 20;
+      this->bullet_emmision_delay_ = BULLET_EMMISION_DELAY;
     }
     else
     {
-      this->bullet_emmision_diray_--;
-      if (this->bullet_emmision_diray_ == 0)
+      this->bullet_emmision_delay_--;
+      if (this->bullet_emmision_delay_ == 0)
       {
         this->bullet_manager_->Emmision(this, player);
-        this->bullet_emmision_diray_ = 20;
+        this->bullet_emmision_delay_ = BULLET_EMMISION_DELAY;
       }
     }
   }
@@ -218,7 +228,6 @@ void Enemy::Spawn(const EnemyData* data)
   this->texture_region_->FitToTexture();
 
   //this->body_->GetTransform()->SetScale(Util::GetRandom(1.0f, 5.0f));
-
   this->move_delay_ = 30;
 
   this->body_->FitToTexture();

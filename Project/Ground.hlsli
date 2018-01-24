@@ -60,13 +60,11 @@ float4 frag(v2f i) : SV_TARGET
     float d = 1.0f / _Scale;
     float dx = fmod(i.uv.x, d) - d * 0.5f;
     float dy = fmod(i.uv.y, d) - d * 0.5f;
-    if (abs(dx) < GRID_WIDTH || abs(dy) < GRID_WIDTH)
-    {
-      return float4(1.0f, 1.0f, 1.0f, 1.0f);
-    }
-    return float4(0.0f, 0.0f, 0.0f, 0.0f);
+    return abs(dx) < GRID_WIDTH || abs(dy) < GRID_WIDTH ? float4(1.0f, 1.0f, 1.0f, 1.0f) : float4(0.0f, 0.0f, 0.0f, 0.0f);
   }
-  float4 o = tex2D(_MainTexSampler, i.uv * _Scale * 0.1f) * _Diffuse;
+  float2 uv = i.uv * _Scale * 0.1f;
+
+  float4 o = tex2D(_MainTexSampler, uv) * _Diffuse;
   float2 vPos2 = (i.uv - float2(0.5f, 0.5f)) * _Scale;
   float3 vPos = float3(vPos2.x, 0.0f, vPos2.y);
 
@@ -75,8 +73,8 @@ float4 frag(v2f i) : SV_TARGET
     return o * _Ambient;
   }
   float3 vL = _LightPosition - vPos;
-  float3 normal = i.normal + tex2D(_NormalSampler, i.uv * _Scale * 0.1f);
-  float3 normND = normalize(_LightDirection * normal);
+  float3 normal = i.normal + tex2D(_NormalSampler, uv);
+  float3 normND = normalize(-_LightDirection * normal);
   float3 normL = normalize(vL);
 
   float lengthL = length(vL);
