@@ -25,7 +25,10 @@ void EnemyBulletManager::Emmision(GameObject3D* emmitter, GameObject3D* target)
   {
     return;
   }
-  bullet->GetTransform()->SetPosition(emmitter->GetTransform()->GetWorldPosition());
-  TVec3f dir = target->GetTransform()->GetWorldPosition() - emmitter->GetTransform()->GetWorldPosition();
+  TVec3f emmitter_world_pos = emmitter->GetTransform()->GetWorldPosition();
+  TVec3f target_world_pos = target->GetTransform()->GetWorldPosition();
+  emmitter_world_pos.y = target_world_pos.y;
+  bullet->GetTransform()->SetPosition(emmitter_world_pos);
+  TVec3f dir = target_world_pos - emmitter_world_pos;
   bullet->SetVelocity(dir.Normalized() * 0.1f);
 }

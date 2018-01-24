@@ -19,6 +19,9 @@ sampler _MainTexSampler = sampler_state
   MipFilter = LINEAR;
   MinFilter = LINEAR;
   MagFilter = LINEAR;
+
+  AddressU = MIRROR;
+  AddressV = MIRROR;
 };
 
 texture _Normal;
@@ -28,6 +31,9 @@ sampler _NormalSampler = sampler_state
   MipFilter = LINEAR;
   MinFilter = LINEAR;
   MagFilter = LINEAR;
+
+  AddressU = MIRROR;
+  AddressV = MIRROR;
 };
 
 static const float GRID_WIDTH = 0.000015f;
@@ -72,9 +78,9 @@ float4 frag(v2f i) : SV_TARGET
   {
     return o * _Ambient;
   }
-  float3 vL = _LightPosition - vPos;
+  float3 vL = vPos - _LightPosition;
   float3 normal = i.normal + tex2D(_NormalSampler, uv);
-  float3 normND = normalize(-_LightDirection * normal);
+  float3 normND = normalize(_LightDirection * normal);
   float3 normL = normalize(vL);
 
   float lengthL = length(vL);

@@ -19,21 +19,28 @@ static const T_UINT8 BULLET_EMMISION_DELAY = 120;
 Enemy::Enemy()
   : data_(nullptr)
 {
-  this->texture_region_ = new TiledTextureRegion();
+  this->body_texture_region_ = new TiledTextureRegion();
   this->body_ = new AnimatedSprite3D();
+  this->body_->SetBillboardingFlag(true);
   this->body_->SetMaterial(Asset::Material::ENEMY_BODY);
   this->body_->UniqueMaterial();
-  this->body_->SetBillboardingFlag(true);
-  this->body_->GetMaterial()->SetZTestLevel(1);
-  this->body_->SetTextureRegion(this->texture_region_);
+  this->body_->GetMaterial()->SetZTestLevel(2);
+  this->body_->SetTextureRegion(this->body_texture_region_);
   this->AddChild(this->body_);
 
+  this->shadow_texture_region_ = new TiledTextureRegion();
+  this->shadow_ = new AnimatedSprite3D();
+  this->shadow_->SetBillboardingFlag(true);
+  this->shadow_->UniqueMaterial();
+  this->shadow_->GetMaterial()->SetZTestLevel(1);
+  this->shadow_->SetTextureRegion(this->shadow_texture_region_);
+  //this->AddChild(this->shadow_);
+
   this->weak_point_sprite_ = Sprite3D::CreateWithTexture(&Asset::Texture::ENEMY_WEAK_POINT);
-  this->weak_point_sprite_->GetMaterial()->SetZTestLevel(2);
-  this->weak_point_sprite_->GetMaterial()->SetDiffuse(Color4F::RED);
-  this->weak_point_sprite_->SetVisible(false);
   this->weak_point_sprite_->SetBillboardingFlag(true);
   this->weak_point_sprite_->GetMaterial()->SetZTestLevel(1);
+  this->weak_point_sprite_->GetMaterial()->SetDiffuse(Color4F::RED);
+  this->weak_point_sprite_->SetVisible(false);
   this->AddChild(this->weak_point_sprite_);
 
   this->weak_point_ = new Collider3D_Sphare(this->weak_point_sprite_);
@@ -43,8 +50,10 @@ Enemy::Enemy()
 
 Enemy::~Enemy()
 {
-  delete this->texture_region_;
+  delete this->body_texture_region_;
   delete this->body_;
+  delete this->shadow_texture_region_;
+  delete this->shadow_;
 }
 
 void Enemy::OnAllocated()
@@ -59,16 +68,30 @@ void Enemy::OnAllocated()
   this->weak_point_ = NULL;
   this->bullet_emmision_delay_ = 0;
   this->GetTransform()->Init();
+  
   this->body_->Init();
+  this->body_->GetTransform()->Init();
   this->body_->Animate(ANIMATION_DURATION);
   this->body_->SetAnimateRange(0, 3);
   this->body_->GetMaterial()->SetDiffuse(Color4F::WHITE);
+
+  this->shadow_->Init();
+  this->shadow_->Animate(ANIMATION_DURATION);
+  this->shadow_->SetAnimateRange(0, 3);
+  this->shadow_->GetMaterial()->SetDiffuse(Color4F::WHITE);
+
   const Field* field = GameSceneDirector::GetInstance().GetField();
   this->body_->GetMaterial()->MatrixProperty("_World") = this->GetTransform()->GetWorldMatrix();
   this->body_->GetMaterial()->ColorProperty("_Ambient") = field->GetFieldAmbientColor();
   this->body_->GetMaterial()->FloatProperty("_LightBrightness") = field->GetLightBrightness();
   this->body_->GetMaterial()->ColorProperty("_LightDiffuse") = field->GetLightDiffuse();
   this->body_->GetMaterial()->Vec3fProperty("_LightPosition") = field->GetLightPosition();
+
+  //this->shadow_->GetMaterial()->MatrixProperty("_World") = this->GetTransform()->GetWorldMatrix();
+  //this->shadow_->GetMaterial()->ColorProperty("_Ambient") = field->GetFieldAmbientColor();
+  //this->shadow_->GetMaterial()->FloatProperty("_LightBrightness") = field->GetLightBrightness();
+  //this->shadow_->GetMaterial()->ColorProperty("_LightDiffuse") = field->GetLightDiffuse();
+  //this->shadow_->GetMaterial()->Vec3fProperty("_LightPosition") = field->GetLightPosition();
 }
 
 void Enemy::OnFree()
@@ -82,26 +105,33 @@ void Enemy::EnemyUpdate(Player* player)
 {
   bool is_sonar = player->IsUseEar();
   this->SetVisible(true);
-  this->body_->GetMaterial()->BoolProperty("_UseEar") = is_sonar;
+  this->shadow_->SetVisible(!is_sonar);
+  this->weak_point_sprite_->SetVisible(is_sonar);
+
   const Field* field = GameSceneDirector::GetInstance().GetField();
+
+  this->body_->GetMaterial()->BoolProperty("_UseEar") = is_sonar;
   this->body_->GetMaterial()->ColorProperty("_Ambient") = field->GetFieldAmbientColor();
   this->body_->GetMaterial()->FloatProperty("_LightBrightness") = field->GetLightBrightness();
   this->body_->GetMaterial()->ColorProperty("_LightDiffuse") = field->GetLightDiffuse();
   this->body_->GetMaterial()->Vec3fProperty("_LightPosition") = field->GetLightPosition();
   this->body_->GetMaterial()->Vec3fProperty("_LightDirection") = field->GetLightDirection();
   this->body_->GetMaterial()->Vec3fProperty("_ViewDirection") = player->GetController()->GetCamera()->GetDirection();
-  //TVec3f a = field->GetLightDirection();
-  //TVec3f b = player->GetController()->GetCamera()->GetDirection();
-  //if (TVec3f::InnerProduct(a, b) > 0.0f)
-  //{
-  //  return;
-  //}
+
+  //this->shadow_->GetMaterial()->BoolProperty("_UseEar") = is_sonar;
+  //this->shadow_->GetMaterial()->ColorProperty("_Ambient") = field->GetFieldAmbientColor();
+  //this->shadow_->GetMaterial()->FloatProperty("_LightBrightness") = field->GetLightBrightness();
+  //this->shadow_->GetMaterial()->ColorProperty("_LightDiffuse") = field->GetLightDiffuse();
+  //this->shadow_->GetMaterial()->Vec3fProperty("_LightPosition") = field->GetLightPosition();
+  //this->shadow_->GetMaterial()->Vec3fProperty("_LightDirection") = field->GetLightDirection();
+  //this->shadow_->GetMaterial()->Vec3fProperty("_ViewDirection") = player->GetController()->GetCamera()->GetDirection();
+
   if (this->death_count_ > 0)
   {
     this->death_count_--;
     this->body_->GetMaterial()->SetDiffuse(Color4F::Lerp(this->body_->GetMaterial()->GetDiffuse(), Color4F(0.0f, 0.0f, 1.0f), 0.25f));
-    //T_UINT8 death_angle = (T_UINT8)std::min((T_INT32)DEATH_COUNT, ((T_INT32)DEATH_COUNT - (T_INT32)this->death_count_) * 4);
-    //this->sprite_->GetTransform()->SetEularZ((T_FLOAT)death_angle / DEATH_COUNT * MathConstants::PI * 0.5f);
+    T_UINT8 death_angle = (T_UINT8)std::min((T_INT32)DEATH_COUNT, ((T_INT32)DEATH_COUNT - (T_INT32)this->death_count_) * 4);
+    //this->body_rot_->GetTransform()->SetEularX((T_FLOAT)death_angle / DEATH_COUNT * MathConstants::PI * 0.5f);
     if (this->death_count_ == 0)
     {
       this->is_dead_ = true;
@@ -109,7 +139,6 @@ void Enemy::EnemyUpdate(Player* player)
     }
     return;
   }
-  this->weak_point_sprite_->SetVisible(is_sonar);
   this->count_++;
 
   if (this->move_delay_ > 0)
@@ -124,6 +153,7 @@ void Enemy::EnemyUpdate(Player* player)
   {
     T_FLOAT width = this->weak_point_sprite_->GetTransform()->GetScaleMax();
     TVec3f target_pos = player->GetTransform()->GetWorldPosition();
+    target_pos.y = 0.0f;
     target_pos.x += cosf(this->homing_rad_) * this->homing_radius_;
     target_pos.z += sinf(this->homing_rad_) * this->homing_radius_;
     TVec3f vec = target_pos - this->GetTransform()->GetWorldPosition();
@@ -222,21 +252,31 @@ void Enemy::Spawn(const EnemyData* data)
 {
   this->data_ = data;
 
-  this->texture_region_->SetTexture(&data->texture);
-  this->texture_region_->SetXNum(4);
-  this->texture_region_->SetYNum(2);
-  this->texture_region_->FitToTexture();
-
   //this->body_->GetTransform()->SetScale(Util::GetRandom(1.0f, 5.0f));
   this->move_delay_ = 30;
 
+  this->body_texture_region_->SetTexture(&data->texture);
+  this->body_texture_region_->SetXNum(4);
+  this->body_texture_region_->SetYNum(2);
+  this->body_texture_region_->FitToTexture();
+
+  this->shadow_texture_region_->SetTexture(&data->texture);
+  this->shadow_texture_region_->SetXNum(4);
+  this->shadow_texture_region_->SetYNum(2);
+  this->shadow_texture_region_->FitToTexture();
+
   this->body_->FitToTexture();
   this->body_->SetCurrentIndex(0);
-  T_FLOAT radius = this->GetRadius();
   T_FLOAT height = this->body_->GetHeight();
   this->body_->GetMaterial()->SetMainTexture(&data->texture);
-  this->body_->GetTransform()->SetY(height * 0.35f);
+  this->body_->GetTransform()->SetY(height * 0.5f);
 
+  this->shadow_->FitToTexture();
+  this->shadow_->SetCurrentIndex(0);
+  this->shadow_->GetTransform()->SetZ(height * 0.5f);
+  this->shadow_->GetMaterial()->SetMainTexture(&data->texture);
+
+  T_FLOAT radius = this->GetRadius();
   this->weak_point_sprite_->GetTransform()->SetX(Util::GetRandom(-radius, radius));
   this->weak_point_sprite_->GetTransform()->SetY(radius + Util::GetRandom(-radius, radius));
   this->weak_point_sprite_->GetTransform()->SetZ(Util::GetRandom(-radius, radius));

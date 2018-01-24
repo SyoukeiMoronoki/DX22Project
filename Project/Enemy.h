@@ -94,7 +94,11 @@ private:
   Sprite3D* weak_point_sprite_;
 
   const EnemyData* data_;
-  TiledTextureRegion* texture_region_;
+
+  TiledTextureRegion* body_texture_region_;
   AnimatedSprite3D* body_;
+
+  TiledTextureRegion* shadow_texture_region_;
+  AnimatedSprite3D* shadow_;
   bool is_dead_;
 };

@@ -49,6 +49,8 @@ void GameScene::OnLoad(IResourceLoadReserver* resource)
   resource->ReserveLoad(Asset::Texture::ENEMY_WEAK_POINT);
   resource->ReserveLoad(Asset::Texture::ENEMY_ZAKO1);
   resource->ReserveLoad(Asset::Texture::ENEMY_ZAKO2);
+  resource->ReserveLoad(Asset::Texture::ENEMY_BOSS);
+
   resource->ReserveLoad(Asset::Texture::FIELD_GROUND);
   resource->ReserveLoad(Asset::Texture::FIELD_GROUND_NORMAL);
   resource->ReserveLoad(Asset::Texture::FIELD_BOYA);
@@ -211,7 +213,7 @@ void GameScene::Update()
 
   if (rand() % ENEMY_SPWAN_PROBABILITY == 0)
   {
-    this->enemy_manager_->SpawnToRandomPosition(this->player_);
+    //this->enemy_manager_->SpawnToRandomPosition(this->player_);
   }
   
   if (this->enemy_manager_->AttackToPlayer(this->player_))

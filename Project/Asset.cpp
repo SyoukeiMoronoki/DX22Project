@@ -26,6 +26,7 @@ namespace Texture
 class Texture ENEMY_WEAK_POINT("Asset/texture/enemy/weak_point.png");
 class Texture ENEMY_ZAKO1("Asset/texture/enemy/zako1.png");
 class Texture ENEMY_ZAKO2("Asset/texture/enemy/zako2.png");
+class Texture ENEMY_BOSS("Asset/texture/enemy/boss.png");
 
 class Texture FIELD_GROUND("Asset/texture/field/ground.png");
 class Texture FIELD_GROUND_NORMAL("Asset/texture/field/ground_normal.png");
@@ -59,6 +60,7 @@ namespace Shader
 const ShaderResource SKY("Asset/shader/Sky.cso");
 const ShaderResource ZENITH("Asset/shader/Zenith.cso");
 const ShaderResource ENEMY_BODY("Asset/shader/EnemyBody.cso");
+const ShaderResource ENEMY_SHADOW("Asset/shader/EnemyShadow.cso");
 const ShaderResource GROUND("Asset/shader/Ground.cso");
 } // namespace Shader
 
@@ -67,6 +69,7 @@ namespace Material
 class Material SKY(Shader::SKY);
 class Material ZENITH(Shader::ZENITH);
 class Material ENEMY_BODY(Shader::ENEMY_BODY);
+class Material ENEMY_SHADOW(Shader::ENEMY_SHADOW);
 class Material GROUND(Shader::GROUND);
 } // namespace Material
 

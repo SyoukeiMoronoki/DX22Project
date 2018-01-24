@@ -1,18 +1,24 @@
 #include "BossBody.h"
 #include "Asset.h"
+#include "GameDirector.h"
+#include "GameSceneDirector.h"
+#include "Field.h"
+#include "BossController.h"
+#include "BossBrain.h"
 
-static const T_FLOAT SPEED = 0.3f;
 
 BossBody::BossBody()
 {
-  Cube3D* cube = new Cube3D();
-  this->AddChild(cube);
-  this->body_ = Sprite3D::CreateWithTexture(&Asset::Texture::ENEMY_WEAK_POINT);
+  Material* mat = Asset::Material::ENEMY_BODY.Clone();
+  mat->SetMainTexture(&Asset::Texture::ENEMY_BOSS);
+  this->body_ = AnimatedSprite3D::CreateWithMaterial(mat, 2, 2);
   this->body_->GetMaterial()->SetZTestLevel(1);
-  //this->body_->SetBillboardingFlag(true);
-  this->AddChild(this->body_);
-  //this->SetVisible(false);
-  this->rot_velocity_ = TVec3f(0.01f, 0.05f, 0.001f);
+  this->body_->SetBillboardingFlag(true);
+
+  this->body_->GetMaterial()->MatrixProperty("_World") = this->GetTransform()->GetWorldMatrix();
+
+  GameDirector::GetScene()->AddChild(this->body_);
+  this->GetTransform()->SetScale(3.0f);
 }
 
 BossBody::~BossBody()
@@ -30,41 +36,52 @@ void BossBody::OnFree()
   this->SetVisible(false);
 }
 
-void BossBody::BodyUpdate(BossBody* front, Player* player)
+void BossBody::HeadUpdate(BossController* controller, Player* player)
 {
-  this->BodyMoveProcess(front);
+  this->body_->SetCurrentIndex(0);
+
+  controller->GetBrain()->Update(controller, this, player);
+
+  this->UpdateProperties(controller, player);
+}
+
+void BossBody::BodyUpdate(BossController* controller, BossBody* front, Player* player)
+{
+  this->body_->SetCurrentIndex(1);
+
+  TVec3f distance = front->GetTransform()->GetWorldPosition() - this->GetTransform()->GetWorldPosition();
+  T_FLOAT distance_length = distance.Length();
+  if (distance_length > this->GetTransform()->GetScaleMax())
+  {
+    T_FLOAT speed = std::min(distance_length, controller->GetSpeed());
+    this->GetTransform()->LerpRotation(front->GetTransform()->GetQuaternion(), 0.1f);
+    this->GetTransform()->MoveZ(speed);
+  }
+
+  this->UpdateProperties(controller, player);
+}
+
+void BossBody::UpdateProperties(BossController* controller, Player* player)
+{
   const TVec3f player_pos = player->GetTransform()->GetWorldPosition();
   const TVec3f pos = this->GetTransform()->GetWorldPosition();
-  
-  const T_FLOAT offsetY = this->GetTransform()->GetScaleY() * 0.5f;
+
+  const T_FLOAT offsetY = this->GetTransform()->GetScaleY();
   if (pos.y < offsetY)
   {
     this->GetTransform()->SetY(offsetY);
   }
-}
 
-void BossBody::BodyMoveProcess(BossBody* front)
-{
-  if (!front)
-  {
-    //this->GetTransform()->RotateZ(this->rot_velocity_.z);
-    this->GetTransform()->RotateY(this->rot_velocity_.y);
-    this->GetTransform()->RotateX(this->rot_velocity_.x);
-    this->GetTransform()->MoveZ(SPEED);
-    TVec3f pos = this->GetTransform()->GetWorldPosition();
-    if (pos.y < 0.0f || pos.y > 10.0f)
-    {
-      this->rot_velocity_.x *= -1.0f;
-    }
-    return;
-  }
-  TVec3f distance = front->GetTransform()->GetWorldPosition() - this->GetTransform()->GetWorldPosition();
-  T_FLOAT distance_length = distance.Length();
-  if (distance_length < this->GetTransform()->GetScaleMax())
-  {
-    return;
-  }
-  T_FLOAT speed = std::min(distance_length, SPEED);
-  this->GetTransform()->LerpRotation(front->GetTransform()->GetQuaternion(), 0.1f);
-  this->GetTransform()->MoveZ(speed);
+  this->body_->GetTransform()->SetPosition(this->GetTransform()->GetPosition());
+  this->body_->GetTransform()->SetScale(this->GetTransform()->GetScaleMax());
+  this->body_->SetVisible(this->IsVisible());
+
+  const Field* field = GameSceneDirector::GetInstance().GetField();
+  this->body_->GetMaterial()->BoolProperty("_UseEar") = player->IsUseEar();
+  this->body_->GetMaterial()->ColorProperty("_Ambient") = field->GetFieldAmbientColor();
+  this->body_->GetMaterial()->FloatProperty("_LightBrightness") = field->GetLightBrightness();
+  this->body_->GetMaterial()->ColorProperty("_LightDiffuse") = field->GetLightDiffuse();
+  this->body_->GetMaterial()->Vec3fProperty("_LightPosition") = field->GetLightPosition();
+  this->body_->GetMaterial()->Vec3fProperty("_LightDirection") = field->GetLightDirection();
+  this->body_->GetMaterial()->Vec3fProperty("_ViewDirection") = player->GetController()->GetCamera()->GetDirection();
 }

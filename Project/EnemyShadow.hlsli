@@ -42,12 +42,12 @@ v2f vert(appdata v)
   v2f o;
   o.vertex = mul(v.vertex, _WorldViewProj);
   o.uv = v.uv;
-  
+
   float4 vertex = v.vertex * 0.1f;
   vertex.w = 1.0f;
   float3 vPos = mul(vertex, _World);
   float3 vL = vPos - _LightPosition;
-  float3 normN = normalize(vL); 
+  float3 normN = normalize(vL);
   float3 normL = normalize(_LightDirection);
   float3 normV = normalize(_ViewDirection);
   float lengthL = length(vL);
@@ -67,19 +67,13 @@ float4 frag(v2f i) : SV_TARGET
     i.uv.y += 0.5f;
     return tex2D(_MainTexSampler, i.uv);
   }
-  return tex2D(_MainTexSampler, i.uv) * i.color;
+return tex2D(_MainTexSampler, i.uv) * i.color;
 }
 
 technique Default
 {
   pass
   {
-    AlphaBlendEnable = TRUE;
-    BlendOp = ADD;
-    SrcBlend = SRCALPHA;
-    DestBlend = INVSRCALPHA;
-    ShadeMode = FLAT;
-    ZEnable = TRUE;
     vertexshader = compile vs_2_0 vert();
     pixelshader = compile ps_2_0 frag();
   }

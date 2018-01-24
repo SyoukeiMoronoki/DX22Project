@@ -157,6 +157,12 @@
     <Filter Include="ソース ファイル\Game\Boss\Brain">
       <UniqueIdentifier>{31be174b-e048-4bfc-a21f-3c776860c742}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\Boss\Brain\Kind">
+      <UniqueIdentifier>{50eed3ee-65ea-4e46-bf22-2d6700bf53ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Boss\Brain\Kind">
+      <UniqueIdentifier>{0787721a-350a-47cb-8e46-cc645d7016dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineSetting.h">
@@ -300,11 +306,23 @@
     <ClInclude Include="BossBrain.h">
       <Filter>ヘッダー ファイル\Game\Boss\Brain</Filter>
     </ClInclude>
-    <ClInclude Include="BossBrain_Patrol.h">
-      <Filter>ヘッダー ファイル\Game\Boss\Brain</Filter>
-    </ClInclude>
     <ClInclude Include="ButtonView.h">
       <Filter>ヘッダー ファイル\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="BossBrainTable.h">
+      <Filter>ヘッダー ファイル\Game\Boss\Brain</Filter>
+    </ClInclude>
+    <ClInclude Include="BossBrain_Crawl.h">
+      <Filter>ヘッダー ファイル\Game\Boss\Brain\Kind</Filter>
+    </ClInclude>
+    <ClInclude Include="BossBrain_Fly.h">
+      <Filter>ヘッダー ファイル\Game\Boss\Brain\Kind</Filter>
+    </ClInclude>
+    <ClInclude Include="BossBrain_Chase.h">
+      <Filter>ヘッダー ファイル\Game\Boss\Brain\Kind</Filter>
+    </ClInclude>
+    <ClInclude Include="BossBrain_Around.h">
+      <Filter>ヘッダー ファイル\Game\Boss\Brain\Kind</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -425,8 +443,20 @@
     <ClCompile Include="BossBody.cpp">
       <Filter>ソース ファイル\Game\Boss</Filter>
     </ClCompile>
+    <ClCompile Include="BossBrain.cpp">
+      <Filter>ソース ファイル\Game\Boss\Brain</Filter>
+    </ClCompile>
+    <ClCompile Include="BossBrainTable.cpp">
+      <Filter>ソース ファイル\Game\Boss\Brain</Filter>
+    </ClCompile>
     <ClCompile Include="ButtonView.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="BossBrain_Crawl.cpp">
+      <Filter>ソース ファイル\Game\Boss\Brain\Kind</Filter>
+    </ClCompile>
+    <ClCompile Include="BossBrain_Around.cpp">
+      <Filter>ソース ファイル\Game\Boss\Brain\Kind</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -445,5 +475,10 @@
     <FxCompile Include="Ground.hlsli">
       <Filter>リソース ファイル\Shader</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="EnemyShadow.hlsli">
+      <Filter>リソース ファイル\Shader</Filter>
+    </None>
   </ItemGroup>
 </Project>

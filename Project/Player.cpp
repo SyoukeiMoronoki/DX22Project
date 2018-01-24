@@ -15,7 +15,7 @@
 #include "Asset.h"
 
 static const T_UINT16 EAR_GAUGE_NEED = 100;
-static const T_UINT16 EAR_GAUGE_DEC = 10;
+static const T_UINT16 EAR_GAUGE_DEC = 1;
 static const T_UINT16 EAR_GAUGE_HEAL = 4;
 
 static const T_UINT8 DEFAULT_POWER = 8;

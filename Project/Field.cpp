@@ -30,7 +30,7 @@ static const Color4F DARK_SKY_BASE_COLOR = Color4F::CreateBy4BitFormat(0, 0, 30)
 static const Color4F DARK_SKY_FADE_COLOR = Color4F::CreateBy4BitFormat(0, 12, 64);
 static const Color4F DARK_SKY_LIGHT_COLOR = Color4F::CreateBy4BitFormat(8, 0, 32);
 
-static const T_UINT16 SHOT_EFFECT_DURATION = 10000;
+static const T_UINT16 SHOT_EFFECT_DURATION = 10;
 
 Field::Field()
   : shot_effect_duration_(0)

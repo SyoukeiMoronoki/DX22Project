@@ -27,6 +27,7 @@ namespace Texture
 extern class Texture ENEMY_WEAK_POINT;
 extern class Texture ENEMY_ZAKO1;
 extern class Texture ENEMY_ZAKO2;
+extern class Texture ENEMY_BOSS;
 
 extern class Texture FIELD_GROUND;
 extern class Texture FIELD_GROUND_NORMAL;
@@ -60,6 +61,7 @@ namespace Shader
 extern const ShaderResource SKY;
 extern const ShaderResource ZENITH;
 extern const ShaderResource ENEMY_BODY;
+extern const ShaderResource ENEMY_SHADOW;
 extern const ShaderResource GROUND;
 } // namespace Shader
 
@@ -68,6 +70,7 @@ namespace Material
 extern class Material SKY;
 extern class Material ZENITH;
 extern class Material ENEMY_BODY;
+extern class Material ENEMY_SHADOW;
 extern class Material GROUND;
 } // namespace Material
 

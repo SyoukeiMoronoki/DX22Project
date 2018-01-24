@@ -4,6 +4,8 @@
 #include "GameEntity.h"
 #include "Player.h"
 
+class BossController;
+
 class BossBody : public GameEntity, public IPoolAllocatable
 {
 public:
@@ -15,12 +17,12 @@ public:
   virtual void OnFree() override;
 
 public:
-  void BodyUpdate(BossBody* front, Player* player);
+  void HeadUpdate(BossController* controller, Player* player);
+  void BodyUpdate(BossController* controller, BossBody* front, Player* player);
 
 protected:
-  void BodyMoveProcess(BossBody* front);
+  void UpdateProperties(BossController* controller, Player* player);
 
 private:
-  Sprite3D* body_;
-  TVec3f rot_velocity_;
+  AnimatedSprite3D* body_;
 };

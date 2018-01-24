@@ -163,6 +163,10 @@
   <ItemGroup>
     <ClCompile Include="Asset.cpp" />
     <ClCompile Include="BossBody.cpp" />
+    <ClCompile Include="BossBrain.cpp" />
+    <ClCompile Include="BossBrainTable.cpp" />
+    <ClCompile Include="BossBrain_Around.cpp" />
+    <ClCompile Include="BossBrain_Crawl.cpp" />
     <ClCompile Include="BossController.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletManager.cpp" />
@@ -207,7 +211,11 @@
     <ClInclude Include="Asset.h" />
     <ClInclude Include="BossBody.h" />
     <ClInclude Include="BossBrain.h" />
-    <ClInclude Include="BossBrain_Patrol.h" />
+    <ClInclude Include="BossBrainTable.h" />
+    <ClInclude Include="BossBrain_Around.h" />
+    <ClInclude Include="BossBrain_Chase.h" />
+    <ClInclude Include="BossBrain_Crawl.h" />
+    <ClInclude Include="BossBrain_Fly.h" />
     <ClInclude Include="BossController.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletManager.h" />
@@ -382,6 +390,21 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\Asset\shader\%(Filename).cso</ObjectFileOutput>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">2.0</ShaderModel>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\Asset\shader\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="EnemyShadow.hlsli">
+      <FileType>Document</FileType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">2.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">2.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\Asset\shader\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\Asset\shader\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
