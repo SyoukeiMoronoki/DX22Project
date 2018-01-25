@@ -55,9 +55,27 @@ void EnemyManager::OnDamaged()
   });
 }
 
-bool EnemyManager::HitCheck(Bullet* bullet)
+EnemyManager::HitResult EnemyManager::HitCheck(Bullet* bullet)
 {
-  return true;
+  Enemy* hit_enemy = this->Select([&](Enemy* enemy)
+  {
+    return enemy->WeakPointHitCheck(bullet->GetCollider());
+  });
+  if (hit_enemy)
+  {
+    hit_enemy->OnWeakPointDamaged();
+    return HitResult::HIT_WEAK_POINT;
+  }
+  hit_enemy = this->Select([&](Enemy* enemy)
+  {
+    return enemy->HitCheck(bullet->GetCollider());
+  });
+  if (hit_enemy)
+  {
+    hit_enemy->OnDamaged();
+    return HitResult::HIT_BODY;
+  }
+  return HitResult::NO_HIT;
 }
 
 bool EnemyManager::AttackToPlayer(Player* player)
@@ -66,7 +84,7 @@ bool EnemyManager::AttackToPlayer(Player* player)
   Enemy* enemy = this->Collision(player->GetCollider());
   if (enemy)
   {
-    //player->AddDamage();
+    player->AddDamage();
     damaged = true;
   }
   if (!damaged)
@@ -74,7 +92,7 @@ bool EnemyManager::AttackToPlayer(Player* player)
     EnemyBullet* bullet = this->enemy_bullet_manager_->Collision(player->GetCollider());
     if (bullet)
     {
-     // player->AddDamage();
+      player->AddDamage();
       damaged = true;
     }
   }

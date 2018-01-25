@@ -16,9 +16,19 @@ BossBody::BossBody()
   this->body_->SetBillboardingFlag(true);
 
   this->body_->GetMaterial()->MatrixProperty("_World") = this->GetTransform()->GetWorldMatrix();
+  this->body_->SetVisible(false);
+
+  this->weak_point_sprite_ = Sprite3D::CreateWithTexture(&Asset::Texture::ENEMY_WEAK_POINT);
+  this->weak_point_sprite_->GetMaterial()->SetZTestLevel(1);
+  this->weak_point_sprite_->GetMaterial()->SetDiffuse(Color4F::RED);
+  this->weak_point_sprite_->SetVisible(false);
+  this->weak_point_sprite_->GetTransform()->SetScale(4.0f);
+  this->body_->AddChild(this->weak_point_sprite_);
 
   GameDirector::GetScene()->AddChild(this->body_);
   this->GetTransform()->SetScale(3.0f);
+  this->SetHitRadius(1.0f);
+  this->weak_flag_ = false;
 }
 
 BossBody::~BossBody()
@@ -63,6 +73,22 @@ void BossBody::BodyUpdate(BossController* controller, BossBody* front, Player* p
   this->GetTransform()->SetPosition(this->GetTransform()->GetPosition() + distance.Normalized() * speed);
 
   this->UpdateProperties(controller, player);
+
+  T_INT32 rand = Util::GetRandom(0, 1000);
+  if (rand <= 2)
+  {
+    this->weak_flag_ = !this->weak_flag_;
+  }
+}
+
+void BossBody::OnDamaged()
+{
+  GameSceneDirector::GetInstance().AddScore(30);
+}
+
+void BossBody::OnWeakPointDamaged()
+{
+  GameSceneDirector::GetInstance().AddScore(300);
 }
 
 void BossBody::UpdateProperties(BossController* controller, Player* player)
@@ -80,8 +106,11 @@ void BossBody::UpdateProperties(BossController* controller, Player* player)
   this->body_->GetTransform()->SetScale(this->GetTransform()->GetScaleMax());
   this->body_->SetVisible(this->IsVisible());
 
+  bool is_sonar = player->IsUseEar();
   const Field* field = GameSceneDirector::GetInstance().GetField();
-  this->body_->GetMaterial()->BoolProperty("_UseEar") = player->IsUseEar();
+
+  this->weak_point_sprite_->SetVisible(is_sonar && this->weak_flag_);
+  this->body_->GetMaterial()->BoolProperty("_UseEar") = is_sonar;
   this->body_->GetMaterial()->ColorProperty("_Ambient") = field->GetFieldAmbientColor();
   this->body_->GetMaterial()->FloatProperty("_LightBrightness") = field->GetLightBrightness();
   this->body_->GetMaterial()->ColorProperty("_LightDiffuse") = field->GetLightDiffuse();

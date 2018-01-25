@@ -163,6 +163,12 @@
     <Filter Include="ヘッダー ファイル\Game\Boss\Brain\Kind">
       <UniqueIdentifier>{0787721a-350a-47cb-8e46-cc645d7016dc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\Boss\Bullet">
+      <UniqueIdentifier>{1e9d210f-7ebb-4133-aece-93f93e78b28c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Boss\Bullet">
+      <UniqueIdentifier>{0549a7f7-7080-460f-92d6-374e5f1bfb9a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineSetting.h">
@@ -327,6 +333,18 @@
     <ClInclude Include="BossBrain_Jump.h">
       <Filter>ヘッダー ファイル\Game\Boss\Brain\Kind</Filter>
     </ClInclude>
+    <ClInclude Include="BossBrain_Landing.h">
+      <Filter>ヘッダー ファイル\Game\Boss\Brain\Kind</Filter>
+    </ClInclude>
+    <ClInclude Include="Tutorial.h">
+      <Filter>ヘッダー ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="BossBullet.h">
+      <Filter>ヘッダー ファイル\Game\Boss\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="BossBulletManager.h">
+      <Filter>ヘッダー ファイル\Game\Boss\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineSetting.cpp">
@@ -467,6 +485,21 @@
     <ClCompile Include="BossBrain_Jump.cpp">
       <Filter>ソース ファイル\Game\Boss\Brain\Kind</Filter>
     </ClCompile>
+    <ClCompile Include="BossBrain_Landing.cpp">
+      <Filter>ソース ファイル\Game\Boss\Brain\Kind</Filter>
+    </ClCompile>
+    <ClCompile Include="GameConstants.cpp">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Tutorial.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="BossBulletManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="BossBullet.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Sky.hlsli">
@@ -484,6 +517,9 @@
     <FxCompile Include="Ground.hlsli">
       <Filter>リソース ファイル\Shader</Filter>
     </FxCompile>
-    <FxCompile Include="EnemyShadow.hlsli" />
+    <FxCompile Include="PlayerBody.hlsli" />
+    <FxCompile Include="PlayerShadow.hlsli">
+      <Filter>リソース ファイル\Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

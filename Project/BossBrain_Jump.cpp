@@ -27,10 +27,11 @@ T_INT8 BossBrain_Jump::BrainChange(T_UINT16 count, BossController* controller, B
     return BossBrainTable::BRAIN_AROUND;
   }
   TVec3f distance = player->GetTransform()->GetWorldPosition() - head->GetTransform()->GetWorldPosition();
+  distance.y = 0.0f;
   T_FLOAT distance_length = distance.Length();
-  if (distance_length > 100.0f)
+  if (distance_length < 5.0f)
   {
-    return BossBrainTable::BRAIN_CHASE;
+    return BossBrainTable::BRAIN_CRAWL;
   }
   return -1;
 }

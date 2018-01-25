@@ -14,8 +14,10 @@
 
 #include "Asset.h"
 
+#include "BossController.h"
+
 static const T_UINT16 EAR_GAUGE_NEED = 100;
-static const T_UINT16 EAR_GAUGE_DEC = 1;
+static const T_UINT16 EAR_GAUGE_DEC = 4;
 static const T_UINT16 EAR_GAUGE_HEAL = 4;
 
 static const T_UINT8 DEFAULT_POWER = 8;
@@ -190,27 +192,58 @@ void Player::OnEarChanged()
   this->view_->GetEarView()->SetValue(this->ear_gauge_);
 }
 
-void Player::AttackToEnemy(EnemyManager* enemys)
+bool Player::AttackToEnemy(EnemyManager* enemys)
 {
   std::vector<Bullet*> hited_bullet_ = std::vector<Bullet*>();
   std::map<Bullet*, std::deque<Enemy*>> results = std::map<Bullet*, std::deque<Enemy*>>();
+  bool weak_point_hit = false;
   this->bullets_->Loop([&](Bullet* bullet)
   {
-    bool hited= enemys->HitCheck(bullet);
+    EnemyManager::HitResult hited = enemys->HitCheck(bullet);
+    if (hited == EnemyManager::NO_HIT)
+    {
+      return;
+    }
+    if (hited == EnemyManager::HIT_WEAK_POINT)
+    {
+      weak_point_hit = true;
+    }
     hited_bullet_.push_back(bullet);
   });
-
-  this->bullets_->GetHitEntities(enemys, &results);
-  for (auto itr = results.begin(); itr != results.end(); ++itr)
+  for (Bullet* bullet : hited_bullet_)
   {
-    Bullet* bullet = itr->first;
-    for (Enemy* enemy : itr->second)
-    {
-      enemy->OnWeakPointDamaged();
-      bullet->OnHitEnemy();
-    }
+    this->bullets_->Free(bullet);
   }
+  return weak_point_hit;
+}
 
+bool Player::AttackToBoss(BossController* boss)
+{
+  if (!boss->IsEnabld())
+  {
+    return false;
+  }
+  std::vector<Bullet*> hited_bullet_ = std::vector<Bullet*>();
+  std::map<Bullet*, std::deque<BossBody*>> results = std::map<Bullet*, std::deque<BossBody*>>();
+  bool weak_point_hit = false;
+  this->bullets_->Loop([&](Bullet* bullet)
+  {
+    BossController::HitResult hited = boss->HitCheck(bullet);
+    if (hited == BossController::NO_HIT)
+    {
+      return;
+    }
+    if (hited == BossController::HIT_WEAK_POINT)
+    {
+      weak_point_hit = true;
+    }
+    hited_bullet_.push_back(bullet);
+  });
+  for (Bullet* bullet : hited_bullet_)
+  {
+    this->bullets_->Free(bullet);
+  }
+  return weak_point_hit;
 }
 
 void Player::SetController(PlayerController* controller)

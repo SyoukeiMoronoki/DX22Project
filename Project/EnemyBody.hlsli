@@ -54,7 +54,7 @@ v2f vert(appdata v)
   float dotNL = dot(normN, normL);
   float dotNV = dot(normN, normV);
   dotNL += dotNV * step(0.0f, -dotNV);
-  float L = _LightBrightness * dotNL / (lengthL * 0.5f);  // Œõ‚Ì‹­‚³
+  float L = _LightBrightness * dotNL / (lengthL * lengthL * 0.25f);  // Œõ‚Ì‹­‚³
   L = max(L, 0.0f);
   o.color = _Diffuse * (_LightDiffuse * L + _Ambient * max(0.0f, 1.0f - L));
   return o;

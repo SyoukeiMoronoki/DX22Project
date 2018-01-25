@@ -1,35 +1,54 @@
 #include "PlayerActor.h"
+#include "Asset.h"
+#include "GameSceneDirector.h"
 
-PlayerActor::PlayerActor(GameObject3D* player)
+PlayerActor::PlayerActor(Player* player)
   : player_(player)
 {
   //this->GetTransform()->SetEularY(MathConstants::PI_1_2);
   this->body_ = new Cube3D();
-  this->body_->GetTransform()->SetScale(0.5f, 1.0f, 0.5f);
-  this->body_->GetTransform()->SetPosition(0.0f, 0.0f, 0.0f);
+  this->body_->SetMaterial(Asset::Material::PLAYER_BODY);
   this->body_->UniqueMaterial();
-  //this->body_->SetLightingEnabled(false);
+  this->body_->GetTransform()->SetScale(0.5f, 1.0f, 0.5f);
+  this->body_->GetTransform()->SetPosition(0.0f, 0.01f, 0.0f);
   this->body_->SetLayerId(1);
   this->AddChild(this->body_);
 
   this->gun_ = new Cube3D();
+  this->gun_->SetMaterial(Asset::Material::PLAYER_BODY);
+  this->gun_->UniqueMaterial();
+  this->gun_->GetMaterial()->SetDiffuse(Color4F::BLACK);
   this->gun_->GetTransform()->SetScale(0.1f, 0.1f, 1.0f);
   this->gun_->GetTransform()->SetPosition(0.0f, 0.0f, 0.5f);
-  this->gun_->UniqueMaterial();
-  //this->gun_->SetLightingEnabled(false);
   this->gun_->SetLayerId(1);
   this->AddChild(this->gun_);
+
+  this->shadow_ = Sprite3D::CreateWithTexture(&Asset::Texture::PLAYER_SHADOW);
+  this->shadow_->SetMaterial(Asset::Material::PLAYER_SHADOW);
+  this->shadow_->GetMaterial()->SetMainTexture(&Asset::Texture::PLAYER_SHADOW);
+  this->shadow_->GetTransform()->RotateX(MathConstants::DegToRad(90));
+  this->shadow_->GetTransform()->SetY(-0.5f);
+  this->AddChild(this->shadow_);
 }
 
 PlayerActor::~PlayerActor()
 {
   delete this->body_;
   delete this->gun_;
+  delete this->shadow_;
 }
 
 void PlayerActor::Update()
 {
   this->GetTransform()->LerpRotation(this->direction_quaternion_, 0.25f);
+
+  const Field* field = GameSceneDirector::GetInstance().GetField();
+  
+  this->body_->GetMaterial()->BoolProperty("_UseEar") = this->player_->IsUseEar();
+  this->body_->GetMaterial()->ColorProperty("_Ambient") = field->GetFieldAmbientColor();
+
+  this->gun_->GetMaterial()->BoolProperty("_UseEar") = this->player_->IsUseEar();
+  this->gun_->GetMaterial()->ColorProperty("_Ambient") = field->GetFieldAmbientColor();
 }
 
 void PlayerActor::Walk(T_FLOAT x, T_FLOAT y)

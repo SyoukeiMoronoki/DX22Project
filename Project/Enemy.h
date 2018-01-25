@@ -84,6 +84,8 @@ private:
   T_UINT16 count_;
   T_UINT8 move_delay_;
 
+  T_UINT8 hit_count_;
+
   T_UINT8 damage_effect_count_;
 
   T_UINT8 death_count_;

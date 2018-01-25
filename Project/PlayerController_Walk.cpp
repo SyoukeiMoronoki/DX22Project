@@ -3,10 +3,15 @@
 #include "Player.h"
 #include "GameSceneDirector.h"
 
+static const T_UINT8 TARGET_DOUBLE_TAP_DURATION = 30;
+static const TVec3f DEFAULT_CAMERA_POS = TVec3f(0.0f, 2.5f, -9.0f);
+static const TVec3f DEFAULT_LOOK_AT_POS = TVec3f(0.0f, 0.0f, 0.5f);
+
 PlayerController_Walk::PlayerController_Walk(Player* player)
   : PlayerController(player)
 {
   this->camera_->GetRenderState()->AddTargetLayerId(1);
+  this->is_target_mode_ = false;
 }
 
 void PlayerController_Walk::OnStart(const PlayerController* prev)
@@ -14,10 +19,11 @@ void PlayerController_Walk::OnStart(const PlayerController* prev)
   this->player_->GetActor()->GetTransform()->SetEularY(0.0f);
   this->camera_->GetTransform()->SetEularAngles(TVec3f(0.0f, 0.0f, 0.0f));
   this->direction_quaternion_.FromRotationMatrix(*this->player_->GetActor()->GetTransform()->GetWorldMatrix());
-  this->next_camera_pos_ = TVec3f(0.0f, 2.5f, -9.0f);
-  this->next_look_at_pos_ = TVec3f(0.0f, 0.0f, 0.5f);
+  this->next_camera_pos_ = DEFAULT_CAMERA_POS;
+  this->next_look_at_pos_ = DEFAULT_LOOK_AT_POS;
   this->camera_quaternion_ = Quaternion();
   this->camera_distance_ = this->next_camera_pos_.Length();
+  this->target_double_tap_duration_ = 0;
 }
 
 void PlayerController_Walk::OnEnd()
@@ -61,35 +67,56 @@ void PlayerController_Walk::ControllProcess()
   {
     this->player_->GetActor()->Walk(dx, dy);
   }
-  if (Input(0)->GetButtonDown(FOCUS))
+  if (!this->is_target_mode_)
   {
-    BossBody* target = GameSceneDirector::GetInstance().GetBoss()->GetHead();
-    //this->camera_->SetTarget(target);
-    //this->camera_->SetLookAtPos(target->GetTransform()->GetWorldPosition());
+    this->next_camera_pos_ = DEFAULT_CAMERA_POS;
+    this->next_look_at_pos_ = DEFAULT_LOOK_AT_POS;
+  }
+  bool focus_button_pushing = Input(0)->GetButton(FOCUS);
+  if (!focus_button_pushing)
+  {
+    this->target_double_tap_duration_ = 0;
+  }
+  BossBody* target = GameSceneDirector::GetInstance().GetBoss()->GetHead();
+  if (GameSceneDirector::GetInstance().GetCurrentPhase() == GameConstants::PHASE_DARK)
+  {
+    target = nullptr;
+  }
+  if (focus_button_pushing)
+  {
+    if (target)
+    {
+      this->target_double_tap_duration_++;
+      if (this->target_double_tap_duration_ > TARGET_DOUBLE_TAP_DURATION)
+      {
+        this->is_target_mode_ = !this->is_target_mode_;
+        this->target_double_tap_duration_ = 0;
+      }
+    }
+    if (!this->is_target_mode_ || !target)
+    {
+      this->direction_quaternion_.FromRotationMatrix(*this->player_->GetActor()->GetTransform()->GetWorldMatrix());
+      this->player_->GetActor()->Face(Quaternion());
+    }
+  }
+  if (this->is_target_mode_ && target)
+  {
     TVec3f player_direction = this->player_->GetTransform()->GetDirection();
-    ////player_pos.y = 0.0f;
-    //TVec3f target_direction = target->GetTransform()->GetWorldPosition() - this->player_->GetTransform()->GetWorldPosition();
-    //this->direction_quaternion_ = this->direction_quaternion_.LookRotation(
-    //  target_direction
-    //);
     TVec3f target_pos = target->GetTransform()->GetWorldPosition();
     TVec3f player_pos = this->player_->GetActor()->GetTransform()->GetWorldPosition();
-    TVec3f camera_pos = this->camera_->GetTransform()->GetWorldPosition();
-
-    //this->camera_quaternion_ = 
 
     TVec3f target_distance = target_pos - player_pos;
-    //this->next_camera_pos_ = camera_pos;
-    //this->next_camera_pos_.x = 0.0f;
-    this->next_look_at_pos_ = target_pos - camera_pos;
+    TVec3f camera_pos = target_distance + target_distance.Normalized() * this->camera_distance_;
+    this->next_camera_pos_ = -target_distance.Normalized() * this->camera_distance_;
+    this->next_camera_pos_.z = -std::max(2.0f, sqrtf(this->next_camera_pos_.x * this->next_camera_pos_.x + this->next_camera_pos_.z * this->next_camera_pos_.z));
+    this->next_camera_pos_.x = 0.0f;
+    this->next_camera_pos_.y = std::max(0.0f, std::min(5.0f, this->next_camera_pos_.y));
+
+    this->next_look_at_pos_ = target_pos - (player_pos + this->next_camera_pos_);
+    this->next_look_at_pos_.z = std::max(2.0f, sqrtf(this->next_look_at_pos_.x * this->next_look_at_pos_.x + this->next_look_at_pos_.z * this->next_look_at_pos_.z));
     this->next_look_at_pos_.x = 0.0f;
-    //this->next_look_at_pos_.y = std::max(this->next_look_at_pos_.y, 20.0f);
-
-    this->direction_quaternion_ = Quaternion(TVec3f(0.0f, 1.0f, 0.0f), -atan2f(target_distance.z, target_distance.x) + MathConstants::PI_1_2);
-    this->player_->GetActor()->Face(Quaternion());
-
-    //this->direction_quaternion_.FromRotationMatrix(*this->player_->GetActor()->GetTransform()->GetWorldMatrix());
-    //this->player_->GetActor()->Face();
+    this->next_look_at_pos_.y = std::max(0.0f, std::min(5.0f, this->next_look_at_pos_.y));
+    this->direction_quaternion_ = Quaternion(TVec3f(0.0f, 1.0f, 0.0f), -atan2f(camera_pos.z, camera_pos.x) + MathConstants::PI_1_2);
   }
 }
 

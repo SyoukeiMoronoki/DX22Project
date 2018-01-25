@@ -37,11 +37,10 @@ Enemy::Enemy()
   //this->AddChild(this->shadow_);
 
   this->weak_point_sprite_ = Sprite3D::CreateWithTexture(&Asset::Texture::ENEMY_WEAK_POINT);
-  this->weak_point_sprite_->SetBillboardingFlag(true);
   this->weak_point_sprite_->GetMaterial()->SetZTestLevel(1);
   this->weak_point_sprite_->GetMaterial()->SetDiffuse(Color4F::RED);
   this->weak_point_sprite_->SetVisible(false);
-  this->AddChild(this->weak_point_sprite_);
+  this->body_->AddChild(this->weak_point_sprite_);
 
   this->weak_point_ = new Collider3D_Sphare(this->weak_point_sprite_);
   this->SetVisible(false);
@@ -65,9 +64,10 @@ void Enemy::OnAllocated()
   this->move_delay_ = 0;
   this->damage_effect_count_ = 0;
   this->death_count_ = 0;
-  this->weak_point_ = NULL;
   this->bullet_emmision_delay_ = 0;
   this->GetTransform()->Init();
+
+  this->hit_count_ = 0;
   
   this->body_->Init();
   this->body_->GetTransform()->Init();
@@ -106,7 +106,6 @@ void Enemy::EnemyUpdate(Player* player)
   bool is_sonar = player->IsUseEar();
   this->SetVisible(true);
   this->shadow_->SetVisible(!is_sonar);
-  this->weak_point_sprite_->SetVisible(is_sonar);
 
   const Field* field = GameSceneDirector::GetInstance().GetField();
 
@@ -117,14 +116,6 @@ void Enemy::EnemyUpdate(Player* player)
   this->body_->GetMaterial()->Vec3fProperty("_LightPosition") = field->GetLightPosition();
   this->body_->GetMaterial()->Vec3fProperty("_LightDirection") = field->GetLightDirection();
   this->body_->GetMaterial()->Vec3fProperty("_ViewDirection") = player->GetController()->GetCamera()->GetDirection();
-
-  //this->shadow_->GetMaterial()->BoolProperty("_UseEar") = is_sonar;
-  //this->shadow_->GetMaterial()->ColorProperty("_Ambient") = field->GetFieldAmbientColor();
-  //this->shadow_->GetMaterial()->FloatProperty("_LightBrightness") = field->GetLightBrightness();
-  //this->shadow_->GetMaterial()->ColorProperty("_LightDiffuse") = field->GetLightDiffuse();
-  //this->shadow_->GetMaterial()->Vec3fProperty("_LightPosition") = field->GetLightPosition();
-  //this->shadow_->GetMaterial()->Vec3fProperty("_LightDirection") = field->GetLightDirection();
-  //this->shadow_->GetMaterial()->Vec3fProperty("_ViewDirection") = player->GetController()->GetCamera()->GetDirection();
 
   if (this->death_count_ > 0)
   {
@@ -139,6 +130,8 @@ void Enemy::EnemyUpdate(Player* player)
     }
     return;
   }
+  this->weak_point_sprite_->SetVisible(is_sonar);
+
   this->count_++;
 
   if (this->move_delay_ > 0)
@@ -194,11 +187,11 @@ void Enemy::OnDamaged()
   {
     return;
   }
-  //this->data_->attribute->OnDamaged(facade, this);
-  //this->damage_effect_count_ = DAMAGE_EFFECT_COUNT;
-  //this->sprite_->SetColor(255, 128, 128);
-  //this->SetMoveDelayNegative(DAMAGE_MOVE_DELAY);
-  //this->sprite_->Animate(0);
+  this->hit_count_++;
+  this->damage_effect_count_ = DAMAGE_EFFECT_COUNT;
+  this->body_->GetMaterial()->SetDiffuse(255, 128, 128);
+  this->SetMoveDelayNegative(DAMAGE_MOVE_DELAY);
+  this->body_->Animate(0);
   GameSceneDirector::GetInstance().AddScore(10);
 }
 
@@ -211,7 +204,9 @@ void Enemy::OnWeakPointDamaged()
   this->death_count_ = DEATH_COUNT;
   this->SetMoveDelayNegative(DEATH_COUNT);
   this->weak_point_sprite_->SetVisible(false);
-  GameSceneDirector::GetInstance().AddScore(100);
+  this->body_->Animate(0);
+  T_INT8 bonus_rest = std::max(0, this->hit_count_ - 5) + 1;
+  GameSceneDirector::GetInstance().AddScore(100 * bonus_rest);
 }
 
 void Enemy::AddMoveDelay(T_UINT8 delay)
@@ -276,10 +271,10 @@ void Enemy::Spawn(const EnemyData* data)
   this->shadow_->GetTransform()->SetZ(height * 0.5f);
   this->shadow_->GetMaterial()->SetMainTexture(&data->texture);
 
-  T_FLOAT radius = this->GetRadius();
+  T_FLOAT radius = this->GetRadius() * 0.5f;
   this->weak_point_sprite_->GetTransform()->SetX(Util::GetRandom(-radius, radius));
   this->weak_point_sprite_->GetTransform()->SetY(radius + Util::GetRandom(-radius, radius));
-  this->weak_point_sprite_->GetTransform()->SetZ(Util::GetRandom(-radius, radius));
+  this->weak_point_sprite_->GetTransform()->SetZ(0.1f);
 
   //this->data_->attribute->OnAttached(this);
 }

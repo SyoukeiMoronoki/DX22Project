@@ -38,6 +38,7 @@ extern class Texture FONT_NUMBER;
 extern class Texture PLAYER_BULLET;
 extern class Texture PLAYER_BULLET_EFFECT;
 extern class Texture PLAYER_TURGET;
+extern class Texture PLAYER_SHADOW;
 
 extern class Texture TEXT_BONUS;
 extern class Texture TEXT_HP;
@@ -48,6 +49,7 @@ extern class Texture TEXT_SONAR;
 extern class Texture TEXT_TIME;
 extern class Texture TEXT_TIMEUP;
 extern class Texture TEXT_TITLE;
+extern class Texture TEXT_TUTORIAL;
 
 extern class Texture UI_EARGAUGE;
 extern class Texture UI_HPGAUGE;
@@ -61,8 +63,9 @@ namespace Shader
 extern const ShaderResource SKY;
 extern const ShaderResource ZENITH;
 extern const ShaderResource ENEMY_BODY;
-extern const ShaderResource ENEMY_SHADOW;
 extern const ShaderResource GROUND;
+extern const ShaderResource PLAYER_BODY;
+extern const ShaderResource PLAYER_SHADOW;
 } // namespace Shader
 
 namespace Material
@@ -70,8 +73,9 @@ namespace Material
 extern class Material SKY;
 extern class Material ZENITH;
 extern class Material ENEMY_BODY;
-extern class Material ENEMY_SHADOW;
 extern class Material GROUND;
+extern class Material PLAYER_BODY;
+extern class Material PLAYER_SHADOW;
 } // namespace Material
 
 }; // namespace Asset

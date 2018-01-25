@@ -1,5 +1,7 @@
 #include "Field.h"
 #include "Asset.h"
+#include "GameConstants.h"
+#include "GameSceneDirector.h"
 
 static const TVec3f SKY_POSITION[Field::DIRECTION_DATANUM] =
 {
@@ -17,18 +19,39 @@ static const T_FLOAT SKY_ROTATION[Field::DIRECTION_DATANUM] =
   90.0f
 };
 
+static const Color4F SKY_BASE_COLOR[GameConstants::PHASE_DATANUM + 1] =
+{
+  Color4F::CreateBy4BitFormat(120, 150, 200),
+  Color4F::CreateBy4BitFormat(100, 24, 29),
+  Color4F::CreateBy4BitFormat(0, 0, 36),
+  Color4F::CreateBy4BitFormat(0, 0, 20),
+  Color4F::CreateBy4BitFormat(0, 0, 0),
+};
+
+static const Color4F SKY_FADE_COLOR[GameConstants::PHASE_DATANUM + 1] =
+{
+  Color4F::CreateBy4BitFormat(0, 169, 255),
+  Color4F::CreateBy4BitFormat(64, 28, 0),
+  Color4F::CreateBy4BitFormat(0, 12, 54),
+  Color4F::CreateBy4BitFormat(0, 0, 0),
+  Color4F::CreateBy4BitFormat(0, 0, 0),
+};
+
+static const Color4F SKY_LIGHT_COLOR[GameConstants::PHASE_DATANUM + 1] =
+{
+  Color4F::CreateBy4BitFormat(200, 255, 255),
+  Color4F::CreateBy4BitFormat(128, 24, 24),
+  Color4F::CreateBy4BitFormat(8, 0, 32),
+  Color4F::CreateBy4BitFormat(0, 0, 0),
+  Color4F::CreateBy4BitFormat(0, 0, 0),
+};
+
+
+
 static const T_FLOAT SKY_DISTANCE = 500.0f;
 
 static const char* SKY_PROPERTY_NAME_FADE = "_Horizon";
 static const char* SKY_PROPERTY_NAME_LIGHT = "_EarthLight";
-
-static const Color4F SKY_BASE_COLOR = Color4F::CreateBy4BitFormat(100, 24, 29);
-static const Color4F SKY_FADE_COLOR = Color4F::CreateBy4BitFormat(64, 28, 0);
-static const Color4F SKY_LIGHT_COLOR = Color4F::CreateBy4BitFormat(128, 24, 24);
-
-static const Color4F DARK_SKY_BASE_COLOR = Color4F::CreateBy4BitFormat(0, 0, 30);
-static const Color4F DARK_SKY_FADE_COLOR = Color4F::CreateBy4BitFormat(0, 12, 64);
-static const Color4F DARK_SKY_LIGHT_COLOR = Color4F::CreateBy4BitFormat(8, 0, 32);
 
 static const T_UINT16 SHOT_EFFECT_DURATION = 10;
 
@@ -67,18 +90,7 @@ Field::Field()
   this->ground_->GetMaterial()->FloatProperty("_Scale") = this->ground_->GetTransform()->GetScaleMax();
   this->AddChild(this->ground_);
 
-  //this->field_ambient_color_ = SKY_BASE_COLOR;
-  this->field_ambient_color_ = Color4F::WHITE;
-  this->field_fade_color_ = SKY_FADE_COLOR;
-  this->field_light_color_ = SKY_LIGHT_COLOR;
-
-  this->next_field_ambient_color_ = this->field_ambient_color_;
-  this->next_field_fade_color_ = this->field_fade_color_;
-  this->next_field_light_color_ = this->field_light_color_;
-
-  //this->next_field_ambient_color_ = DARK_SKY_BASE_COLOR;
-  //this->next_field_fade_color_ = DARK_SKY_FADE_COLOR;
-  //this->next_field_light_color_ = DARK_SKY_LIGHT_COLOR;
+  //this->field_ambient_color_ = Color4F::WHITE;
 }
 
 Field::~Field()
@@ -122,13 +134,21 @@ void Field::Update(Player* player)
     this->ground_->GetMaterial()->Vec3fProperty("_LightDirection") = this->light_direction_;
   }
   
-  this->field_ambient_color_ = Color4F::Lerp(this->field_ambient_color_, this->next_field_ambient_color_, 0.001f);
-  this->field_fade_color_ = Color4F::Lerp(this->field_fade_color_, this->next_field_fade_color_, 0.001f);
-  this->field_light_color_ = Color4F::Lerp(this->field_light_color_, this->next_field_light_color_, 0.001f);
+
+  const T_UINT8 now = GameSceneDirector::GetInstance().GetCurrentPhase();
+  const T_UINT8 next = now + 1;
+  const T_FLOAT t = GameSceneDirector::GetInstance().GetTimeProgress();
+  this->field_ambient_color_ = 
+    Color4F::Lerp(SKY_BASE_COLOR[now], SKY_BASE_COLOR[next], t);
+  this->field_fade_color_ =
+    Color4F::Lerp(SKY_FADE_COLOR[now], SKY_FADE_COLOR[next], t);
+  this->field_light_color_ =
+    Color4F::Lerp(SKY_LIGHT_COLOR[now], SKY_LIGHT_COLOR[next], t);
 
   this->zenith_->GetMaterial()->SetDiffuse(this->field_ambient_color_);
   this->sky_material_->SetDiffuse(this->field_ambient_color_);
   this->sky_material_->ColorProperty(SKY_PROPERTY_NAME_FADE) = this->field_fade_color_;
   this->sky_material_->ColorProperty(SKY_PROPERTY_NAME_LIGHT) = this->field_light_color_;
-  this->ground_->GetMaterial()->ColorProperty("_Ambient") = this->field_ambient_color_;
+ 
+  this->ground_->GetMaterial()->ColorProperty("_Ambient") = this->field_light_color_;
 }

@@ -37,6 +37,7 @@ class Texture FONT_NUMBER("Asset/texture/font/number.png");
 class Texture PLAYER_BULLET("Asset/texture/player/bullet.png");
 class Texture PLAYER_BULLET_EFFECT("Asset/texture/player/bullet_effect.png");
 class Texture PLAYER_TURGET("Asset/texture/player/target.png");
+class Texture PLAYER_SHADOW("Asset/texture/player/shadow000.jpg");
 
 class Texture TEXT_BONUS("Asset/texture/text/BONUS.png");
 class Texture TEXT_HP("Asset/texture/text/HP.png");
@@ -47,6 +48,7 @@ class Texture TEXT_SONAR("Asset/texture/text/SONAR.png");
 class Texture TEXT_TIME("Asset/texture/text/TIME.png");
 class Texture TEXT_TIMEUP("Asset/texture/text/TimeUP.png");
 class Texture TEXT_TITLE("Asset/texture/text/TITLE.png");
+class Texture TEXT_TUTORIAL("Asset/texture/text/Tutorial.png");
 
 class Texture UI_EARGAUGE("Asset/texture/ui/EarGauge.png");
 class Texture UI_HPGAUGE("Asset/texture/ui/HPGauge.png");
@@ -60,8 +62,9 @@ namespace Shader
 const ShaderResource SKY("Asset/shader/Sky.cso");
 const ShaderResource ZENITH("Asset/shader/Zenith.cso");
 const ShaderResource ENEMY_BODY("Asset/shader/EnemyBody.cso");
-const ShaderResource ENEMY_SHADOW("Asset/shader/EnemyShadow.cso");
 const ShaderResource GROUND("Asset/shader/Ground.cso");
+const ShaderResource PLAYER_BODY("Asset/shader/PlayerBody.cso");
+const ShaderResource PLAYER_SHADOW("Asset/shader/PlayerShadow.cso");
 } // namespace Shader
 
 namespace Material
@@ -69,8 +72,9 @@ namespace Material
 class Material SKY(Shader::SKY);
 class Material ZENITH(Shader::ZENITH);
 class Material ENEMY_BODY(Shader::ENEMY_BODY);
-class Material ENEMY_SHADOW(Shader::ENEMY_SHADOW);
 class Material GROUND(Shader::GROUND);
+class Material PLAYER_BODY(Shader::PLAYER_BODY);
+class Material PLAYER_SHADOW(Shader::PLAYER_SHADOW);
 } // namespace Material
 
 } // namespace Asset

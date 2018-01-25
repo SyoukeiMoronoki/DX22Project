@@ -11,6 +11,7 @@
 class GameEntity;
 class UI_Player;
 class PlayerUI_Player;
+class BossController;
 
 class Player : public GameObject3D
 {
@@ -37,7 +38,8 @@ public:
   void OnHPChanged();
   void OnEarChanged();
 
-  void AttackToEnemy(EnemyManager* enemys);
+  bool AttackToEnemy(EnemyManager* enemys);
+  bool AttackToBoss(BossController* boss);
 
 protected:
   void SetController(PlayerController* controller);

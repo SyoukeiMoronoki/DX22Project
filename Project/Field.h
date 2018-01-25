@@ -46,7 +46,7 @@ public:
 
   inline const Color4F& GetFieldAmbientColor() const
   {
-    return this->field_ambient_color_;
+    return this->field_light_color_;
   }
 
 private:
@@ -65,9 +65,5 @@ private:
   Color4F field_ambient_color_;
   Color4F field_fade_color_;
   Color4F field_light_color_;
-
-  Color4F next_field_ambient_color_;
-  Color4F next_field_fade_color_;
-  Color4F next_field_light_color_;
 
 };

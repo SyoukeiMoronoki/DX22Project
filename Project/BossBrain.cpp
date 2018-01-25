@@ -16,10 +16,25 @@ void BossBrain::Update(BossController* controller, BossBody* head, Player* playe
 {
   this->BrainUpdate(controller, head, player);
   T_INT8 id = this->BrainChange(this->count_, controller, head, player);
-  if (head->GetTransform()->GetY() > 80.0f)
+  TVec3f distance = player->GetTransform()->GetWorldPosition() - head->GetTransform()->GetWorldPosition();
+  T_FLOAT distance_length = distance.Length();
+  if (head->GetTransform()->GetY() > 50.0f)
+  {
+    T_UINT8 rand = Util::GetRandom(0, 9);
+    if (rand < 9)
+    {
+      id = BossBrainTable::BRAIN_LANDING;
+    }
+    else
+    {
+      id = BossBrainTable::BRAIN_CHASE;
+    }
+  }
+  else if (distance_length > 50.0f)
   {
     id = BossBrainTable::BRAIN_CHASE;
   }
+
   if (id != -1)
   {
     controller->ChangeBrain(BossBrainTable::GetBossBrain(id), head, player);

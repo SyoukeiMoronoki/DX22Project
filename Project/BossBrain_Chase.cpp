@@ -22,7 +22,7 @@ T_INT8 BossBrain_Chase::BrainChange(T_UINT16 count, BossController* controller, 
     T_UINT32 rand = Util::GetRandom(0, 100);
     if (rand < 10)
     {
-      return BossBrainTable::BRAIN_CHASE;
+      return BossBrainTable::BRAIN_CRAWL;
     }
     if (rand < 20)
     {

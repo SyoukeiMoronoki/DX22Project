@@ -13,13 +13,21 @@ class Bullet;
 class EnemyManager : public AllocatableGameEntityManager<Enemy>
 {
 public:
+  enum HitResult
+  {
+    NO_HIT,
+    HIT_BODY,
+    HIT_WEAK_POINT,
+  };
+
+public:
   EnemyManager(T_UINT8 enemy_max);
 
 public:
   void Update(Player* player);
   void OnDamaged();
 
-  bool HitCheck(Bullet* bullet);
+  HitResult HitCheck(Bullet* bullet);
   bool AttackToPlayer(Player* player);
 
 public:

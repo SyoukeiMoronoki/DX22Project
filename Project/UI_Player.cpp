@@ -47,8 +47,8 @@ UI_Player::UI_Player()
   const T_FLOAT height = (T_FLOAT)Director::GetInstance()->GetScreenHeight();
   
   this->time_view_ = new NumberView(TIMER_DIGIT_COUNT, TIMER_WIDTH);
-  this->time_view_->GetTransform()->SetPositon(width * 0.3f, height * 0.4f);
-  //this->AddChild(this->time_view_);
+  this->time_view_->GetTransform()->SetPositon(width * 0.35f, height * 0.325f);
+  this->AddChild(this->time_view_);
 
   this->score_view_ = new NumberView(SCORE_DIGIT_COUNT, SCORE_WIDTH);
   this->score_view_->SetDuration(5);

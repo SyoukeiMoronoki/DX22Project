@@ -18,11 +18,5 @@ void BossBrain_Around::BrainUpdate(BossController* controller, BossBody* head, P
 
 T_INT8 BossBrain_Around::BrainChange(T_UINT16 count, BossController* controller, BossBody* head, Player* player)
 {
-  TVec3f distance = player->GetTransform()->GetWorldPosition() - head->GetTransform()->GetWorldPosition();
-  T_FLOAT distance_length = distance.Length();
-  if (distance_length > 40.0f)
-  {
-    return BossBrainTable::BRAIN_CHASE;
-  }
   return -1;
 }
