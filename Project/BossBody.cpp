@@ -38,6 +38,10 @@ void BossBody::OnFree()
 
 void BossBody::HeadUpdate(BossController* controller, Player* player)
 {
+  this->move_direction_ += (this->GetTransform()->GetWorldPosition() - this->old_position_).Normalized();
+  this->move_direction_ *= 0.5f;
+  this->old_position_ = this->GetTransform()->GetWorldPosition();
+
   this->body_->SetCurrentIndex(0);
 
   controller->GetBrain()->Update(controller, this, player);
@@ -47,16 +51,16 @@ void BossBody::HeadUpdate(BossController* controller, Player* player)
 
 void BossBody::BodyUpdate(BossController* controller, BossBody* front, Player* player)
 {
+  this->move_direction_ += (this->GetTransform()->GetWorldPosition() - this->old_position_).Normalized();
+  this->move_direction_ *= 0.5f;
+  this->old_position_ = this->GetTransform()->GetWorldPosition();
+
   this->body_->SetCurrentIndex(1);
 
-  TVec3f distance = front->GetTransform()->GetWorldPosition() - this->GetTransform()->GetWorldPosition();
-  T_FLOAT distance_length = distance.Length();
-  if (distance_length > this->GetTransform()->GetScaleMax())
-  {
-    T_FLOAT speed = std::min(distance_length, controller->GetSpeed());
-    this->GetTransform()->LerpRotation(front->GetTransform()->GetQuaternion(), 0.1f);
-    this->GetTransform()->MoveZ(speed);
-  }
+  TVec3f target = front->GetTransform()->GetWorldPosition() - front->GetMoveDirection() * this->GetTransform()->GetScaleMax();
+  TVec3f distance = target - this->GetTransform()->GetWorldPosition();
+  T_FLOAT speed = std::min(controller->GetSpeed(), distance.Length());
+  this->GetTransform()->SetPosition(this->GetTransform()->GetPosition() + distance.Normalized() * speed);
 
   this->UpdateProperties(controller, player);
 }
@@ -84,4 +88,14 @@ void BossBody::UpdateProperties(BossController* controller, Player* player)
   this->body_->GetMaterial()->Vec3fProperty("_LightPosition") = field->GetLightPosition();
   this->body_->GetMaterial()->Vec3fProperty("_LightDirection") = field->GetLightDirection();
   this->body_->GetMaterial()->Vec3fProperty("_ViewDirection") = player->GetController()->GetCamera()->GetDirection();
+}
+
+void BossBody::Move(TVec3f value)
+{
+  //T_FLOAT dot = TVec3f::InnerProduct(this->GetMoveDirection(), value);
+  //if (dot < -0.5f)
+  //{
+  //  value = TVec3f::OuterProduct(value, this->GetMoveDirection());
+  //}
+  this->GetTransform()->SetPosition(this->GetTransform()->GetPosition() + value);
 }

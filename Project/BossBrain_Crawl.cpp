@@ -18,7 +18,7 @@ void BossBrain_Crawl::BrainUpdate(BossController* controller, BossBody* head, Pl
   }
 }
 
-T_INT8 BossBrain_Crawl::BrainChange(T_UINT16 count)
+T_INT8 BossBrain_Crawl::BrainChange(T_UINT16 count, BossController* controller, BossBody* self, Player* player)
 {
   return -1;
 }

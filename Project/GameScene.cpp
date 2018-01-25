@@ -95,6 +95,7 @@ void GameScene::OnSetup()
 
   this->boss_controller_ = new BossController();
   this->boss_controller_->AttachToEntity(this->GetRoot3d());
+  GameSceneDirector::GetInstance().SetBoss(this->boss_controller_);
 
   const TSize screen_size = Director::GetInstance()->GetScreenSize();
   this->boya_ = Sprite::CreateWithTexture(&Asset::Texture::FIELD_BOYA);

@@ -18,8 +18,13 @@ public:
 protected:
   virtual void BrainInit(BossController* controller, BossBody* head, Player* player) = 0;
   virtual void BrainUpdate(BossController* controller, BossBody* head, Player* player) = 0;
-  virtual T_INT8 BrainChange(T_UINT16 count) = 0;
+  virtual T_INT8 BrainChange(T_UINT16 count, BossController* controller, BossBody* head, Player* player) = 0;
 
+protected:
+  inline T_UINT16 GetFrameCount() const
+  {
+    return this->count_;
+  }
 
 private:
   T_UINT16 count_;

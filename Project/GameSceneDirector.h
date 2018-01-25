@@ -3,6 +3,7 @@
 #include <HalEngine.h>
 
 #include "Field.h"
+#include "BossController.h"
 
 class GameSceneDirector
 {
@@ -56,9 +57,20 @@ public:
     return this->field_;
   }
 
+  inline void SetBoss(BossController* boss)
+  {
+    this->boss_ = boss;
+  }
+
+  inline const BossController* GetBoss() const
+  {
+    return this->boss_;
+  }
+
 private:
   T_UINT32 score_;
   T_UINT32 bonus_;
 
   Field* field_;
+  BossController* boss_;
 };

@@ -22,7 +22,7 @@ void BossController::Update(Player* player)
   BossBody* head = this->Select([](BossBody*) { return true; });
   if (!this->brain_)
   {
-    this->ChangeBrain(BossBrainTable::GetBossBrain(BossBrainTable::BRAIN_CRAWL), head, player);
+    this->ChangeBrain(BossBrainTable::GetBossBrain(BossBrainTable::BRAIN_AROUND), head, player);
   }
   head->HeadUpdate(this, player);
 

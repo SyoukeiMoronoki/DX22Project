@@ -67,8 +67,8 @@ Field::Field()
   this->ground_->GetMaterial()->FloatProperty("_Scale") = this->ground_->GetTransform()->GetScaleMax();
   this->AddChild(this->ground_);
 
-  this->field_ambient_color_ = SKY_BASE_COLOR;
-  //this->field_ambient_color_ = Color4F::WHITE;
+  //this->field_ambient_color_ = SKY_BASE_COLOR;
+  this->field_ambient_color_ = Color4F::WHITE;
   this->field_fade_color_ = SKY_FADE_COLOR;
   this->field_light_color_ = SKY_LIGHT_COLOR;
 
@@ -76,9 +76,9 @@ Field::Field()
   this->next_field_fade_color_ = this->field_fade_color_;
   this->next_field_light_color_ = this->field_light_color_;
 
-  this->next_field_ambient_color_ = DARK_SKY_BASE_COLOR;
-  this->next_field_fade_color_ = DARK_SKY_FADE_COLOR;
-  this->next_field_light_color_ = DARK_SKY_LIGHT_COLOR;
+  //this->next_field_ambient_color_ = DARK_SKY_BASE_COLOR;
+  //this->next_field_fade_color_ = DARK_SKY_FADE_COLOR;
+  //this->next_field_light_color_ = DARK_SKY_LIGHT_COLOR;
 }
 
 Field::~Field()

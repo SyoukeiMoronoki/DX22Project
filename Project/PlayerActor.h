@@ -13,7 +13,7 @@ public:
 
 public:
   void Walk(T_FLOAT x, T_FLOAT y);
-  void Face();
+  void Face(const Quaternion& direction_quaternion);
   
 public:
   inline const Quaternion& GetDirectionQuaternion() const

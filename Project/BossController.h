@@ -28,6 +28,11 @@ public:
     return this->brain_;
   }
 
+  inline BossBody* GetHead() const
+  {
+    return const_cast<BossController*>(this)->Select([](BossBody* body) { return true; });
+  }
+
 private:
   T_UINT32 hp_;
   T_FLOAT speed_;

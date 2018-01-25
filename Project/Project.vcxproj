@@ -166,7 +166,9 @@
     <ClCompile Include="BossBrain.cpp" />
     <ClCompile Include="BossBrainTable.cpp" />
     <ClCompile Include="BossBrain_Around.cpp" />
+    <ClCompile Include="BossBrain_Chase.cpp" />
     <ClCompile Include="BossBrain_Crawl.cpp" />
+    <ClCompile Include="BossBrain_Jump.cpp" />
     <ClCompile Include="BossController.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletManager.cpp" />
@@ -216,6 +218,7 @@
     <ClInclude Include="BossBrain_Chase.h" />
     <ClInclude Include="BossBrain_Crawl.h" />
     <ClInclude Include="BossBrain_Fly.h" />
+    <ClInclude Include="BossBrain_Jump.h" />
     <ClInclude Include="BossController.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletManager.h" />

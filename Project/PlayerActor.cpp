@@ -38,7 +38,7 @@ void PlayerActor::Walk(T_FLOAT x, T_FLOAT y)
   this->direction_quaternion_ = Quaternion(TVec3f(0.0f, 1.0f, 0.0f), rad);
 }
 
-void PlayerActor::Face()
+void PlayerActor::Face(const Quaternion& direction_quaternion)
 {
-  this->direction_quaternion_ = Quaternion();
+  this->direction_quaternion_ = direction_quaternion;
 }

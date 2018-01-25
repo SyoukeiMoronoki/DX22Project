@@ -71,6 +71,10 @@ public:
   {
     return this->current_controller_;
   }
+  inline Quaternion GetWorldQuaternion() const
+  {
+    return this->GetTransform()->GetQuaternion() * this->actor_->GetDirectionQuaternion();
+  }
 
 private:
   PlayerController_Scope* scope_controller_;

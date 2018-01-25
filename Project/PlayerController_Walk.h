@@ -20,4 +20,8 @@ public:
 
 private:
   Quaternion direction_quaternion_;
+  Quaternion camera_quaternion_;
+  TVec3f next_camera_pos_;
+  TVec3f next_look_at_pos_;
+  T_FLOAT camera_distance_;
 };

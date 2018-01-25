@@ -23,6 +23,22 @@ public:
 protected:
   void UpdateProperties(BossController* controller, Player* player);
 
+public:
+  void Move(TVec3f value);
+
+public:
+  inline const TVec3f& GetOldPosition() const
+  {
+    return this->old_position_;
+  }
+
+  inline const TVec3f GetMoveDirection() const
+  {
+    return this->move_direction_;
+  }
+
 private:
   AnimatedSprite3D* body_;
+  TVec3f old_position_;
+  TVec3f move_direction_;
 };
