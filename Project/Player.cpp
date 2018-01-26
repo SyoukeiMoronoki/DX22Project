@@ -36,7 +36,7 @@ Player::Player()
   this->bullet_effect_ = Sprite3D::CreateWithTexture(&Asset::Texture::PLAYER_BULLET_EFFECT);
   this->bullet_effect_->GetMaterial()->SetDiffuse(1.0f, 1.0f, 1.0f, 0.0f);
   this->bullet_effect_->GetMaterial()->SetZTestLevel(1);
-  this->bullet_effect_->SetBillboardingFlag(true);
+  this->bullet_effect_->GetMaterial()->SetBillboardingFlag(true);
   //this->AddChild(this->bullet_effect_);
 }
 

@@ -21,7 +21,7 @@ Enemy::Enemy()
 {
   this->body_texture_region_ = new TiledTextureRegion();
   this->body_ = new AnimatedSprite3D();
-  this->body_->SetBillboardingFlag(true);
+  this->body_->GetMaterial()->SetBillboardingFlag(true);
   this->body_->SetMaterial(Asset::Material::ENEMY_BODY);
   this->body_->UniqueMaterial();
   this->body_->GetMaterial()->SetZTestLevel(2);
@@ -30,7 +30,7 @@ Enemy::Enemy()
 
   this->shadow_texture_region_ = new TiledTextureRegion();
   this->shadow_ = new AnimatedSprite3D();
-  this->shadow_->SetBillboardingFlag(true);
+  this->shadow_->GetMaterial()->SetBillboardingFlag(true);
   this->shadow_->UniqueMaterial();
   this->shadow_->GetMaterial()->SetZTestLevel(1);
   this->shadow_->SetTextureRegion(this->shadow_texture_region_);
