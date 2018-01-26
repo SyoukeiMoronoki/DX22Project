@@ -502,23 +502,25 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Sky.hlsli">
+    <FxCompile Include="EnemyBody.fx">
       <Filter>リソース ファイル\Shader</Filter>
     </FxCompile>
-    <FxCompile Include="Zenith.hlsli">
+    <FxCompile Include="Ground.fx">
       <Filter>リソース ファイル\Shader</Filter>
     </FxCompile>
-    <FxCompile Include="EnemyBody.hlsli">
+    <FxCompile Include="LightingGround.fx">
       <Filter>リソース ファイル\Shader</Filter>
     </FxCompile>
-    <FxCompile Include="LightingGround.hlsli">
+    <FxCompile Include="PlayerBody.fx">
       <Filter>リソース ファイル\Shader</Filter>
     </FxCompile>
-    <FxCompile Include="Ground.hlsli">
+    <FxCompile Include="PlayerShadow.fx">
       <Filter>リソース ファイル\Shader</Filter>
     </FxCompile>
-    <FxCompile Include="PlayerBody.hlsli" />
-    <FxCompile Include="PlayerShadow.hlsli">
+    <FxCompile Include="Sky.fx">
+      <Filter>リソース ファイル\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Zenith.fx">
       <Filter>リソース ファイル\Shader</Filter>
     </FxCompile>
   </ItemGroup>

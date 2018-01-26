@@ -13,7 +13,7 @@ BossBody::BossBody()
   mat->SetMainTexture(&Asset::Texture::ENEMY_BOSS);
   this->body_ = AnimatedSprite3D::CreateWithMaterial(mat, 2, 2);
   this->body_->GetMaterial()->SetZTestLevel(1);
-  this->body_->SetBillboardingFlag(true);
+  this->body_->GetMaterial()->SetBillboardingFlag(true);
 
   this->body_->GetMaterial()->MatrixProperty("_World") = this->GetTransform()->GetWorldMatrix();
   this->body_->SetVisible(false);
