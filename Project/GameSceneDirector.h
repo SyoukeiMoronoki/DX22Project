@@ -47,6 +47,7 @@ public:
     }
     if (this->time_count_ <= 0)
     {
+      this->time_count_ = 0;
       this->current_phase_++;
       if (this->current_phase_ == GameConstants::PHASE_DATANUM)
       {

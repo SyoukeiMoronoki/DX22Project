@@ -140,7 +140,6 @@ void ResultScene::Update()
 void ResultScene::EngineInput()
 {
   if (!HalEngine::Input(0)->AnyButtonDown())
-  //if (!HalEngine::Input(0)->GetButton(GameInput::FIRE))
   {
     return;
   }

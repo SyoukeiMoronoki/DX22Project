@@ -43,7 +43,7 @@ v2f vert(appdata v)
   o.vertex = mul(v.vertex, _WorldViewProj);
   o.uv = v.uv;
   
-  float4 vertex = v.vertex * 0.1f;
+  float4 vertex = v.vertex * 0.0f;
   vertex.w = 1.0f;
   float3 vPos = mul(vertex, _World);
   float3 vL = vPos - _LightPosition;

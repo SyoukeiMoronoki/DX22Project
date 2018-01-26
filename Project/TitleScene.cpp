@@ -32,7 +32,7 @@ void TitleScene::OnSetup()
   this->press_a_button_->GetTransform()->SetY(-200);
   this->press_a_button_->GetTransform()->SetScale(0.5f);
   
-  //this->AddChild(this->title_);
+  this->AddChild(this->title_);
   this->AddChild(this->press_a_button_);
 
   //this->cube_ = new Cube3D();

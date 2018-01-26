@@ -24,7 +24,7 @@ static const Color4F SKY_BASE_COLOR[GameConstants::PHASE_DATANUM + 1] =
   Color4F::CreateBy4BitFormat(120, 150, 200),
   Color4F::CreateBy4BitFormat(100, 24, 29),
   Color4F::CreateBy4BitFormat(0, 0, 36),
-  Color4F::CreateBy4BitFormat(0, 0, 20),
+  Color4F::CreateBy4BitFormat(0, 0, 10),
   Color4F::CreateBy4BitFormat(0, 0, 0),
 };
 
@@ -33,7 +33,7 @@ static const Color4F SKY_FADE_COLOR[GameConstants::PHASE_DATANUM + 1] =
   Color4F::CreateBy4BitFormat(0, 169, 255),
   Color4F::CreateBy4BitFormat(64, 28, 0),
   Color4F::CreateBy4BitFormat(0, 12, 54),
-  Color4F::CreateBy4BitFormat(0, 0, 0),
+  Color4F::CreateBy4BitFormat(0, 0, 5),
   Color4F::CreateBy4BitFormat(0, 0, 0),
 };
 
@@ -42,7 +42,7 @@ static const Color4F SKY_LIGHT_COLOR[GameConstants::PHASE_DATANUM + 1] =
   Color4F::CreateBy4BitFormat(200, 255, 255),
   Color4F::CreateBy4BitFormat(128, 24, 24),
   Color4F::CreateBy4BitFormat(8, 0, 32),
-  Color4F::CreateBy4BitFormat(0, 0, 0),
+  Color4F::CreateBy4BitFormat(0, 0, 2),
   Color4F::CreateBy4BitFormat(0, 0, 0),
 };
 

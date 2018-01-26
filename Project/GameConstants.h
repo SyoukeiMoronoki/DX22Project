@@ -17,10 +17,10 @@ enum Phase
 
 const T_UINT16 PHASE_TIMES[GameConstants::PHASE_DATANUM] =
 {
-  150,
-  300,
-  400,
-  200,
+  1500,
+  3000,
+  4000,
+  2000,
 };
 
 T_UINT32 GetPhaseTime(T_UINT8 phase);

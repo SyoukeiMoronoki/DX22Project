@@ -81,6 +81,7 @@ void PlayerController_Walk::ControllProcess()
   if (GameSceneDirector::GetInstance().GetCurrentPhase() == GameConstants::PHASE_DARK)
   {
     target = nullptr;
+    this->is_target_mode_ = false;
   }
   if (focus_button_pushing)
   {

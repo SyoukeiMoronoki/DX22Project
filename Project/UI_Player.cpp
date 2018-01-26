@@ -92,6 +92,15 @@ UI_Player::~UI_Player()
   delete this->score_view_;
   delete this->ear_gauge_;
   delete this->hp_gauge_;
+  for (T_UINT8 i = 0; i < 4; ++i)
+  {
+    delete this->left_buttons_[i];
+  }
+  for (T_UINT8 i = 0; i < 4; ++i)
+  {
+    delete this->right_buttons_[i];
+  }
+  delete this->l_shift_button_;
 }
 
 void UI_Player::GameInit()
