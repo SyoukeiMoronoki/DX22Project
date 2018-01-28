@@ -21,20 +21,12 @@ Enemy::Enemy()
 {
   this->body_texture_region_ = new TiledTextureRegion();
   this->body_ = new AnimatedSprite3D();
-  this->body_->GetMaterial()->SetBillboardingFlag(true);
   this->body_->SetMaterial(Asset::Material::ENEMY_BODY);
   this->body_->UniqueMaterial();
+  this->body_->GetMaterial()->SetBillboardingFlag(true);
   this->body_->GetMaterial()->SetZTestLevel(2);
   this->body_->SetTextureRegion(this->body_texture_region_);
   this->AddChild(this->body_);
-
-  this->shadow_texture_region_ = new TiledTextureRegion();
-  this->shadow_ = new AnimatedSprite3D();
-  this->shadow_->GetMaterial()->SetBillboardingFlag(true);
-  this->shadow_->UniqueMaterial();
-  this->shadow_->GetMaterial()->SetZTestLevel(1);
-  this->shadow_->SetTextureRegion(this->shadow_texture_region_);
-  //this->AddChild(this->shadow_);
 
   this->weak_point_sprite_ = Sprite3D::CreateWithTexture(&Asset::Texture::ENEMY_WEAK_POINT);
   this->weak_point_sprite_->GetMaterial()->SetZTestLevel(1);
@@ -51,8 +43,6 @@ Enemy::~Enemy()
 {
   delete this->body_texture_region_;
   delete this->body_;
-  delete this->shadow_texture_region_;
-  delete this->shadow_;
 }
 
 void Enemy::OnAllocated()
@@ -74,11 +64,6 @@ void Enemy::OnAllocated()
   this->body_->Animate(ANIMATION_DURATION);
   this->body_->SetAnimateRange(0, 3);
   this->body_->GetMaterial()->SetDiffuse(Color4F::WHITE);
-
-  this->shadow_->Init();
-  this->shadow_->Animate(ANIMATION_DURATION);
-  this->shadow_->SetAnimateRange(0, 3);
-  this->shadow_->GetMaterial()->SetDiffuse(Color4F::WHITE);
 
   const Field* field = GameSceneDirector::GetInstance().GetField();
   this->body_->GetMaterial()->MatrixProperty("_World") = this->GetTransform()->GetWorldMatrix();
@@ -105,7 +90,6 @@ void Enemy::EnemyUpdate(Player* player)
 {
   bool is_sonar = player->IsUseEar();
   this->SetVisible(true);
-  this->shadow_->SetVisible(!is_sonar);
 
   const Field* field = GameSceneDirector::GetInstance().GetField();
 
@@ -122,7 +106,7 @@ void Enemy::EnemyUpdate(Player* player)
     this->death_count_--;
     this->body_->GetMaterial()->SetDiffuse(Color4F::Lerp(this->body_->GetMaterial()->GetDiffuse(), Color4F(0.0f, 0.0f, 1.0f), 0.25f));
     T_UINT8 death_angle = (T_UINT8)std::min((T_INT32)DEATH_COUNT, ((T_INT32)DEATH_COUNT - (T_INT32)this->death_count_) * 4);
-    //this->body_rot_->GetTransform()->SetEularX((T_FLOAT)death_angle / DEATH_COUNT * MathConstants::PI * 0.5f);
+    this->body_->GetTransform()->SetEularX((T_FLOAT)death_angle / DEATH_COUNT * MathConstants::PI * 0.5f);
     if (this->death_count_ == 0)
     {
       this->is_dead_ = true;
@@ -255,21 +239,11 @@ void Enemy::Spawn(const EnemyData* data)
   this->body_texture_region_->SetYNum(2);
   this->body_texture_region_->FitToTexture();
 
-  this->shadow_texture_region_->SetTexture(&data->texture);
-  this->shadow_texture_region_->SetXNum(4);
-  this->shadow_texture_region_->SetYNum(2);
-  this->shadow_texture_region_->FitToTexture();
-
   this->body_->FitToTexture();
   this->body_->SetCurrentIndex(0);
   T_FLOAT height = this->body_->GetHeight();
   this->body_->GetMaterial()->SetMainTexture(&data->texture);
   this->body_->GetTransform()->SetY(height * 0.5f);
-
-  this->shadow_->FitToTexture();
-  this->shadow_->SetCurrentIndex(0);
-  this->shadow_->GetTransform()->SetZ(height * 0.5f);
-  this->shadow_->GetMaterial()->SetMainTexture(&data->texture);
 
   T_FLOAT radius = this->GetRadius() * 0.5f;
   this->weak_point_sprite_->GetTransform()->SetX(Util::GetRandom(-radius, radius));

@@ -55,7 +55,7 @@ UI_Player::UI_Player()
   this->score_view_->GetTransform()->SetPositon(width * 0.45f - SCORE_WIDTH, height * 0.4f);
   this->AddChild(this->score_view_);
 
-  this->ear_gauge_ = new Gauge(&Asset::Texture::UI_EARGAUGE, EAR_GAGUGE_WIDTH, EAR_GAGUGE_HEIGHT);
+  this->ear_gauge_ = new Gauge(&Asset::Texture::UI_EAR_GAUGE, EAR_GAGUGE_WIDTH, EAR_GAGUGE_HEIGHT);
   this->ear_gauge_->SetMaxValue(GameConstants::EYE_GAUGE_MAX);
   this->ear_gauge_->GetTransform()->SetPositon(-width * 0.45f, height * 0.40f);
   this->AddChild(this->ear_gauge_);

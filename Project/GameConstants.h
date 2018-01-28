@@ -17,7 +17,7 @@ enum Phase
 
 const T_UINT16 PHASE_TIMES[GameConstants::PHASE_DATANUM] =
 {
-  1500,
+  100,
   3000,
   4000,
   2000,

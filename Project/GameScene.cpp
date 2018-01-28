@@ -58,17 +58,17 @@ void GameScene::OnLoad(IResourceLoadReserver* resource)
   resource->ReserveLoad(Asset::Texture::FONT_NUMBER);
   resource->ReserveLoad(Asset::Texture::PLAYER_BULLET);
   resource->ReserveLoad(Asset::Texture::PLAYER_BULLET_EFFECT);
-  resource->ReserveLoad(Asset::Texture::PLAYER_TURGET);
-  resource->ReserveLoad(Asset::Texture::PLAYER_SHADOW);
+  resource->ReserveLoad(Asset::Texture::PLAYER_TARGET);
+  resource->ReserveLoad(Asset::Texture::PLAYER_SHADOW000);
   
   resource->ReserveLoad(Asset::Texture::TEXT_HP);
   resource->ReserveLoad(Asset::Texture::TEXT_SCORE);
   resource->ReserveLoad(Asset::Texture::TEXT_SONAR);
   resource->ReserveLoad(Asset::Texture::TEXT_TIME);
-  resource->ReserveLoad(Asset::Texture::TEXT_TIMEUP);
+  resource->ReserveLoad(Asset::Texture::TEXT_TIME_UP);
   resource->ReserveLoad(Asset::Texture::TEXT_TUTORIAL);
 
-  resource->ReserveLoad(Asset::Texture::UI_EARGAUGE);
+  resource->ReserveLoad(Asset::Texture::UI_EAR_GAUGE);
   resource->ReserveLoad(Asset::Texture::UI_HPGAUGE);
   resource->ReserveLoad(Asset::Texture::UI_KEYBOARD);
 
@@ -112,7 +112,7 @@ void GameScene::OnSetup()
 
   this->player_->SetView(this->ui_player_);
 
-  this->text_time_up_ = Sprite::CreateWithTexture(&Asset::Texture::TEXT_TIMEUP);
+  this->text_time_up_ = Sprite::CreateWithTexture(&Asset::Texture::TEXT_TIME_UP);
   this->text_time_up_->SetVisible(false);
   this->text_time_up_->SetZIndex(ZINDEX_UI);
   this->AddChild(this->text_time_up_);

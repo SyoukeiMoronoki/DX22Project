@@ -16,7 +16,7 @@ void TitleScene::OnLoad(IResourceLoadReserver* resource)
   resource->ReserveLoad(Asset::Model::SKYBOX);
 
   resource->ReserveLoad(Asset::Texture::TEXT_TITLE);
-  resource->ReserveLoad(Asset::Texture::TEXT_PRESSBUTTON);
+  resource->ReserveLoad(Asset::Texture::TEXT_PRESS_ABUTTON);
 }
 
 void TitleScene::OnSetup()
@@ -28,7 +28,7 @@ void TitleScene::OnSetup()
   this->title_ = Sprite::CreateWithTexture(&Asset::Texture::TEXT_TITLE);
   this->title_->GetTransform()->SetY(100);
 
-  this->press_a_button_ = Sprite::CreateWithTexture(&Asset::Texture::TEXT_PRESSBUTTON);
+  this->press_a_button_ = Sprite::CreateWithTexture(&Asset::Texture::TEXT_PRESS_ABUTTON);
   this->press_a_button_->GetTransform()->SetY(-200);
   this->press_a_button_->GetTransform()->SetScale(0.5f);
   
