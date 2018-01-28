@@ -11,6 +11,11 @@ EnemyBullet::EnemyBullet()
   this->SetHitRadius(1.0f);
 }
 
+EnemyBullet::~EnemyBullet()
+{
+  delete this->body_;
+}
+
 void EnemyBullet::OnAllocated()
 {
   GameEntity::OnAllocated();

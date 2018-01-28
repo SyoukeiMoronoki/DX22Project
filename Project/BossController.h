@@ -22,6 +22,7 @@ public:
 
 public:
   BossController();
+  ~BossController();
 
 public:
   void Appear();

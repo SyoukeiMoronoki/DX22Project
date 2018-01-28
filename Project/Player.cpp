@@ -33,19 +33,15 @@ Player::Player()
   this->scope_controller_ = new PlayerController_Scope(this);
   this->collider_ = new Collider3D_Sphare(this);
   this->collider_->SetRadius(0.5f);
-  this->bullet_effect_ = Sprite3D::CreateWithTexture(&Asset::Texture::PLAYER_BULLET_EFFECT);
-  this->bullet_effect_->GetMaterial()->SetDiffuse(1.0f, 1.0f, 1.0f, 0.0f);
-  this->bullet_effect_->GetMaterial()->SetZTestLevel(1);
-  this->bullet_effect_->GetMaterial()->SetBillboardingFlag(true);
-  //this->AddChild(this->bullet_effect_);
 }
 
 Player::~Player()
 {
-  delete this->actor_;
-  delete this->bullets_;
-  delete this->walk_controller_;
+  delete this->collider_;
   delete this->scope_controller_;
+  delete this->walk_controller_;
+  delete this->bullets_;
+  delete this->actor_;
 }
 
 void Player::GameInit()
@@ -73,7 +69,6 @@ void Player::ControllProcess()
   using namespace GameInput;
 
   this->on_shot_ = false;
-  this->bullet_effect_->GetMaterial()->SetDiffuse(Color4F::Lerp(this->bullet_effect_->GetMaterial()->GetDiffuse(), Color4F(1.0f, 1.0f, 1.0f, 0.0f), 0.25f));
 
   if (this->control_delay_ > 0)
   {
@@ -101,8 +96,6 @@ void Player::ControllProcess()
       this->current_controller_->OnAttack();
       this->bullets_->Emmision(this, this->current_controller_->GetBulletDirection());
       this->on_shot_ = true;
-      this->bullet_effect_->GetMaterial()->SetDiffuse(1.0f, 1.0f, 1.0f, 1.0f);
-      this->bullet_effect_->GetTransform()->SetPosition(this->current_controller_->GetBulletDirection());
     }
   }
   else

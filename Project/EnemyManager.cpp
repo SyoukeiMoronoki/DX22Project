@@ -29,6 +29,12 @@ EnemyManager::EnemyManager(T_UINT8 enemy_max)
   });
 }
 
+EnemyManager::~EnemyManager()
+{
+  delete this->enemy_bullet_manager_;
+  delete this->data_manager_;
+}
+
 void EnemyManager::Update(Player* player)
 {
   this->enemy_bullet_manager_->Update();

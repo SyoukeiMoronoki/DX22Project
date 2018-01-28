@@ -46,8 +46,6 @@ static const Color4F SKY_LIGHT_COLOR[GameConstants::PHASE_DATANUM + 1] =
   Color4F::CreateBy4BitFormat(0, 0, 0),
 };
 
-
-
 static const T_FLOAT SKY_DISTANCE = 500.0f;
 
 static const char* SKY_PROPERTY_NAME_FADE = "_Horizon";
@@ -59,9 +57,6 @@ Field::Field()
   : shot_effect_duration_(0)
 {
   this->sky_material_ = Asset::Material::SKY.Clone();
-  //this->sky_material_->SetDiffuse(SKY_BASE_COLOR);
-  //this->sky_material_->ColorProperty(SKY_PROPERTY_NAME_FADE) = SKY_FADE_COLOR;
-  //this->sky_material_->ColorProperty(SKY_PROPERTY_NAME_LIGHT) = SKY_LIGHT_COLOR;
   for (T_UINT8 i = 0; i < DIRECTION_DATANUM; ++i)
   {
     this->skys_[i] = new Plane3D();
@@ -73,7 +68,6 @@ Field::Field()
   }
   this->zenith_ = new Plane3D();
   this->zenith_->SetMaterial(Asset::Material::ZENITH);
-  //this->zenith_->GetMaterial()->SetDiffuse(SKY_BASE_COLOR);
   this->zenith_->GetTransform()->SetPosition(TVec3f(0.0f, 1.0f, 0.0f) * SKY_DISTANCE);
   this->zenith_->GetTransform()->SetEularX(MathConstants::DegToRad(-90.0f));
   this->zenith_->GetTransform()->SetScale(SKY_DISTANCE * 2.0f);
@@ -86,11 +80,8 @@ Field::Field()
   this->ground_->UniqueMaterial();
   this->ground_->GetMaterial()->SetMainTexture(&Asset::Texture::FIELD_GROUND);
   this->ground_->GetMaterial()->TextureProperty("_Normal") = &Asset::Texture::FIELD_GROUND_NORMAL;
-  //this->ground_->GetMaterial()->ColorProperty("_Ambient") = SKY_BASE_COLOR;
   this->ground_->GetMaterial()->FloatProperty("_Scale") = this->ground_->GetTransform()->GetScaleMax();
   this->AddChild(this->ground_);
-
-  //this->field_ambient_color_ = Color4F::WHITE;
 }
 
 Field::~Field()
@@ -100,6 +91,7 @@ Field::~Field()
     delete this->skys_[i];
   }
   delete this->zenith_;
+  delete this->ground_;
 }
 
 void Field::Update(Player* player)
@@ -134,7 +126,6 @@ void Field::Update(Player* player)
     this->ground_->GetMaterial()->Vec3fProperty("_LightDirection") = this->light_direction_;
   }
   
-
   const T_UINT8 now = GameSceneDirector::GetInstance().GetCurrentPhase();
   const T_UINT8 next = now + 1;
   const T_FLOAT t = GameSceneDirector::GetInstance().GetTimeProgress();

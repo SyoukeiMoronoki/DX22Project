@@ -22,6 +22,7 @@ public:
 
 public:
   EnemyManager(T_UINT8 enemy_max);
+  ~EnemyManager();
 
 public:
   void Update(Player* player);

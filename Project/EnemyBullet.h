@@ -8,6 +8,7 @@ class EnemyBullet : public GameEntity, public IPoolAllocatable
 {
 public:
   EnemyBullet();
+  ~EnemyBullet();
 
 public:
   virtual void OnAllocated() override;

@@ -6,6 +6,7 @@ class Gauge : public GameObject2D
 {
 public:
   Gauge(const Texture* texture, T_FLOAT width, T_FLOAT height);
+  ~Gauge();
 
 public:
   void ViewInit(T_UINT32 max_value, T_UINT32 value);

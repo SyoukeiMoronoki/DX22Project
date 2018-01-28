@@ -11,6 +11,11 @@ Bullet::Bullet()
   this->SetHitRadius(1.0f);
 }
 
+Bullet::~Bullet()
+{
+  delete this->body_;
+}
+
 void Bullet::OnAllocated()
 {
   GameEntity::OnAllocated();

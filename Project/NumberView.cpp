@@ -32,6 +32,11 @@ NumberView::NumberView(T_UINT8 digit_count, T_FLOAT width)
 
 NumberView::~NumberView()
 {
+  for (T_UINT8 i = 0; i < this->digit_count_; ++i)
+  {
+    delete this->sprites_[i];
+  }
+  delete[] this->sprites_;
 }
 
 void NumberView::ViewInit(T_UINT32 value)

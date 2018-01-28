@@ -27,12 +27,7 @@ void ResultScene::OnLoad(IResourceLoadReserver* resource)
 void ResultScene::OnSetup()
 {
   this->camera2d_ = new Camera2D();
-  this->camera2d_->GetRenderState()->AddTargetLayerId(0);
   this->AddCamera(this->camera2d_);
-
-  this->camera3d_ = new Camera3D();
-  this->camera3d_->GetRenderState()->AddTargetLayerId(0);
-  this->AddCamera(this->camera3d_);
 
   this->score_view_ = new NumberView(SCORE_DIGIT_COUNT, SCORE_WIDTH);
   this->bonus_view_ = new NumberView(BONUS_DIGIT_COUNT, BONUS_WIDTH);
@@ -45,11 +40,6 @@ void ResultScene::OnSetup()
   this->score_view_->GetTransform()->SetY(150);
   this->bonus_view_->GetTransform()->SetY(0);
   this->total_score_view_->GetTransform()->SetY(-150);
-
-  this->bg_ = Sprite::CreateWithTexture(&Asset::Texture::FIELD_GROUND);
-
-  this->bg_->GetTransform()->SetScale(3);
-  //this->AddChild(this->bg_);
 
   this->score_text_ = Sprite::CreateWithTexture(&Asset::Texture::TEXT_SCORE);
   this->bonus_text_ = Sprite::CreateWithTexture(&Asset::Texture::TEXT_BONUS);
@@ -78,24 +68,16 @@ void ResultScene::OnSetup()
 
 void ResultScene::OnUnload()
 {
-  if (this->score_view_)
-  {
-    delete this->score_view_;
-    this->score_view_ = nullptr;
-  }
-  if (this->bonus_view_)
-  {
-    delete this->bonus_view_;
-    this->bonus_view_ = nullptr;
-  }
-  if (this->total_score_view_)
-  {
-    delete this->total_score_view_;
-    this->total_score_view_ = nullptr;
-  }
+  delete this->total_score_text_;
+  delete this->bonus_text_;
+  delete this->score_text_;
+  delete this->total_score_view_;
+  delete this->score_view_;
+  delete this->bonus_view_;
+  delete this->camera2d_;
 }
 
-void ResultScene::OnShow(ISceneShowListener * listener)
+void ResultScene::OnShow(ISceneShowListener* listener)
 {
   this->score_view_->ViewInit(0);
   this->bonus_view_->ViewInit(0);
@@ -104,7 +86,7 @@ void ResultScene::OnShow(ISceneShowListener * listener)
   this->StartScoreCount();
 }
 
-void ResultScene::OnHide(ISceneHideListener * listener)
+void ResultScene::OnHide(ISceneHideListener* listener)
 {
 }
 

@@ -25,7 +25,7 @@ Enemy::Enemy()
   this->body_->UniqueMaterial();
   this->body_->GetMaterial()->SetBillboardingFlag(true);
   this->body_->GetMaterial()->SetZTestLevel(2);
-  this->body_->SetTextureRegion(this->body_texture_region_);
+  this->body_->SetTextureRegion(this->body_texture_region_, false);
   this->AddChild(this->body_);
 
   this->weak_point_sprite_ = Sprite3D::CreateWithTexture(&Asset::Texture::ENEMY_WEAK_POINT);
@@ -41,8 +41,10 @@ Enemy::Enemy()
 
 Enemy::~Enemy()
 {
-  delete this->body_texture_region_;
+  delete this->weak_point_;
+  delete this->weak_point_sprite_;
   delete this->body_;
+  delete this->body_texture_region_;
 }
 
 void Enemy::OnAllocated()
@@ -66,7 +68,7 @@ void Enemy::OnAllocated()
   this->body_->GetMaterial()->SetDiffuse(Color4F::WHITE);
 
   const Field* field = GameSceneDirector::GetInstance().GetField();
-  this->body_->GetMaterial()->MatrixProperty("_World") = this->GetTransform()->GetWorldMatrix();
+  this->body_->GetMaterial()->MatrixProperty("_World") = &this->GetTransform()->GetWorldMatrix();
   this->body_->GetMaterial()->ColorProperty("_Ambient") = field->GetFieldAmbientColor();
   this->body_->GetMaterial()->FloatProperty("_LightBrightness") = field->GetLightBrightness();
   this->body_->GetMaterial()->ColorProperty("_LightDiffuse") = field->GetLightDiffuse();

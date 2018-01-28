@@ -21,6 +21,11 @@ BossController::BossController()
   this->enabled_ = false;
 }
 
+BossController::~BossController()
+{
+  delete this->bullets_;
+}
+
 void BossController::Appear()
 {
   this->enabled_ = true;

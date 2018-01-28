@@ -18,7 +18,7 @@ void PlayerController_Walk::OnStart(const PlayerController* prev)
 {
   this->player_->GetActor()->GetTransform()->SetEularY(0.0f);
   this->camera_->GetTransform()->SetEularAngles(TVec3f(0.0f, 0.0f, 0.0f));
-  this->direction_quaternion_.FromRotationMatrix(*this->player_->GetActor()->GetTransform()->GetWorldMatrix());
+  this->direction_quaternion_.FromRotationMatrix(this->player_->GetActor()->GetTransform()->GetWorldMatrix());
   this->next_camera_pos_ = DEFAULT_CAMERA_POS;
   this->next_look_at_pos_ = DEFAULT_LOOK_AT_POS;
   this->camera_quaternion_ = Quaternion();
@@ -96,7 +96,7 @@ void PlayerController_Walk::ControllProcess()
     }
     if (!this->is_target_mode_ || !target)
     {
-      this->direction_quaternion_.FromRotationMatrix(*this->player_->GetActor()->GetTransform()->GetWorldMatrix());
+      this->direction_quaternion_.FromRotationMatrix(this->player_->GetActor()->GetTransform()->GetWorldMatrix());
       this->player_->GetActor()->Face(Quaternion());
     }
   }
@@ -129,7 +129,7 @@ const TVec3f PlayerController_Walk::GetBulletDirection() const
 {
   TVec3f pos = TVec3f();
   TVec3f direction = this->player_->GetActor()->GetTransform()->GetDirection();
-  this->camera_->GetTransform()->GetWorldMatrix()->Apply(&pos);
-  this->camera_->GetTransform()->GetWorldMatrix()->Apply(&direction);
+  this->camera_->GetTransform()->GetWorldMatrix().Apply(&pos);
+  this->camera_->GetTransform()->GetWorldMatrix().Apply(&direction);
   return (direction - pos).Normalized();
 }

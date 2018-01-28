@@ -5,7 +5,7 @@
 PlayerActor::PlayerActor(Player* player)
   : player_(player)
 {
-  //this->GetTransform()->SetEularY(MathConstants::PI_1_2);
+  this->GetTransform()->SetEularY(MathConstants::PI_1_2);
   this->body_ = new Cube3D();
   this->body_->SetMaterial(Asset::Material::PLAYER_BODY);
   this->body_->UniqueMaterial();
@@ -33,9 +33,9 @@ PlayerActor::PlayerActor(Player* player)
 
 PlayerActor::~PlayerActor()
 {
-  delete this->body_;
-  delete this->gun_;
   delete this->shadow_;
+  delete this->gun_;
+  delete this->body_;
 }
 
 void PlayerActor::Update()

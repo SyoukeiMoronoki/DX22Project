@@ -8,6 +8,7 @@ class BossBullet : public GameEntity, public IPoolAllocatable
 {
 public:
   BossBullet();
+  ~BossBullet();
 
 public:
   virtual void OnAllocated() override;

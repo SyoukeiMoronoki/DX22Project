@@ -11,6 +11,11 @@ BossBullet::BossBullet()
   this->SetHitRadius(1.0f);
 }
 
+BossBullet::~BossBullet()
+{
+  delete this->body_;
+}
+
 void BossBullet::OnAllocated()
 {
   GameEntity::OnAllocated();

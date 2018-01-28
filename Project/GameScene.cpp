@@ -13,6 +13,7 @@
 
 #include "Asset.h"
 #include "ResultScene.h"
+#include "GameDirector.h"
 
 enum ENTITY_ZINDEXES
 {
@@ -147,11 +148,22 @@ void GameScene::OnSetup()
 
 void GameScene::OnUnload()
 {
+  delete this->camera2d_;
+
   delete this->player_;
   delete this->enemy_manager_;
-  delete this->boya_;
+  delete this->boss_controller_;
+
+  delete this->field_;
+
   delete this->ui_player_;
+
+  delete this->boya_;
+  delete this->text_time_up_;
+
   delete this->tutorial_;
+
+  GameDirector::GameFinish();
 }
 
 void GameScene::OnShow(ISceneShowListener* listener)

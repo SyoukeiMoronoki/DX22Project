@@ -15,7 +15,7 @@ BossBody::BossBody()
   this->body_->GetMaterial()->SetZTestLevel(1);
   this->body_->GetMaterial()->SetBillboardingFlag(true);
 
-  this->body_->GetMaterial()->MatrixProperty("_World") = this->GetTransform()->GetWorldMatrix();
+  this->body_->GetMaterial()->MatrixProperty("_World") = &this->GetTransform()->GetWorldMatrix();
   this->body_->SetVisible(false);
 
   this->weak_point_sprite_ = Sprite3D::CreateWithTexture(&Asset::Texture::ENEMY_WEAK_POINT);
@@ -34,6 +34,7 @@ BossBody::BossBody()
 BossBody::~BossBody()
 {
   delete this->body_;
+  delete this->weak_point_sprite_;
 }
 
 void BossBody::OnAllocated()

@@ -23,6 +23,11 @@ EnemyDataManager::EnemyDataManager()
 
 EnemyDataManager::~EnemyDataManager()
 {
+  for (T_UINT8 i = 0; i < ENEMY_KIND_DATANUM; ++i)
+  {
+    delete this->datas_[i];
+  }
+  delete this->datas_;
 }
 
 void EnemyDataManager::SetEnemyData(T_UINT8 id, const Texture& texture, TSizef view_size, const char* name, T_FLOAT speed, IEnemyAttribute* attribute)

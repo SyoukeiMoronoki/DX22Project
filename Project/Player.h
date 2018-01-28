@@ -85,8 +85,6 @@ private:
   Collider3D_Sphare * collider_;
 
   PlayerActor* actor_;
-
-  Sprite3D* bullet_effect_;
   
   T_UINT16 control_delay_;
   T_UINT8 attack_delay_;
