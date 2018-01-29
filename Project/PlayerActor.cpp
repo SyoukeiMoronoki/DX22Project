@@ -23,9 +23,9 @@ PlayerActor::PlayerActor(Player* player)
   this->gun_->SetLayerId(1);
   this->AddChild(this->gun_);
 
-  this->shadow_ = Sprite3D::CreateWithTexture(&Asset::Texture::PLAYER_SHADOW000);
+  this->shadow_ = Sprite3D::CreateWithTexture(Asset::Texture::PLAYER_SHADOW000);
   this->shadow_->SetMaterial(Asset::Material::PLAYER_SHADOW);
-  this->shadow_->GetMaterial()->SetMainTexture(&Asset::Texture::PLAYER_SHADOW000);
+  this->shadow_->GetMaterial()->SetMainTexture(Asset::Texture::PLAYER_SHADOW000);
   this->shadow_->GetTransform()->RotateX(MathConstants::DegToRad(90));
   this->shadow_->GetTransform()->SetY(-0.5f);
   this->AddChild(this->shadow_);

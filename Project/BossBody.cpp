@@ -10,7 +10,7 @@
 BossBody::BossBody()
 {
   Material* mat = Asset::Material::ENEMY_BODY.Clone();
-  mat->SetMainTexture(&Asset::Texture::ENEMY_BOSS);
+  mat->SetMainTexture(Asset::Texture::ENEMY_BOSS);
   this->body_ = AnimatedSprite3D::CreateWithMaterial(mat, 2, 2);
   this->body_->GetMaterial()->SetZTestLevel(1);
   this->body_->GetMaterial()->SetBillboardingFlag(true);
@@ -18,7 +18,7 @@ BossBody::BossBody()
   this->body_->GetMaterial()->MatrixProperty("_World") = &this->GetTransform()->GetWorldMatrix();
   this->body_->SetVisible(false);
 
-  this->weak_point_sprite_ = Sprite3D::CreateWithTexture(&Asset::Texture::ENEMY_WEAK_POINT);
+  this->weak_point_sprite_ = Sprite3D::CreateWithTexture(Asset::Texture::ENEMY_WEAK_POINT);
   this->weak_point_sprite_->GetMaterial()->SetZTestLevel(1);
   this->weak_point_sprite_->GetMaterial()->SetDiffuse(Color4F::RED);
   this->weak_point_sprite_->SetVisible(false);

@@ -78,7 +78,7 @@ Field::Field()
   this->ground_->GetTransform()->SetEularX(MathConstants::DegToRad(90.0f));
   this->ground_->SetMaterial(Asset::Material::GROUND);
   this->ground_->UniqueMaterial();
-  this->ground_->GetMaterial()->SetMainTexture(&Asset::Texture::FIELD_GROUND);
+  this->ground_->GetMaterial()->SetMainTexture(Asset::Texture::FIELD_GROUND);
   this->ground_->GetMaterial()->TextureProperty("_Normal") = &Asset::Texture::FIELD_GROUND_NORMAL;
   this->ground_->GetMaterial()->FloatProperty("_Scale") = this->ground_->GetTransform()->GetScaleMax();
   this->AddChild(this->ground_);

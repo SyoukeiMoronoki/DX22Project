@@ -23,10 +23,10 @@ void TitleScene::OnSetup()
   this->camera_->GetRenderState()->AddTargetLayerId(0);
   this->AddCamera(this->camera_);
 
-  this->title_ = Sprite::CreateWithTexture(&Asset::Texture::TEXT_TITLE);
+  this->title_ = Sprite::CreateWithTexture(Asset::Texture::TEXT_TITLE);
   this->title_->GetTransform()->SetY(100);
 
-  this->press_a_button_ = Sprite::CreateWithTexture(&Asset::Texture::TEXT_PRESS_ABUTTON);
+  this->press_a_button_ = Sprite::CreateWithTexture(Asset::Texture::TEXT_PRESS_ABUTTON);
   this->press_a_button_->GetTransform()->SetY(-200);
   this->press_a_button_->GetTransform()->SetScale(0.5f);
   

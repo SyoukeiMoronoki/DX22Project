@@ -28,7 +28,7 @@ Enemy::Enemy()
   this->body_->SetTextureRegion(this->body_texture_region_, false);
   this->AddChild(this->body_);
 
-  this->weak_point_sprite_ = Sprite3D::CreateWithTexture(&Asset::Texture::ENEMY_WEAK_POINT);
+  this->weak_point_sprite_ = Sprite3D::CreateWithTexture(Asset::Texture::ENEMY_WEAK_POINT);
   this->weak_point_sprite_->GetMaterial()->SetZTestLevel(1);
   this->weak_point_sprite_->GetMaterial()->SetDiffuse(Color4F::RED);
   this->weak_point_sprite_->SetVisible(false);
@@ -244,7 +244,7 @@ void Enemy::Spawn(const EnemyData* data)
   this->body_->FitToTexture();
   this->body_->SetCurrentIndex(0);
   T_FLOAT height = this->body_->GetHeight();
-  this->body_->GetMaterial()->SetMainTexture(&data->texture);
+  this->body_->GetMaterial()->SetMainTexture(data->texture);
   this->body_->GetTransform()->SetY(height * 0.5f);
 
   T_FLOAT radius = this->GetRadius() * 0.5f;

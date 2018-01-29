@@ -3,7 +3,7 @@
 
 static const T_FLOAT DISPLAY_COUNT_UPDATE_RATE = 0.8f;
 
-Gauge::Gauge(const Texture* texture, T_FLOAT width, T_FLOAT height)
+Gauge::Gauge(const Texture& texture, T_FLOAT width, T_FLOAT height)
 {
   this->width_ = width;
   this->sprite_ = Sprite::CreateWithTexture(texture);

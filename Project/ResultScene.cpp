@@ -41,9 +41,9 @@ void ResultScene::OnSetup()
   this->bonus_view_->GetTransform()->SetY(0);
   this->total_score_view_->GetTransform()->SetY(-150);
 
-  this->score_text_ = Sprite::CreateWithTexture(&Asset::Texture::TEXT_SCORE);
-  this->bonus_text_ = Sprite::CreateWithTexture(&Asset::Texture::TEXT_BONUS);
-  this->total_score_text_ = Sprite::CreateWithTexture(&Asset::Texture::TEXT_RESULT);
+  this->score_text_ = Sprite::CreateWithTexture(Asset::Texture::TEXT_SCORE);
+  this->bonus_text_ = Sprite::CreateWithTexture(Asset::Texture::TEXT_BONUS);
+  this->total_score_text_ = Sprite::CreateWithTexture(Asset::Texture::TEXT_RESULT);
 
   this->score_text_->GetTransform()->SetX(-200);
   this->bonus_text_->GetTransform()->SetX(-200);
