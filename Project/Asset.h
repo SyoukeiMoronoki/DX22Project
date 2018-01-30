@@ -42,7 +42,6 @@ extern class Texture UI_TEATER;
 namespace Shader
 {
 extern ShaderResource ENEMY_BODY;
-extern ShaderResource ENEMY_SHADOW;
 extern ShaderResource GROUND;
 extern ShaderResource LIGHTING_GROUND;
 extern ShaderResource PLAYER_BODY;
@@ -54,7 +53,6 @@ extern ShaderResource ZENITH;
 namespace Material
 {
 extern class Material ENEMY_BODY;
-extern class Material ENEMY_SHADOW;
 extern class Material GROUND;
 extern class Material LIGHTING_GROUND;
 extern class Material PLAYER_BODY;
