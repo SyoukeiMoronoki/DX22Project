@@ -69,7 +69,23 @@ void BossController::ChangeBrain(BossBrain* brain, BossBody* head, Player* playe
 
 bool BossController::AttackToPlayer(Player* player)
 {
-  return false;
+  bool damaged = false;
+  BossBody* body = this->Collision(player->GetCollider());
+  if (body)
+  {
+    player->AddDamage();
+    damaged = true;
+  }
+  if (!damaged)
+  {
+    BossBullet* bullet = this->bullets_->Collision(player->GetCollider());
+    if (bullet)
+    {
+      player->AddDamage();
+      damaged = true;
+    }
+  }
+  return damaged;
 }
 
 BossController::HitResult BossController::HitCheck(Bullet* bullet)

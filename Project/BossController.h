@@ -4,11 +4,11 @@
 
 #include "AllocatableGameEntityManager.h"
 #include "BossBody.h"
+#include "BossBulletManager.h"
 
 class Player;
 class Bullet;
 class BossBrain;
-class BossBulletManager;
 
 class BossController : public AllocatableGameEntityManager<BossBody>
 {

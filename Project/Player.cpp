@@ -115,7 +115,7 @@ void Player::ControllProcess()
       this->use_ear_ = false;
     }
   }
-  if (this->ear_gauge_ == 0 || this->on_shot_)
+  if (this->ear_gauge_ == 0)
   {
     this->use_ear_ = false;
   }

@@ -494,11 +494,11 @@
     <ClCompile Include="Tutorial.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="BossBulletManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="BossBullet.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Game\Boss\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="BossBulletManager.cpp">
+      <Filter>ソース ファイル\Game\Boss\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

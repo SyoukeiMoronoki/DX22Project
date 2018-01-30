@@ -101,6 +101,7 @@ void GameScene::OnSetup()
 
   this->boss_controller_ = new BossController();
   this->boss_controller_->AttachToEntity(this->GetRoot3d());
+  this->boss_controller_->GetBulletManager()->AttachToEntity(this->GetRoot3d());
 
   const TSize screen_size = Director::GetInstance()->GetScreenSize();
   this->boya_ = Sprite::CreateWithTexture(Asset::Texture::FIELD_BOYA);
@@ -261,6 +262,13 @@ void GameScene::Update()
   }
 
   if (this->enemy_manager_->AttackToPlayer(this->player_))
+  {
+    if (this->damage_count_ == 0)
+    {
+      this->damage_count_ = DAMAGE_EFFECT_TIME;
+    }
+  }
+  if (this->boss_controller_->AttackToPlayer(this->player_))
   {
     if (this->damage_count_ == 0)
     {

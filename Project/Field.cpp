@@ -128,6 +128,10 @@ void Field::Update(Player* player)
   
   const T_UINT8 now = GameSceneDirector::GetInstance().GetCurrentPhase();
   const T_UINT8 next = now + 1;
+  if (next > GameConstants::PHASE_DATANUM)
+  {
+    return;
+  }
   const T_FLOAT t = GameSceneDirector::GetInstance().GetTimeProgress();
   this->field_ambient_color_ = 
     Color4F::Lerp(SKY_BASE_COLOR[now], SKY_BASE_COLOR[next], t);
