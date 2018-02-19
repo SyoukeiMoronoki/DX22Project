@@ -6,7 +6,7 @@ PlayerActor::PlayerActor(Player* player)
   : player_(player)
 {
   this->GetTransform()->SetEularY(MathConstants::PI_1_2);
-  this->body_ = new Cube3D();
+  this->body_ = Cube3D::Create();
   this->body_->SetMaterial(Asset::Material::PLAYER_BODY);
   this->body_->UniqueMaterial();
   this->body_->GetTransform()->SetScale(0.5f, 1.0f, 0.5f);
@@ -14,7 +14,7 @@ PlayerActor::PlayerActor(Player* player)
   this->body_->SetLayerId(1);
   this->AddChild(this->body_);
 
-  this->gun_ = new Cube3D();
+  this->gun_ = Cube3D::Create();
   this->gun_->SetMaterial(Asset::Material::PLAYER_BODY);
   this->gun_->UniqueMaterial();
   this->gun_->GetMaterial()->SetDiffuse(Color4F::BLACK);
@@ -23,9 +23,9 @@ PlayerActor::PlayerActor(Player* player)
   this->gun_->SetLayerId(1);
   this->AddChild(this->gun_);
 
-  this->shadow_ = Sprite3D::CreateWithTexture(&Asset::Texture::PLAYER_SHADOW000);
+  this->shadow_ = Sprite3D::CreateWithTexture(Asset::Texture::PLAYER_SHADOW000);
   this->shadow_->SetMaterial(Asset::Material::PLAYER_SHADOW);
-  this->shadow_->GetMaterial()->SetMainTexture(&Asset::Texture::PLAYER_SHADOW000);
+  this->shadow_->GetMaterial()->SetMainTexture(Asset::Texture::PLAYER_SHADOW000);
   this->shadow_->GetTransform()->RotateX(MathConstants::DegToRad(90));
   this->shadow_->GetTransform()->SetY(-0.5f);
   this->AddChild(this->shadow_);

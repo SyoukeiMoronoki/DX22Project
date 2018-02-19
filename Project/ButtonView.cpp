@@ -4,13 +4,13 @@
 ButtonView::ButtonView(T_UINT8 button_id, T_FLOAT size)
   : id_(button_id)
 {
-  this->bg_ = Sprite::CreateWithTexture(&Asset::Texture::UI_KEYBOARD);
+  this->bg_ = Sprite::CreateWithTexture(Asset::Texture::UI_KEYBOARD);
   this->bg_->GetTextureRegion()->SetWidth(128);
   this->bg_->GetTextureRegion()->SetHeight(128);
   this->bg_->FitToTexture();
   this->AddChild(this->bg_);
 
-  this->light_ = Sprite::CreateWithTexture(&Asset::Texture::UI_KEYBOARD);
+  this->light_ = Sprite::CreateWithTexture(Asset::Texture::UI_KEYBOARD);
   this->light_->GetTextureRegion()->SetWidth(64);
   this->light_->GetTextureRegion()->SetHeight(64);
   this->light_->GetTextureRegion()->SetX(0);
@@ -20,7 +20,7 @@ ButtonView::ButtonView(T_UINT8 button_id, T_FLOAT size)
   this->light_->FitToTexture();
   this->AddChild(this->light_);
 
-  this->char_ = Sprite::CreateWithTexture(&Asset::Texture::UI_KEYBOARD);
+  this->char_ = Sprite::CreateWithTexture(Asset::Texture::UI_KEYBOARD);
   if (button_id == BUTTON_L_SHIFT)
   {
     this->bg_->GetTransform()->SetScaleX(2.0f);

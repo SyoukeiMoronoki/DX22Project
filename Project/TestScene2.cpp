@@ -15,9 +15,9 @@ void TestScene2::OnSetup()
   Camera2D* camera = new Camera2D();
   camera->GetRenderState()->AddTargetLayerId(0);
   this->AddCamera(camera);
-  this->AddChild(Sprite::CreateWithTexture(&Asset::Texture::FIELD_BOYA));
-  this->AddChild(Sprite::CreateWithTexture(&Asset::Texture::PLAYER_BULLET));
-  this->AddChild(Sprite::CreateWithTexture(&Asset::Texture::UI_HPGAUGE));
+  this->AddChild(Sprite::CreateWithTexture(Asset::Texture::FIELD_BOYA));
+  this->AddChild(Sprite::CreateWithTexture(Asset::Texture::PLAYER_BULLET));
+  this->AddChild(Sprite::CreateWithTexture(Asset::Texture::UI_HPGAUGE));
 }
 
 void TestScene2::OnUnload()

@@ -103,8 +103,8 @@ void GameScene::OnSetup()
   this->boss_controller_->AttachToEntity(this->GetRoot3d());
 
   const TSize screen_size = Director::GetInstance()->GetScreenSize();
-  this->boya_ = Sprite::CreateWithTexture(&Asset::Texture::FIELD_BOYA);
-  const T_FLOAT boya_width = (T_FLOAT)this->boya_->GetMaterial()->GetMainTexture()->GetWidth();
+  this->boya_ = Sprite::CreateWithTexture(Asset::Texture::FIELD_BOYA);
+  const T_FLOAT boya_width = (T_FLOAT)this->boya_->GetMaterial()->GetMainTexture().GetWidth();
   this->boya_->GetTransform()->SetScale(screen_size.width / boya_width, screen_size.height / boya_width);
   this->boya_->SetZIndex(ZINDEX_BOYA);
 
@@ -113,7 +113,7 @@ void GameScene::OnSetup()
 
   this->player_->SetView(this->ui_player_);
 
-  this->text_time_up_ = Sprite::CreateWithTexture(&Asset::Texture::TEXT_TIME_UP);
+  this->text_time_up_ = Sprite::CreateWithTexture(Asset::Texture::TEXT_TIME_UP);
   this->text_time_up_->SetVisible(false);
   this->text_time_up_->SetZIndex(ZINDEX_UI);
   this->AddChild(this->text_time_up_);

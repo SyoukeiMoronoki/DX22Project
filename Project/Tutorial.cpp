@@ -8,7 +8,7 @@ static const T_UINT8 START_TUTORIAL_COUNT = START_TUTORIAL_END - START_TUTORIAL_
 
 Tutorial::Tutorial()
 {
-  this->sprite_ = AnimatedSprite::CreateWithTexture(&Asset::Texture::TEXT_TUTORIAL, 1, TUTORIAL_DATANUM);
+  this->sprite_ = AnimatedSprite::CreateWithTexture(Asset::Texture::TEXT_TUTORIAL, 1, TUTORIAL_DATANUM);
   this->AddChild(this->sprite_);
   this->sprite_->GetMaterial()->SetDiffuse(1.0f, 1.0f, 1.0f, 0.0f);
 

@@ -23,7 +23,7 @@ public:
   virtual const TVec3f GetBulletDirection() const = 0;
   inline const TVec3f& GetCameraPosition() const
   {
-    return this->camera_->GetTransform()->GetPosition();
+    return this->camera_->GetEntity()->GetTranslateMatrix().GetPosition3d();
   }
   inline const TVec3f& GetCameraLookAtPosition() const
   {

@@ -5,7 +5,7 @@
 class Gauge : public GameObject2D
 {
 public:
-  Gauge(const Texture* texture, T_FLOAT width, T_FLOAT height);
+  Gauge(const Texture& texture, T_FLOAT width, T_FLOAT height);
   ~Gauge();
 
 public:

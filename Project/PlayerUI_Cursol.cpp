@@ -10,7 +10,7 @@ PlayerUI_Cursol::PlayerUI_Cursol()
   , position_(0.0f, 0.0f)
   , position_changed_(true)
 {
-  this->sprite_ = AnimatedSprite::CreateWithTexture(&Asset::Texture::PLAYER_TARGET, 2, 2);
+  this->sprite_ = AnimatedSprite::CreateWithTexture(Asset::Texture::PLAYER_TARGET, 2, 2);
   this->sprite_->GetTiledTextureRegion()->SetXNum(2);
   this->sprite_->GetTiledTextureRegion()->SetYNum(2);
   this->sprite_->GetTiledTextureRegion()->FitToTexture();

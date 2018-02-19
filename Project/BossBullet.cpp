@@ -4,7 +4,7 @@
 
 BossBullet::BossBullet()
 {
-  this->body_ = Sprite3D::CreateWithTexture(&Asset::Texture::PLAYER_BULLET);
+  this->body_ = Sprite3D::CreateWithTexture(Asset::Texture::PLAYER_BULLET);
   this->body_->GetMaterial()->SetZTestLevel(2);
   this->body_->GetMaterial()->SetBillboardingFlag(true);
   this->AddChild(this->body_);

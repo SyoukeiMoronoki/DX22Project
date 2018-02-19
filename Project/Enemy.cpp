@@ -20,15 +20,14 @@ Enemy::Enemy()
   : data_(nullptr)
 {
   this->body_texture_region_ = new TiledTextureRegion();
-  this->body_ = new AnimatedSprite3D();
-  this->body_->SetMaterial(Asset::Material::ENEMY_BODY);
+  this->body_ = AnimatedSprite3D::CreateWithTextureRegion(this->body_texture_region_, false);
   this->body_->UniqueMaterial();
   this->body_->GetMaterial()->SetBillboardingFlag(true);
   this->body_->GetMaterial()->SetZTestLevel(2);
   this->body_->SetTextureRegion(this->body_texture_region_, false);
   this->AddChild(this->body_);
 
-  this->weak_point_sprite_ = Sprite3D::CreateWithTexture(&Asset::Texture::ENEMY_WEAK_POINT);
+  this->weak_point_sprite_ = Sprite3D::CreateWithTexture(Asset::Texture::ENEMY_WEAK_POINT);
   this->weak_point_sprite_->GetMaterial()->SetZTestLevel(1);
   this->weak_point_sprite_->GetMaterial()->SetDiffuse(Color4F::RED);
   this->weak_point_sprite_->SetVisible(false);
@@ -236,7 +235,7 @@ void Enemy::Spawn(const EnemyData* data)
   //this->body_->GetTransform()->SetScale(Util::GetRandom(1.0f, 5.0f));
   this->move_delay_ = 30;
 
-  this->body_texture_region_->SetTexture(&data->texture);
+  this->body_texture_region_->SetTexture(data->texture);
   this->body_texture_region_->SetXNum(4);
   this->body_texture_region_->SetYNum(2);
   this->body_texture_region_->FitToTexture();
@@ -244,7 +243,7 @@ void Enemy::Spawn(const EnemyData* data)
   this->body_->FitToTexture();
   this->body_->SetCurrentIndex(0);
   T_FLOAT height = this->body_->GetHeight();
-  this->body_->GetMaterial()->SetMainTexture(&data->texture);
+  this->body_->GetMaterial()->SetMainTexture(data->texture);
   this->body_->GetTransform()->SetY(height * 0.5f);
 
   T_FLOAT radius = this->GetRadius() * 0.5f;
