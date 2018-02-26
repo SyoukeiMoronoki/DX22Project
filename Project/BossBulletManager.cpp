@@ -18,17 +18,14 @@ void BossBulletManager::Update()
   }
 }
 
-void BossBulletManager::Emmision(GameObject3D * emmitter, GameObject3D * target)
+void BossBulletManager::Emmision(const TVec3f emmitter_pos, const TVec3f target_pos)
 {
   BossBullet* bullet = this->Allocate();
   if (!bullet)
   {
     return;
   }
-  TVec3f emmitter_world_pos = emmitter->GetTransform()->GetWorldPosition();
-  TVec3f target_world_pos = target->GetTransform()->GetWorldPosition();
-  emmitter_world_pos.y = target_world_pos.y;
-  bullet->GetTransform()->SetPosition(emmitter_world_pos);
-  TVec3f dir = target_world_pos - emmitter_world_pos;
-  bullet->SetVelocity(dir.Normalized() * 0.5f);
+  bullet->GetTransform()->SetPosition(emmitter_pos);
+  TVec3f dir = target_pos - emmitter_pos;
+  bullet->SetVelocity(dir.Normalized() * 1.5f);
 }

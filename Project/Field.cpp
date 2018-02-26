@@ -75,7 +75,8 @@ Field::Field()
 
   this->ground_ = Plane3D::Create();
   this->ground_->GetTransform()->SetScale(SKY_DISTANCE * 2.0f);
-  this->ground_->GetTransform()->SetEularX(MathConstants::DegToRad(90.0f));
+  this->ground_->GetTransform()->RotateX(MathConstants::DegToRad(90.0f));
+  //this->ground_->GetTransform()->RotateY(MathConstants::DegToRad(180.0f));
   this->ground_->SetMaterial(Asset::Material::GROUND);
   this->ground_->UniqueMaterial();
   this->ground_->GetMaterial()->SetMainTexture(Asset::Texture::FIELD_GROUND);
@@ -118,7 +119,9 @@ void Field::Update(Player* player)
     this->light_brightness_ = 5.0f * sinf((T_FLOAT)this->shot_effect_duration_ / SHOT_EFFECT_DURATION * MathConstants::PI_1_2);
     this->light_diffuse_ = Color4F::WHITE;
     this->light_position_ = player_world_position + player_world_direction;
+    this->light_position_.z *= -1.0f;
     this->light_direction_ = player_world_direction;
+    this->light_direction_.z *= -1.0f;
 
     this->ground_->GetMaterial()->FloatProperty("_LightBrightness") = this->light_brightness_;
     this->ground_->GetMaterial()->ColorProperty("_LightDiffuse") = this->light_diffuse_;
@@ -128,6 +131,10 @@ void Field::Update(Player* player)
   
   const T_UINT8 now = GameSceneDirector::GetInstance().GetCurrentPhase();
   const T_UINT8 next = now + 1;
+  if (next > GameConstants::PHASE_DATANUM)
+  {
+    return;
+  }
   const T_FLOAT t = GameSceneDirector::GetInstance().GetTimeProgress();
   this->field_ambient_color_ = 
     Color4F::Lerp(SKY_BASE_COLOR[now], SKY_BASE_COLOR[next], t);

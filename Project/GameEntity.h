@@ -4,8 +4,6 @@
 
 #include "GameEntityCollider.h"
 
-#include "NumberView.h"
-
 class GameEntity : public GameObject3D
 {
 public:

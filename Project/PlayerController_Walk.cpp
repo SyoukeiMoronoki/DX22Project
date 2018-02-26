@@ -91,7 +91,6 @@ void PlayerController_Walk::ControllProcess()
       if (this->target_double_tap_duration_ > TARGET_DOUBLE_TAP_DURATION)
       {
         this->is_target_mode_ = !this->is_target_mode_;
-        this->target_double_tap_duration_ = 0;
       }
     }
     if (!this->is_target_mode_ || !target)

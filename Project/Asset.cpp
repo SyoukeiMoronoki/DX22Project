@@ -41,7 +41,6 @@ class Texture UI_TEATER("Asset/Texture/ui/teater.png");
 namespace Shader
 {
 ShaderResource ENEMY_BODY("Asset/Shader/EnemyBody.cso");
-ShaderResource ENEMY_SHADOW("Asset/Shader/EnemyShadow.cso");
 ShaderResource GROUND("Asset/Shader/Ground.cso");
 ShaderResource LIGHTING_GROUND("Asset/Shader/LightingGround.cso");
 ShaderResource PLAYER_BODY("Asset/Shader/PlayerBody.cso");
@@ -53,7 +52,6 @@ ShaderResource ZENITH("Asset/Shader/Zenith.cso");
 namespace Material
 {
 class Material ENEMY_BODY(Shader::ENEMY_BODY);
-class Material ENEMY_SHADOW(Shader::ENEMY_SHADOW);
 class Material GROUND(Shader::GROUND);
 class Material LIGHTING_GROUND(Shader::LIGHTING_GROUND);
 class Material PLAYER_BODY(Shader::PLAYER_BODY);

@@ -21,6 +21,7 @@ Enemy::Enemy()
 {
   this->body_texture_region_ = new TiledTextureRegion();
   this->body_ = AnimatedSprite3D::CreateWithTextureRegion(this->body_texture_region_, false);
+  this->body_->SetMaterial(Asset::Material::ENEMY_BODY);
   this->body_->UniqueMaterial();
   this->body_->GetMaterial()->SetBillboardingFlag(true);
   this->body_->GetMaterial()->SetZTestLevel(2);

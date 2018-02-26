@@ -13,6 +13,6 @@ public:
   void Update();
 
 public:
-  void Emmision(GameObject3D* emmitter, GameObject3D* target);
+  void Emmision(const TVec3f emmitter_pos, const TVec3f target_pos);
 
 };
