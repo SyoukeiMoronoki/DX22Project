@@ -4,21 +4,6 @@
 
 #include "GameSetting.h"
 
-/*
-  GameDirectorをシングルトンにした理由
-  GameDirectorはゲームのルールに関わる部分であり、
-  ゲーム中の殆どのオブジェクトがGameDirectorに依存するため
-  グローバルなアクセスが可能になっても問題は少ない
-  
-  GameSettingをメンバにした理由
-  ゲーム内の殆どのオブジェクトが参照するデータの為
-  ゲーム中のアクセスはGetterを経由したconstアクセスだけに限定し、
-  設定の変更を行う際はInit()を経由し、ゲームを再起動する。
-
-  ゲームの開始もGameDirectorを経由させる事で、
-  ゲームとの１対１対応である事を強調した。
-*/
-
 class GameDirector
 {
 public:
@@ -55,5 +40,8 @@ public:
 private:
   const GameSetting* game_setting_;
   Scene* game_scene_;
+
+  Color4F field_ambient_;
+  Color4F field_fade_light_;
 
 };

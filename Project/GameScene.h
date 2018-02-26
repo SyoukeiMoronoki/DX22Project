@@ -2,9 +2,13 @@
 
 #include <HalEngine.h>
 
+#include "Field.h"
+#include "Tutorial.h"
+
 class Player;
 class EnemyManager;
 class UI_Player;
+class BossController;
 
 class GameScene : public Scene
 {
@@ -24,10 +28,15 @@ public:
 private:
   Camera2D* camera2d_;
 
+  bool time_up_flag_;
+  bool zako_appear_flag_;
+  bool boss_appear_flag_;
+
   Player* player_;
   EnemyManager* enemy_manager_;
+  BossController* boss_controller_;
 
-  MeshField* field_;
+  Field* field_;
 
   UI_Player* ui_player_;
 
@@ -38,5 +47,8 @@ private:
   T_UINT8 grand_slam_count_;
   T_UINT8 weak_happy_count_;
   T_UINT8 damage_count_;
-  T_UINT16 time_count_;
+
+  T_UINT8 enemy_spawn_count_;
+
+  Tutorial* tutorial_;
 };

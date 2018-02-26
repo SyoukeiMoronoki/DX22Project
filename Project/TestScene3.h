@@ -10,4 +10,8 @@ protected:
   virtual void OnUnload() override;
   virtual void OnShow(ISceneShowListener* listener) override;
   virtual void OnHide(ISceneHideListener* listener) override;
+
+private:
+  Camera3D_LookAt* camera_;
+  Cube3D* cube_;
 };

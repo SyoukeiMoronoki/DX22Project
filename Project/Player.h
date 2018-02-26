@@ -11,6 +11,7 @@
 class GameEntity;
 class UI_Player;
 class PlayerUI_Player;
+class BossController;
 
 class Player : public GameObject3D
 {
@@ -21,7 +22,7 @@ public:
 public:
   void GameInit();
 
-  bool ControllProcess();
+  void ControllProcess();
   void Update() override;
 
 public:
@@ -37,7 +38,8 @@ public:
   void OnHPChanged();
   void OnEarChanged();
 
-  void AttackToEnemy(EnemyManager* enemys);
+  bool AttackToEnemy(EnemyManager* enemys);
+  bool AttackToBoss(BossController* boss);
 
 protected:
   void SetController(PlayerController* controller);
@@ -51,6 +53,10 @@ public:
   {
     return this->use_ear_;
   }
+  inline bool OnShot() const
+  {
+    return this->on_shot_;
+  }
   inline T_UINT16 GetHP() const
   {
     return this->hp_;
@@ -62,6 +68,14 @@ public:
   inline Collider3D_Sphare* GetCollider() const
   {
     return this->collider_;
+  }
+  inline const PlayerController* GetController() const
+  {
+    return this->current_controller_;
+  }
+  inline Quaternion GetWorldQuaternion() const
+  {
+    return this->GetTransform()->GetQuaternion() * this->actor_->GetDirectionQuaternion();
   }
 
 private:
@@ -79,6 +93,8 @@ private:
 
   T_UINT16 ear_gauge_;
   bool use_ear_;
+
+  bool on_shot_;
   
   T_UINT8 power_;
 

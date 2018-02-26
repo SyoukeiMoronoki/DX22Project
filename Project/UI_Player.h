@@ -3,6 +3,7 @@
 #include <HalEngine.h>
 
 #include "NumberView.h"
+#include "ButtonView.h"
 #include "Gauge.h"
 
 class UI_Player : public GameObject2D
@@ -38,5 +39,9 @@ public:
   NumberView* score_view_;
   Gauge* hp_gauge_;
   Gauge* ear_gauge_;
+
+  ButtonView* left_buttons_[4];
+  ButtonView* right_buttons_[4];
+  ButtonView* l_shift_button_;
 
 };

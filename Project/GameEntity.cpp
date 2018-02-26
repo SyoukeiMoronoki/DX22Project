@@ -12,6 +12,7 @@ GameEntity::GameEntity()
 
 GameEntity::~GameEntity()
 {
+  delete this->collider_;
 }
 
 void GameEntity::OnAllocated()
