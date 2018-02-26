@@ -9,7 +9,7 @@ namespace GameInput
 
 //新しいボタン入力を定義したい時はこの列挙型に追加していく
 //追加した場合、cppファイル側にボタンの詳細を定義していく
-enum
+enum Kind
 {
   X_AXIS, //X軸入力
   Y_AXIS, //Y軸入力

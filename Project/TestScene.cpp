@@ -6,7 +6,7 @@
 void TestScene::OnLoad(IResourceLoadReserver* resource)
 {
 //  resource->ReserveLoad(Asset::Texture::FIELD_BOYA);
-  resource->ReserveLoad(Asset::Texture::FIELD_BG);
+  resource->ReserveLoad(Asset::Texture::FIELD_GROUND);
 }
 
 void TestScene::OnSetup()

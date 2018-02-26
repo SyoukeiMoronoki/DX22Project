@@ -8,6 +8,7 @@ class Bullet : public GameEntity, public IPoolAllocatable
 {
 public:
   Bullet();
+  ~Bullet();
 
 public:
   virtual void OnAllocated() override;

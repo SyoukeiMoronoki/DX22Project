@@ -12,6 +12,14 @@
 
 #include "GameDirector.h"
 
+#include "Asset.h"
+
+#include "BossController.h"
+
+static const T_UINT16 EAR_GAUGE_NEED = 100;
+static const T_UINT16 EAR_GAUGE_DEC = 4;
+static const T_UINT16 EAR_GAUGE_HEAL = 4;
+
 static const T_UINT8 DEFAULT_POWER = 8;
 static const T_UINT8 ATTACK_DELAY = 10;
 
@@ -19,6 +27,7 @@ Player::Player()
   : current_controller_(nullptr)
 {
   this->actor_ = new PlayerActor(this);
+  this->GetTransform()->SetY(0.5f);
   this->bullets_ = new BulletManager(10);
   this->walk_controller_ = new PlayerController_Walk(this);
   this->scope_controller_ = new PlayerController_Scope(this);
@@ -28,10 +37,11 @@ Player::Player()
 
 Player::~Player()
 {
-  delete this->actor_;
-  delete this->bullets_;
-  delete this->walk_controller_;
+  delete this->collider_;
   delete this->scope_controller_;
+  delete this->walk_controller_;
+  delete this->bullets_;
+  delete this->actor_;
 }
 
 void Player::GameInit()
@@ -45,7 +55,7 @@ void Player::GameInit()
   this->control_delay_ = 0;
   this->attack_delay_ = 0;
   this->hp_ = GameConstants::HP_MAX;
-  this->ear_gauge_ = 0;
+  this->ear_gauge_ = GameConstants::EYE_GAUGE_MAX;
   this->use_ear_ = false;
   this->power_ = DEFAULT_POWER;
 
@@ -53,10 +63,18 @@ void Player::GameInit()
   this->OnHPChanged();
 }
 
-bool Player::ControllProcess()
+void Player::ControllProcess()
 {
   using namespace HalEngine;
   using namespace GameInput;
+
+  this->on_shot_ = false;
+
+  if (this->control_delay_ > 0)
+  {
+    return;
+  }
+
   if (Input(0)->GetButtonDown(SCOPE))
   {
     if (this->current_controller_ == this->scope_controller_)
@@ -68,21 +86,16 @@ bool Player::ControllProcess()
       this->SetController(this->scope_controller_);
     }
   }
-  if (this->control_delay_ > 0)
-  {
-    return false;
-  }
   this->current_controller_->ControllProcess();
-  bool fire = false;
 
   if (attack_delay_ == 0)
   {
     if (Input(0)->GetButton(FIRE))
     {
-      fire = true;
       this->attack_delay_ = ATTACK_DELAY;
       this->current_controller_->OnAttack();
       this->bullets_->Emmision(this, this->current_controller_->GetBulletDirection());
+      this->on_shot_ = true;
     }
   }
   else
@@ -92,24 +105,30 @@ bool Player::ControllProcess()
   
   if (Input(0)->GetButtonDown(EYE))
   {
-    this->use_ear_ = !this->use_ear_;
+    if (!this->use_ear_ && this->ear_gauge_ >= EAR_GAUGE_NEED)
+    {
+      this->ear_gauge_ = (T_UINT16)std::max((T_INT32)0, (T_INT32)(this->ear_gauge_ - EAR_GAUGE_NEED));
+      this->use_ear_ = true;
+    }
+    else
+    {
+      this->use_ear_ = false;
+    }
   }
-  if (this->ear_gauge_ < 50)
+  if (this->ear_gauge_ == 0)
   {
     this->use_ear_ = false;
   }
-
-  return fire;
 }
 
 void Player::Update()
 {
-  this->ControllProcess();
   this->bullets_->Update();
+  this->ControllProcess();
 
   if (this->use_ear_)
   {
-    this->ear_gauge_ = (T_UINT16)std::max((T_INT32)0, (T_INT32)(this->ear_gauge_ - 1));
+    this->ear_gauge_ = (T_UINT16)std::max((T_INT32)0, (T_INT32)(this->ear_gauge_ - EAR_GAUGE_DEC));
     if (this->ear_gauge_ == 0)
     {
       this->use_ear_ = false;
@@ -117,7 +136,7 @@ void Player::Update()
   }
   else
   {
-    this->ear_gauge_ = (T_UINT16)std::min((T_UINT16)GameConstants::EYE_GAUGE_MAX, (T_UINT16)(this->ear_gauge_ + 2));
+    this->ear_gauge_ = (T_UINT16)std::min((T_UINT16)GameConstants::EYE_GAUGE_MAX, (T_UINT16)(this->ear_gauge_ + EAR_GAUGE_HEAL));
   }
   this->OnEarChanged();
 }
@@ -166,21 +185,58 @@ void Player::OnEarChanged()
   this->view_->GetEarView()->SetValue(this->ear_gauge_);
 }
 
-void Player::AttackToEnemy(EnemyManager* enemys)
+bool Player::AttackToEnemy(EnemyManager* enemys)
 {
-
+  std::vector<Bullet*> hited_bullet_ = std::vector<Bullet*>();
   std::map<Bullet*, std::deque<Enemy*>> results = std::map<Bullet*, std::deque<Enemy*>>();
-  this->bullets_->GetHitEntities(enemys, &results);
-  for (auto itr = results.begin(); itr != results.end(); ++itr)
+  bool weak_point_hit = false;
+  this->bullets_->Loop([&](Bullet* bullet)
   {
-    Bullet* bullet = itr->first;
-    for (Enemy* enemy : itr->second)
+    EnemyManager::HitResult hited = enemys->HitCheck(bullet);
+    if (hited == EnemyManager::NO_HIT)
     {
-      enemy->OnWeakPointDamaged();
-      bullet->OnHitEnemy();
+      return;
     }
+    if (hited == EnemyManager::HIT_WEAK_POINT)
+    {
+      weak_point_hit = true;
+    }
+    hited_bullet_.push_back(bullet);
+  });
+  for (Bullet* bullet : hited_bullet_)
+  {
+    this->bullets_->Free(bullet);
   }
+  return weak_point_hit;
+}
 
+bool Player::AttackToBoss(BossController* boss)
+{
+  if (!boss->IsEnabld())
+  {
+    return false;
+  }
+  std::vector<Bullet*> hited_bullet_ = std::vector<Bullet*>();
+  std::map<Bullet*, std::deque<BossBody*>> results = std::map<Bullet*, std::deque<BossBody*>>();
+  bool weak_point_hit = false;
+  this->bullets_->Loop([&](Bullet* bullet)
+  {
+    BossController::HitResult hited = boss->HitCheck(bullet);
+    if (hited == BossController::NO_HIT)
+    {
+      return;
+    }
+    if (hited == BossController::HIT_WEAK_POINT)
+    {
+      weak_point_hit = true;
+    }
+    hited_bullet_.push_back(bullet);
+  });
+  for (Bullet* bullet : hited_bullet_)
+  {
+    this->bullets_->Free(bullet);
+  }
+  return weak_point_hit;
 }
 
 void Player::SetController(PlayerController* controller)

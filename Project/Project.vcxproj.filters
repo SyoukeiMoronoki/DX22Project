@@ -15,12 +15,6 @@
     <Filter Include="ソース ファイル\Scene\TitleScene">
       <UniqueIdentifier>{b82404ac-7e32-4db0-a8a4-66d814a86082}</UniqueIdentifier>
     </Filter>
-    <Filter Include="リソース ファイル\palette">
-      <UniqueIdentifier>{6c26d79e-b11d-4b39-9d68-98a9b079eedf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="リソース ファイル\particle">
-      <UniqueIdentifier>{6cc68105-f020-4fc3-91b0-9e8d467dd9cc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Scene\InitScene">
       <UniqueIdentifier>{ad29dcaf-4db3-4740-a0d7-38f2ea582106}</UniqueIdentifier>
     </Filter>
@@ -85,12 +79,6 @@
     <Filter Include="ソース ファイル\Asset">
       <UniqueIdentifier>{388a9aa6-8ef5-433a-a878-1e060706368a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Game\Bullet">
-      <UniqueIdentifier>{07f3aaf1-5984-4a49-8d75-1d7a8e05743d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Game\Bullet">
-      <UniqueIdentifier>{7abcf60f-026c-4bc9-b0a3-f1244502af11}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Scene\ResultScene">
       <UniqueIdentifier>{eefbbf86-ace8-4c23-adea-c809e97fa2a2}</UniqueIdentifier>
     </Filter>
@@ -135,6 +123,51 @@
     </Filter>
     <Filter Include="ヘッダー ファイル\Game\Spot">
       <UniqueIdentifier>{de6b6efe-98a9-4d45-a79d-25b7b534badc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル\Shader">
+      <UniqueIdentifier>{2e362673-9512-43fd-a6f4-a36a878eecbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Field">
+      <UniqueIdentifier>{20024bfc-75e9-44cc-bdee-8392395aaf55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Field">
+      <UniqueIdentifier>{77a19dd5-fa17-4712-b0e5-38daee7aa386}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Enemy\Bullet">
+      <UniqueIdentifier>{821375df-6bdd-47bb-b148-c56073c3ac74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Player\Bullet">
+      <UniqueIdentifier>{7abcf60f-026c-4bc9-b0a3-f1244502af11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Enemy\Bullet">
+      <UniqueIdentifier>{8f36f71c-9090-40da-a0be-b7c8a0260617}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Player\Bullet">
+      <UniqueIdentifier>{07f3aaf1-5984-4a49-8d75-1d7a8e05743d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Boss">
+      <UniqueIdentifier>{4a5808a5-77b3-4e96-8d8b-eb1223351dbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Boss">
+      <UniqueIdentifier>{2d0d16ac-b0e6-4f6d-b9c8-e3add003bc4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Boss\Brain">
+      <UniqueIdentifier>{ae48562c-d537-43a9-b703-9472a16265e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Boss\Brain">
+      <UniqueIdentifier>{31be174b-e048-4bfc-a21f-3c776860c742}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Boss\Brain\Kind">
+      <UniqueIdentifier>{50eed3ee-65ea-4e46-bf22-2d6700bf53ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Boss\Brain\Kind">
+      <UniqueIdentifier>{0787721a-350a-47cb-8e46-cc645d7016dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Boss\Bullet">
+      <UniqueIdentifier>{1e9d210f-7ebb-4133-aece-93f93e78b28c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Boss\Bullet">
+      <UniqueIdentifier>{0549a7f7-7080-460f-92d6-374e5f1bfb9a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -187,10 +220,10 @@
       <Filter>ヘッダー ファイル\Asset</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
-      <Filter>ヘッダー ファイル\Game\Bullet</Filter>
+      <Filter>ヘッダー ファイル\Game\Player\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="BulletManager.h">
-      <Filter>ヘッダー ファイル\Game\Bullet</Filter>
+      <Filter>ヘッダー ファイル\Game\Player\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>ヘッダー ファイル\Game\Player</Filter>
@@ -252,14 +285,65 @@
     <ClInclude Include="IEnemyAttribute.h">
       <Filter>ヘッダー ファイル\Game\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="NumberView.h">
-      <Filter>ヘッダー ファイル\Game\UI</Filter>
-    </ClInclude>
     <ClInclude Include="Spot.h">
       <Filter>ヘッダー ファイル\Game\Spot</Filter>
     </ClInclude>
     <ClInclude Include="TestScene3.h">
       <Filter>ヘッダー ファイル\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Field.h">
+      <Filter>ヘッダー ファイル\Game\Field</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyBulletManager.h">
+      <Filter>ヘッダー ファイル\Game\Enemy\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyBullet.h">
+      <Filter>ヘッダー ファイル\Game\Enemy\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="BossController.h">
+      <Filter>ヘッダー ファイル\Game\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="BossBody.h">
+      <Filter>ヘッダー ファイル\Game\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="BossBrain.h">
+      <Filter>ヘッダー ファイル\Game\Boss\Brain</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonView.h">
+      <Filter>ヘッダー ファイル\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="BossBrainTable.h">
+      <Filter>ヘッダー ファイル\Game\Boss\Brain</Filter>
+    </ClInclude>
+    <ClInclude Include="BossBrain_Crawl.h">
+      <Filter>ヘッダー ファイル\Game\Boss\Brain\Kind</Filter>
+    </ClInclude>
+    <ClInclude Include="BossBrain_Fly.h">
+      <Filter>ヘッダー ファイル\Game\Boss\Brain\Kind</Filter>
+    </ClInclude>
+    <ClInclude Include="BossBrain_Chase.h">
+      <Filter>ヘッダー ファイル\Game\Boss\Brain\Kind</Filter>
+    </ClInclude>
+    <ClInclude Include="BossBrain_Around.h">
+      <Filter>ヘッダー ファイル\Game\Boss\Brain\Kind</Filter>
+    </ClInclude>
+    <ClInclude Include="BossBrain_Jump.h">
+      <Filter>ヘッダー ファイル\Game\Boss\Brain\Kind</Filter>
+    </ClInclude>
+    <ClInclude Include="BossBrain_Landing.h">
+      <Filter>ヘッダー ファイル\Game\Boss\Brain\Kind</Filter>
+    </ClInclude>
+    <ClInclude Include="Tutorial.h">
+      <Filter>ヘッダー ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="BossBullet.h">
+      <Filter>ヘッダー ファイル\Game\Boss\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="BossBulletManager.h">
+      <Filter>ヘッダー ファイル\Game\Boss\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="NumberView.h">
+      <Filter>ヘッダー ファイル\Game\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -318,10 +402,10 @@
       <Filter>ソース ファイル\Test</Filter>
     </ClCompile>
     <ClCompile Include="BulletManager.cpp">
-      <Filter>ソース ファイル\Game\Bullet</Filter>
+      <Filter>ソース ファイル\Game\Player\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
-      <Filter>ソース ファイル\Game\Bullet</Filter>
+      <Filter>ソース ファイル\Game\Player\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Gauge.cpp">
       <Filter>ソース ファイル\Game\UI</Filter>
@@ -365,25 +449,79 @@
     <ClCompile Include="TestScene3.cpp">
       <Filter>ソース ファイル\Test</Filter>
     </ClCompile>
+    <ClCompile Include="Field.cpp">
+      <Filter>ソース ファイル\Game\Field</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyBulletManager.cpp">
+      <Filter>ソース ファイル\Game\Enemy\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyBullet.cpp">
+      <Filter>ソース ファイル\Game\Enemy\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="BossController.cpp">
+      <Filter>ソース ファイル\Game\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="BossBody.cpp">
+      <Filter>ソース ファイル\Game\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="BossBrain.cpp">
+      <Filter>ソース ファイル\Game\Boss\Brain</Filter>
+    </ClCompile>
+    <ClCompile Include="BossBrainTable.cpp">
+      <Filter>ソース ファイル\Game\Boss\Brain</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonView.cpp">
+      <Filter>ソース ファイル\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="BossBrain_Crawl.cpp">
+      <Filter>ソース ファイル\Game\Boss\Brain\Kind</Filter>
+    </ClCompile>
+    <ClCompile Include="BossBrain_Around.cpp">
+      <Filter>ソース ファイル\Game\Boss\Brain\Kind</Filter>
+    </ClCompile>
+    <ClCompile Include="BossBrain_Chase.cpp">
+      <Filter>ソース ファイル\Game\Boss\Brain\Kind</Filter>
+    </ClCompile>
+    <ClCompile Include="BossBrain_Jump.cpp">
+      <Filter>ソース ファイル\Game\Boss\Brain\Kind</Filter>
+    </ClCompile>
+    <ClCompile Include="BossBrain_Landing.cpp">
+      <Filter>ソース ファイル\Game\Boss\Brain\Kind</Filter>
+    </ClCompile>
+    <ClCompile Include="GameConstants.cpp">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Tutorial.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="BossBullet.cpp">
+      <Filter>ソース ファイル\Game\Boss\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="BossBulletManager.cpp">
+      <Filter>ソース ファイル\Game\Boss\Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Asset\texture\game.palette">
-      <Filter>リソース ファイル\palette</Filter>
-    </None>
-    <None Include="..\Asset\texture\title.palette">
-      <Filter>リソース ファイル\palette</Filter>
-    </None>
-    <None Include="..\Asset\particle\particle_texture.json">
-      <Filter>リソース ファイル\particle</Filter>
-    </None>
-    <None Include="..\Asset\particle\particle_primitives.atlas">
-      <Filter>リソース ファイル\particle</Filter>
-    </None>
-    <None Include="..\Asset\texture\common.palette">
-      <Filter>リソース ファイル\palette</Filter>
-    </None>
-    <None Include="..\Asset\texture\ka.palette">
-      <Filter>リソース ファイル\palette</Filter>
-    </None>
+    <FxCompile Include="EnemyBody.fx">
+      <Filter>リソース ファイル\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Ground.fx">
+      <Filter>リソース ファイル\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="LightingGround.fx">
+      <Filter>リソース ファイル\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="PlayerBody.fx">
+      <Filter>リソース ファイル\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="PlayerShadow.fx">
+      <Filter>リソース ファイル\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Sky.fx">
+      <Filter>リソース ファイル\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Zenith.fx">
+      <Filter>リソース ファイル\Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

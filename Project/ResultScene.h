@@ -23,7 +23,6 @@ private:
 
 private:
   Camera2D* camera2d_;
-  Camera3D* camera3d_;
 
   NumberView* score_view_;
   NumberView* bonus_view_;
@@ -32,7 +31,5 @@ private:
   Sprite* score_text_;
   Sprite* bonus_text_;
   Sprite* total_score_text_;
-  
-  Sprite* bg_;
 
 };
