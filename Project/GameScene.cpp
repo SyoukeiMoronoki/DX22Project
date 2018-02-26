@@ -105,7 +105,7 @@ void GameScene::OnSetup()
 
   const TSize screen_size = Director::GetInstance()->GetScreenSize();
   this->boya_ = Sprite::CreateWithTexture(Asset::Texture::FIELD_BOYA);
-  const T_FLOAT boya_width = (T_FLOAT)this->boya_->GetMaterial()->GetMainTexture()->GetWidth();
+  const T_FLOAT boya_width = (T_FLOAT)this->boya_->GetMaterial()->GetMainTexture().GetWidth();
   this->boya_->GetTransform()->SetScale(screen_size.width / boya_width, screen_size.height / boya_width);
   this->boya_->SetZIndex(ZINDEX_BOYA);
 

@@ -5,8 +5,8 @@ X,K
 Y,O
 
 L1,LSHIFT
-L2,
-R1,SPACE
+L2,SPACE
+R1,
 R2,
 
 LEFT,

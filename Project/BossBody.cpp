@@ -11,7 +11,7 @@ BossBody::BossBody()
 {
   Material* mat = Asset::Material::ENEMY_BODY.Clone();
   mat->SetMainTexture(Asset::Texture::ENEMY_BOSS);
-  this->body_ = AnimatedSprite3D::CreateWithMaterial(mat, 2, 2);
+  this->body_ = AnimatedSprite3D::CreateWithMaterial(*mat, 2, 2);
   this->body_->GetMaterial()->SetZTestLevel(1);
   this->body_->GetMaterial()->SetBillboardingFlag(true);
 

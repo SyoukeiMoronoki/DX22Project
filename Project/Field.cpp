@@ -59,23 +59,24 @@ Field::Field()
   this->sky_material_ = Asset::Material::SKY.Clone();
   for (T_UINT8 i = 0; i < DIRECTION_DATANUM; ++i)
   {
-    this->skys_[i] = new Plane3D();
+    this->skys_[i] = Plane3D::Create();
     this->skys_[i]->SetMaterial(*this->sky_material_);
     this->skys_[i]->GetTransform()->SetPosition(SKY_POSITION[i] * SKY_DISTANCE);
     this->skys_[i]->GetTransform()->SetEularY(MathConstants::DegToRad(SKY_ROTATION[i]));
     this->skys_[i]->GetTransform()->SetScale(SKY_DISTANCE * 2.0f);
     this->AddChild(this->skys_[i]);
   }
-  this->zenith_ = new Plane3D();
+  this->zenith_ = Plane3D::Create();
   this->zenith_->SetMaterial(Asset::Material::ZENITH);
   this->zenith_->GetTransform()->SetPosition(TVec3f(0.0f, 1.0f, 0.0f) * SKY_DISTANCE);
   this->zenith_->GetTransform()->SetEularX(MathConstants::DegToRad(-90.0f));
   this->zenith_->GetTransform()->SetScale(SKY_DISTANCE * 2.0f);
   this->AddChild(this->zenith_);
 
-  this->ground_ = new Plane3D();
+  this->ground_ = Plane3D::Create();
   this->ground_->GetTransform()->SetScale(SKY_DISTANCE * 2.0f);
-  this->ground_->GetTransform()->SetEularX(MathConstants::DegToRad(90.0f));
+  this->ground_->GetTransform()->RotateX(MathConstants::DegToRad(90.0f));
+  //this->ground_->GetTransform()->RotateY(MathConstants::DegToRad(180.0f));
   this->ground_->SetMaterial(Asset::Material::GROUND);
   this->ground_->UniqueMaterial();
   this->ground_->GetMaterial()->SetMainTexture(Asset::Texture::FIELD_GROUND);
@@ -118,7 +119,9 @@ void Field::Update(Player* player)
     this->light_brightness_ = 5.0f * sinf((T_FLOAT)this->shot_effect_duration_ / SHOT_EFFECT_DURATION * MathConstants::PI_1_2);
     this->light_diffuse_ = Color4F::WHITE;
     this->light_position_ = player_world_position + player_world_direction;
+    this->light_position_.z *= -1.0f;
     this->light_direction_ = player_world_direction;
+    this->light_direction_.z *= -1.0f;
 
     this->ground_->GetMaterial()->FloatProperty("_LightBrightness") = this->light_brightness_;
     this->ground_->GetMaterial()->ColorProperty("_LightDiffuse") = this->light_diffuse_;

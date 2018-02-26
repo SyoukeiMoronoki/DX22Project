@@ -20,7 +20,7 @@ Enemy::Enemy()
   : data_(nullptr)
 {
   this->body_texture_region_ = new TiledTextureRegion();
-  this->body_ = new AnimatedSprite3D();
+  this->body_ = AnimatedSprite3D::Create();
   this->body_->SetMaterial(Asset::Material::ENEMY_BODY);
   this->body_->UniqueMaterial();
   this->body_->GetMaterial()->SetBillboardingFlag(true);
@@ -236,7 +236,7 @@ void Enemy::Spawn(const EnemyData* data)
   //this->body_->GetTransform()->SetScale(Util::GetRandom(1.0f, 5.0f));
   this->move_delay_ = 30;
 
-  this->body_texture_region_->SetTexture(&data->texture);
+  this->body_texture_region_->SetTexture(data->texture);
   this->body_texture_region_->SetXNum(4);
   this->body_texture_region_->SetYNum(2);
   this->body_texture_region_->FitToTexture();

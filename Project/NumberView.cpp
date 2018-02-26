@@ -18,7 +18,7 @@ NumberView::NumberView(T_UINT8 digit_count, T_FLOAT width)
   //”Ô†‚ªá‚¢‡‚©‚ç‚P‚ÌˆÊ‚ğ’S“–
   for (T_UINT8 i = 0; i < digit_count; ++i)
   {
-    this->sprites_[i] = AnimatedSprite::CreateWithMaterial(material, 5, 2);
+    this->sprites_[i] = AnimatedSprite::CreateWithMaterial(*material, 5, 2);
     this->sprites_[i]->GetTiledTextureRegion()->SetXNum(5);
     this->sprites_[i]->GetTiledTextureRegion()->SetYNum(2);
     this->sprites_[i]->GetTiledTextureRegion()->FitToTexture();
