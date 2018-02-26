@@ -25,45 +25,22 @@ public:
 public:
   virtual void Loop(std::function<void(T*)> func) override
   {
-    for (std::list<T*>::iterator itr = this->allocator_.begin(); itr != this->allocator_.end(); ++itr)
-    {
-      func((*itr));
-    }
+    this->allocator_.Loop(func);
   }
 
   virtual void LoopIncludingPool(std::function<void(T*)> func) override
   {
-    for (std::deque<T*>::iterator itr = this->allocator_.PoolBegin(); itr != this->allocator_.PoolEnd(); ++itr)
-    {
-      func((*itr));
-    }
-    for (std::list<T*>::iterator itr = this->allocator_.begin(); itr != this->allocator_.end(); ++itr)
-    {
-      func((*itr));
-    }
+    this->allocator_.LoopIncludingPool(func);
   }
 
   virtual T* Select(std::function<bool(T*)> condition) override
   {
-    for (std::list<T*>::iterator itr = this->allocator_.begin(); itr != this->allocator_.end(); ++itr)
-    {
-      if (condition((*itr)))
-      {
-        return (*itr);
-      }
-    }
-    return nullptr;
+    return this->allocator_.Select(condition);
   }
 
   virtual void SelectAll(std::deque<T*>* dest, std::function<bool(T*)> condition) override
   {
-    for (std::list<T*>::iterator itr = this->allocator_.begin(); itr != this->allocator_.end(); ++itr)
-    {
-      if (condition((*itr)))
-      {
-        dest->push_back((*itr));
-      }
-    }
+    this->allocator_.SelectAll(dest, condition);
   }
 
 public:

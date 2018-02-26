@@ -102,6 +102,8 @@
       <MinimalRebuild>false</MinimalRebuild>
       <AdditionalIncludeDirectories>..\Engine\Engine;..\Engine\Engine\Lib\include;..\Engine\Engine\spine-c\include;..\Engine\Engine\FBX\include</AdditionalIncludeDirectories>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -113,6 +115,8 @@
       <AdditionalIncludeDirectories>..\Engine\Engine;..\Engine\Engine\Lib\include;..\Engine\Engine\spine-c\include;..\Engine\Engine\FBX\include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
     </ClCompile>
     <Lib>
       <AdditionalDependencies>
@@ -132,6 +136,8 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
       <AdditionalIncludeDirectories>..\Engine\Engine;..\Engine\Engine\Lib\include;..\Engine\Engine\spine-c\include;..\Engine\Engine\FBX\include</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -150,6 +156,8 @@
       <AdditionalIncludeDirectories>..\Engine\Engine;..\Engine\Engine\Lib\include;..\Engine\Engine\spine-c\include;..\Engine\Engine\FBX\include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -202,6 +210,12 @@
     <ClCompile Include="PlayerController_Scope.cpp" />
     <ClCompile Include="PlayerController_Walk.cpp" />
     <ClCompile Include="ResultScene.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="TestScene2.cpp" />
     <ClCompile Include="TestScene3.cpp" />
@@ -261,6 +275,7 @@
     <ClInclude Include="PlayerController_Walk.h" />
     <ClInclude Include="ResultScene.h" />
     <ClInclude Include="Spot.h" />
+    <ClInclude Include="stdafx.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="TestScene2.h" />
     <ClInclude Include="TestScene3.h" />
